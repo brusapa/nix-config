@@ -5,6 +5,7 @@
     ./hardware-configuration.nix # Include the results of the hardware scan.
     ../../modules/hardware/amd-gpu.nix
     ../../modules/hardware/logitech.nix
+    ../../modules/hardware/yubikey.nix
     ../common.nix
     ../../users/users.nix
     ../../users/bruno/network-shares.nix
@@ -35,9 +36,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Yubikey
-  services.udev.packages = [ pkgs.yubikey-personalization ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
