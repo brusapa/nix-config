@@ -209,6 +209,11 @@
     };
   };
 
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+  };
+
   services.kdeconnect = {
     enable = true;
   };
