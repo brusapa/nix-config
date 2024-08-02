@@ -15,6 +15,7 @@
       vscode.fhs
       microsoft-edge
       obsidian
+      pinentry-qt
     ];
 
     # This needs to actually be set to your username
@@ -212,6 +213,7 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
+    pinentryPackage = pkgs.pinentry-qt;
   };
 
   services.kdeconnect = {
