@@ -9,6 +9,7 @@
     ../../users/users.nix
     ../../users/bruno/network-shares.nix
     ../../users/gurenda/network-shares.nix
+    ../../modules/tailscale.nix
     ../../modules/kde.nix
     ../../modules/virtualisation.nix
     ../../modules/gaming.nix
@@ -32,10 +33,6 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
-  # Support for logitech devices
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -46,9 +43,6 @@
     enable = true;
     enableSSHSupport = true;
   };
-
-  # Tailscale
-  services.tailscale.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
