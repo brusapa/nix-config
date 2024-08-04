@@ -12,6 +12,7 @@
     ../../users/gurenda/network-shares.nix
     ../../modules/tailscale.nix
     ../../modules/kde.nix
+    ../../modules/flatpak.nix
     ../../modules/virtualisation.nix
     ../../modules/gaming.nix
     ../../modules/office.nix
