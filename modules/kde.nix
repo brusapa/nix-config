@@ -15,10 +15,6 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    discover-wrapped
-  ];
-
   # Unlock KDE wallet on login
   security.pam.services.sddm.kwallet.enable = true;
 
