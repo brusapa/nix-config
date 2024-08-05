@@ -22,6 +22,7 @@
   environment.systemPackages = with pkgs; [
     sbctl # For debugging and troubleshooting Secure Boot.
     tpm2-tss
+    lm_sensors
   ];
 
   # Lanzaboote currently replaces the systemd-boot module.

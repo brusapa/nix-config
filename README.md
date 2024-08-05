@@ -41,7 +41,7 @@
 ### Cooler control
 
 ``` bash
-sudo sensors-detect --auto
+# sensors-detect --auto
 ```
 
 ### Flatpak
