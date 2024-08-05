@@ -5,6 +5,12 @@
     # Nixpkgs
     nixpkgs.url = "nixpkgs/nixos-24.05";
 
+    # Lanzaboote
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -19,7 +25,7 @@
     };
   };
 
-  outputs = inputs@ { self, nixpkgs, home-manager, plasma-manager, ... }:
+  outputs = inputs@ { self, nixpkgs, lanzaboote, home-manager, plasma-manager, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -33,6 +39,7 @@
         mars = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs outputs;};
           modules = [
+            lanzaboote.nixosModules.lanzaboote
             ./hosts/mars/configuration.nix
           ];
         };
