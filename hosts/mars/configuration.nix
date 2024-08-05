@@ -19,6 +19,15 @@
     ../../modules/multimedia.nix
   ];
 
+  # Detect fans
+  boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
+  boot.kernelModules = [ "it87" ];
+  boot.extraModprobeConfig = ''
+    options it87 ignore_resource_conflict=1
+  '';
+
+  programs.coolercontrol.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -37,6 +46,11 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

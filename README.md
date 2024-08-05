@@ -2,6 +2,12 @@
 
 ## Post-installation steps
 
+### Cooler control
+
+``` bash
+sudo sensors-detect --auto
+```
+
 ### Flatpak
 
 ``` bash
