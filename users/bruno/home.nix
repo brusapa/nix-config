@@ -12,10 +12,10 @@
       veracrypt
       cryptomator
       kleopatra
-      vscode.fhs
       microsoft-edge
       obsidian
       pinentry-qt
+      orca-slicer
     ];
 
     # This needs to actually be set to your username
@@ -25,6 +25,10 @@
     # You do not need to change this if you're reading this in the future.
     # Don't ever change this after the first build.  Don't ask questions.
     stateVersion = "24.05";
+  };
+
+  programs.vscode = {
+    enable = true;
   };
 
   programs.bash = {
@@ -213,7 +217,10 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
+    enableExtraSocket = true;
     pinentryPackage = pkgs.pinentry-qt;
+    defaultCacheTtl = 60; # https://github.com/drduh/config/blob/master/gpg-agent.conf
+    maxCacheTtl = 120; # https://github.com/drduh/config/blob/master/gpg-agent.conf
   };
 
   services.kdeconnect = {
