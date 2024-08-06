@@ -57,7 +57,7 @@
           extraSpecialArgs = {inherit inputs outputs;};
           modules = [
             inputs.plasma-manager.homeManagerModules.plasma-manager
-            ./users/bruno/home.nix
+            ./home/bruno/home.nix
           ];
         };
         "gurenda@mars" = home-manager.lib.homeManagerConfiguration {
@@ -65,7 +65,7 @@
           extraSpecialArgs = {inherit inputs outputs;};
           modules = [
             inputs.plasma-manager.homeManagerModules.plasma-manager
-            ./users/gurenda/home.nix
+            ./home/gurenda/home.nix
           ];
         };
       };

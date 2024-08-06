@@ -12,9 +12,9 @@
     ../../modules/hardware/logitech.nix
     ../../modules/hardware/yubikey.nix
     ../common.nix
-    ../../users/users.nix
-    ../../users/bruno/network-shares.nix
-    ../../users/gurenda/network-shares.nix
+    ../../home/users.nix
+    ../../home/bruno/network-shares.nix
+    ../../home/gurenda/network-shares.nix
     ../../modules/tailscale.nix
     ../../modules/kde.nix
     ../../modules/flatpak.nix
@@ -36,7 +36,7 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
   boot.kernelModules = [ "it87" ];
   boot.extraModprobeConfig = ''
-    options it87 ignore_resource_conflict=1
+    options it87 force_id=0x8628
   '';
 
   programs.coolercontrol.enable = true;
