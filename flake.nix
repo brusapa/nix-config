@@ -11,6 +11,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nixos hardware
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -25,7 +28,7 @@
     };
   };
 
-  outputs = inputs@ { self, nixpkgs, lanzaboote, home-manager, plasma-manager, ... }:
+  outputs = inputs@ { self, nixpkgs, lanzaboote, nixos-hardware, home-manager, plasma-manager, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -40,6 +43,7 @@
           specialArgs = {inherit inputs outputs;};
           modules = [
             lanzaboote.nixosModules.lanzaboote
+            ./modules/secure-boot.nix
             ./hosts/mars/configuration.nix
           ];
         };

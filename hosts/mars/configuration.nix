@@ -3,7 +3,11 @@
 {
   imports = [
     ./hardware-configuration.nix # Include the results of the hardware scan.
-    ../../modules/hardware/amd-gpu.nix
+    inputs.nixos-hardware.nixosModules.common-hidpi
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
     ../../modules/hardware/logitech.nix
     ../../modules/hardware/yubikey.nix
     ../common.nix
@@ -20,21 +24,12 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    sbctl # For debugging and troubleshooting Secure Boot.
-    tpm2-tss
     lm_sensors
   ];
 
-  # Lanzaboote currently replaces the systemd-boot module.
-  boot.bootspec.enable = true;
-  boot.initrd.systemd.enable = true;
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
-
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Detect fans
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
