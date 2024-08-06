@@ -1,6 +1,10 @@
 { lib, pkgs, ... }:
 
 {
+  imports = [
+    ../common/virt-manager.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   home = {
