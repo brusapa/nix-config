@@ -5,6 +5,12 @@
     # Nixpkgs
     nixpkgs.url = "nixpkgs/nixos-24.05";
 
+    # Disko
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Lanzaboote
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
@@ -28,7 +34,7 @@
     };
   };
 
-  outputs = inputs@ { self, nixpkgs, lanzaboote, nixos-hardware, home-manager, plasma-manager, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -42,6 +48,7 @@
         mars = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs outputs;};
           modules = [
+            disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
             ./modules/secure-boot.nix
             ./hosts/mars/configuration.nix
