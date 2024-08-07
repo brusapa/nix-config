@@ -32,6 +32,7 @@
       size = 32 * 1024; # 32 GiB
     }
   ];
+  zramSwap.enable = true;
 
   environment.systemPackages = with pkgs; [
     lm_sensors
