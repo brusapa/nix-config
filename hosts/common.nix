@@ -39,6 +39,8 @@
     home-manager
     wget
     git
+    usbutils
+    pciutils
   ];
 
   # Enable the OpenSSH daemon.
