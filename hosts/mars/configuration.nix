@@ -25,6 +25,14 @@
     ../../modules/multimedia.nix
   ];
 
+  # Create a swap file for hibernation.
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32 * 1024; # 32 GiB
+    }
+  ];
+
   environment.systemPackages = with pkgs; [
     lm_sensors
   ];
