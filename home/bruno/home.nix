@@ -184,10 +184,11 @@
       AC = {
         powerButtonAction = "nothing";
         autoSuspend = {
-          action = "nothing";
+          action = "sleep";
+          idleTimeout = 900; # In seconds (15 minutes)
         };
         turnOffDisplay = {
-          idleTimeout = 900; # In seconds (15 minutes)
+          idleTimeout = 300; # In seconds (5 minutes)
           idleTimeoutWhenLocked = "immediately";
         };
       };
