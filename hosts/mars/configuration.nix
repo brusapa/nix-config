@@ -49,6 +49,11 @@
 
   networking.hostName = "mars"; # Define your hostname.
 
+  # Fix immediate wake up after suspend
+  services.udev.extraRules = ''
+    ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x8086" ATTR{device}=="0x7ae0" ATTR{power/wakeup}="disabled"
+  '';
+
   # Enable Wake On Lan
   networking.interfaces.enp7s0.wakeOnLan.enable = true;
 
