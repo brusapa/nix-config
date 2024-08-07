@@ -12,6 +12,7 @@
     ../../modules/hardware/logitech.nix
     ../../modules/hardware/yubikey.nix
     ../../modules/hardware/keychron.nix
+    ../../modules/hardware/printers/brother-printer.nix
     ../common.nix
     ../../home/users.nix
     ../../home/bruno/network-shares.nix
@@ -73,14 +74,6 @@
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    openFirewall = true;
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
