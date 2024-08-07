@@ -1,7 +1,15 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, lib, config, modulesPath, pkgs, ... }:
 
 {  
   
+  imports = [
+    (modulesPath + "/services/hardware/sane_extra_backends/brscan4.nix")
+  ];
+
+  environment.systemPackages = with pkgs; [
+    kdePackages.skanpage
+  ];
+
   # Enable printing service
   services.printing.enable = true;
 
@@ -24,5 +32,21 @@
     ];
     ensureDefaultPrinter = "Brother_Estudio";
   };
+
+  # Enable scanner support
+  hardware = {
+    sane = {
+      enable = true;
+      brscan4 = {
+        enable = true;
+        netDevices = {
+          home = { model = "MFC-L2710DW"; ip = "10.80.0.80"; };
+        };
+      };
+    };
+  };
+
+  users.extraGroups.scanner.members = [ "bruno" "gurenda" ];
+  users.extraGroups.lp.members = [ "bruno" "gurenda" ];
 
 }
