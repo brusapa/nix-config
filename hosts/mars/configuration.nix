@@ -11,6 +11,7 @@
     ../../modules/plymouth.nix
     ../../modules/hardware/logitech.nix
     ../../modules/hardware/yubikey.nix
+    ../../modules/hardware/keychron.nix
     ../common.nix
     ../../home/users.nix
     ../../home/bruno/network-shares.nix
