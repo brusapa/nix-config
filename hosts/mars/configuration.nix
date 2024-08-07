@@ -32,14 +32,20 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Detect fans
-  boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
-  boot.kernelModules = [ "it87" ];
+  # Detect fans on Gigabyte Z690 motherboard
+  boot.kernelParams = [ "acpi_enforce_resources=lax" ];
+  boot.kernelModules = [ "coretemp" "it87" ];
   boot.extraModprobeConfig = ''
     options it87 force_id=0x8628
   '';
 
+  # Cooler control
   programs.coolercontrol.enable = true;
+  environment.etc.coolercontrol-config-file = {
+    target = "coolercontrol/config.toml";
+    mode = "0644";
+    source = ./coolercontrol-config.toml;
+  };
 
   networking.hostName = "mars"; # Define your hostname.
 
