@@ -10,6 +10,8 @@
       google-chrome
     ];
 
+    language.base = "es_ES.UTF-8";
+
     # This needs to actually be set to your username
     username = "gurenda";
     homeDirectory = "/home/gurenda";
