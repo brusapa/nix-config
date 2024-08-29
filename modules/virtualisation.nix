@@ -2,6 +2,11 @@
 
 {
 
+  # Distrobox
+  environment.systemPackages = with pkgs; [
+    distrobox
+  ];
+
   # Virtualbox
   # virtualisation.virtualbox.host.enable = true;
   # virtualisation.virtualbox.host.enableExtensionPack = true;
