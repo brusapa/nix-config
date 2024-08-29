@@ -41,6 +41,7 @@
     git
     usbutils
     pciutils
+    unrar
   ];
 
   # Enable the OpenSSH daemon.
