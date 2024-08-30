@@ -22,4 +22,6 @@
     home = "/home/gurenda";
     createHome = true;
   };
+
+  nix.settings.trusted-users = [ "bruno" ];
 }

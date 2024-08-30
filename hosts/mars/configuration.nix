@@ -24,6 +24,7 @@
     ../../modules/gaming.nix
     ../../modules/office.nix
     ../../modules/multimedia.nix
+    ../../modules/development.nix
   ];
 
   # Create a swap file for hibernation.
