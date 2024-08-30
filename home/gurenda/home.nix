@@ -25,7 +25,11 @@
     enable = true;
 
     input.keyboard = {
-      layouts = [ "es" ];
+      layouts = [ 
+        {
+          layout = "es";
+        }        
+      ];
       numlockOnStartup = "on";
     };
 
