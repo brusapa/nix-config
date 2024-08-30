@@ -78,14 +78,15 @@
     enable = true;
   };
 
-  programs.vim = {
+  programs.neovim = {
     enable = true;
     defaultEditor = true;
-    settings = {
-      expandtab = true;
-      tabstop = 2;
-      shiftwidth = 2;
-    };
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    extraConfig = ''
+      set number
+    '';
   };
 
   programs.firefox = {
