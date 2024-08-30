@@ -6,6 +6,7 @@
     inputs.nixos-hardware.nixosModules.framework-13-inch-7040-amd
     ../../modules/plymouth.nix
     ../../modules/hardware/yubikey.nix
+    ../../modules/hardware/printers/brother-printer.nix
     ../common.nix
     ../../home/users.nix
     ../../home/bruno/network-shares.nix
@@ -16,13 +17,23 @@
     ../../modules/virtualisation.nix
     ../../modules/office.nix
     ../../modules/multimedia.nix
+    ../../modules/development.nix
   ];
+
+  # Create a swap file for hibernation.
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32 * 1024; # 32 GiB
+    }
+  ];
+  zramSwap.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "mercury"; # Define your hostname.
+  networking.hostName = "mercury";
 
   # Wireless
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -30,14 +41,6 @@
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    openFirewall = true;
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
