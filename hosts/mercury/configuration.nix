@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix # Include the results of the hardware scan.
+    ./disko-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-inch-7040-amd
     ../../modules/plymouth.nix
     ../../modules/hardware/yubikey.nix
