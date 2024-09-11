@@ -6,10 +6,6 @@
     (modulesPath + "/services/hardware/sane_extra_backends/brscan4.nix")
   ];
 
-  environment.systemPackages = with pkgs; [
-    kdePackages.skanpage
-  ];
-
   # Enable printing service
   services.printing.enable = true;
 
