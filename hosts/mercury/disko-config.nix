@@ -7,7 +7,7 @@
 # To store the passphrase for luks
 # echo -n "passphrase" > /tmp/cryptroot.key
 {
-  config.disko.devices = {
+  disko.devices = {
     disk = {
       main = {
         device = "/dev/nvme0n1";
