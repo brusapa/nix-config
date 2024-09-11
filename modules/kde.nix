@@ -14,6 +14,11 @@
   environment.systemPackages = with pkgs; [
     kdePackages.isoimagewriter
     kdePackages.skanpage
+    kdePackages.kcalc
+    kdePackages.krdc
+    kdePackages.kleopatra
+    digikam
+    haruna
   ];
 
   # Enable the KDE Plasma Desktop Environment.
@@ -22,7 +27,6 @@
 
   # Unlock KDE wallet on login
   security.pam.services.sddm.kwallet.enable = true;
-
 
   programs.partition-manager.enable = true;
 

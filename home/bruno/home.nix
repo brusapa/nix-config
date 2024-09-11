@@ -15,7 +15,6 @@
       bitwarden-desktop
       veracrypt
       cryptomator
-      kleopatra
       microsoft-edge
       obsidian
       pinentry-qt
