@@ -54,6 +54,16 @@
             ./hosts/mars/configuration.nix
           ];
         };
+        
+        mercury = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            disko.nixosModules.disko
+            lanzaboote.nixosModules.lanzaboote
+            ./modules/secure-boot.nix
+            ./hosts/mercury/configuration.nix
+          ];
+        };
       };
 
       # Home manager configurations
@@ -67,7 +77,23 @@
             ./home/bruno/home.nix
           ];
         };
+        "bruno@mercury" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          extraSpecialArgs = {inherit inputs outputs;};
+          modules = [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+            ./home/bruno/home.nix
+          ];
+        };
         "gurenda@mars" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          extraSpecialArgs = {inherit inputs outputs;};
+          modules = [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+            ./home/gurenda/home.nix
+          ];
+        };
+        "gurenda@mercury" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { inherit system; };
           extraSpecialArgs = {inherit inputs outputs;};
           modules = [
