@@ -64,6 +64,15 @@
             ./hosts/mercury/configuration.nix
           ];
         };
+
+        mercury-fresh = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            disko.nixosModules.disko
+            lanzaboote.nixosModules.lanzaboote
+            ./hosts/mercury/configuration.nix
+          ];
+        };
       };
 
       # Home manager configurations
