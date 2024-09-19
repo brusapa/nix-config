@@ -3,6 +3,7 @@
 {
   imports = [
     ../common/virt-manager.nix
+    ../features/firefox.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -86,17 +87,6 @@
     extraConfig = ''
       set number
     '';
-  };
-
-  programs.firefox = {
-    enable = true;
-    #profiles.default = {
-    #  id = 0;
-    #  settings = {
-    #    "signon.rememberSignons" = false;
-    #    "widget.use-xdg-desktop-portal.file-picker" = 1;
-    #  };
-    #};
   };
 
   programs.plasma = {
