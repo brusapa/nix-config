@@ -19,6 +19,10 @@
     kdePackages.kleopatra
     digikam
     haruna
+    kdePackages.kio-fuse #to mount remote filesystems via FUSE
+    kdePackages.kio-extras #extra protocols support (sftp, fish and more)
+    kdePackages.qtsvg
+    kdePackages.qtwayland
   ];
 
   # Enable the KDE Plasma Desktop Environment.
