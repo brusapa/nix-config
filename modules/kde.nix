@@ -17,6 +17,7 @@
     kdePackages.kcalc
     kdePackages.krdc
     kdePackages.kleopatra
+    kdePackages.kdeconnect-kde
     digikam
     haruna
   ];
