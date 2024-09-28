@@ -1,5 +1,26 @@
 # NixOS configuration files
 
+## Execute a fresh install
+
+1. Choose the passphrase for the storage
+
+    ``` bash
+    echo -n "passphrase" > /tmp/cryptroot.key
+    ```
+    
+2. Partition the disc, be careful to substitute the <host>
+
+    
+    ``` bash
+    sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --write-efi-boot-entries  --flake 'github:brusapa/nix-config#<host>'
+    ```
+    
+3. Install NixOS, be careful to substitute the <host>
+
+    ``` bash
+    sudo nixos-install --root /mnt --flake 'github:brusapa/nix-config#<host>'
+    ```
+
 ## Post-installation steps
 
 ### Secure boot and TPM unlock
