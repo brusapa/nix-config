@@ -13,10 +13,11 @@
     ../../modules/hardware/yubikey.nix
     ../../modules/hardware/keychron.nix
     ../../modules/hardware/printers/brother-printer.nix
-    ../common.nix
-    ../../home/users.nix
-    ../../home/bruno/network-shares.nix
-    ../../home/gurenda/network-shares.nix
+    ../common/global
+    ../common/users/bruno
+    ../common/users/bruno/network-shares.nix
+    ../common/users/gurenda
+    ../common/users/gurenda/network-shares.nix
     ../../modules/tailscale.nix
     ../../modules/kde.nix
     ../../modules/flatpak.nix
@@ -68,9 +69,6 @@
 
   # Enable Wake On Lan
   networking.interfaces.enp7s0.wakeOnLan.enable = true;
-
-  # Wireless
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth

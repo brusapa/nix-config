@@ -16,12 +16,5 @@
     createHome = true;
   };
 
-  users.users.gurenda = {
-    isNormalUser = true;
-    description = "Gurenda";
-    home = "/home/gurenda";
-    createHome = true;
-  };
-
   nix.settings.trusted-users = [ "bruno" ];
 }

@@ -1,6 +1,8 @@
 { inputs, lib, config, pkgs, ... }:
 
 {
+  # Use network manager to manage network connections.
+  networking.networkmanager.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
