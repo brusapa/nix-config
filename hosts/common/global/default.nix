@@ -4,6 +4,7 @@
   imports = [
     ./locale.nix
     ./openssh.nix
+    ./nix-ld.nix
   ];
 
   # Enable experimental features
