@@ -23,6 +23,7 @@
     ../../modules/flatpak.nix
     ../../modules/virtualisation.nix
     ../../modules/gaming.nix
+    ../../modules/sunshine.nix
     ../../modules/office.nix
     ../../modules/multimedia.nix
     ../../modules/development.nix
