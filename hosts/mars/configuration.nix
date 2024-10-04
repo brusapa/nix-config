@@ -44,6 +44,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Use latest kernel available
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Detect fans on Gigabyte Z690 motherboard
   boot.kernelParams = [ "acpi_enforce_resources=lax" ];
   boot.kernelModules = [ "coretemp" "it87" ];
