@@ -17,7 +17,6 @@
     kdePackages.isoimagewriter
     kdePackages.skanpage
     kdePackages.kcalc
-    kdePackages.krdc
     kdePackages.kleopatra
     kdePackages.kdeconnect-kde
     digikam
