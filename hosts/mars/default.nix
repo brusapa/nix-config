@@ -33,7 +33,7 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 32 * 1024; # 32 GiB
+      size = 64 * 1024; # 64 GiB
     }
   ];
   zramSwap.enable = true;
