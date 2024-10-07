@@ -15,9 +15,9 @@
     ../../modules/hardware/printers/brother-printer.nix
     ../common/global
     ../common/users/bruno
-    ../common/users/bruno/network-shares.nix
+    ../common/users/bruno/nas-network-shares.nix
     ../common/users/gurenda
-    ../common/users/gurenda/network-shares.nix
+    ../common/users/gurenda/nas-network-shares.nix
     ../../modules/tailscale.nix
     ../../modules/kde.nix
     ../../modules/flatpak.nix

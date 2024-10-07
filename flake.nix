@@ -57,7 +57,7 @@
             disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
             ./modules/secure-boot.nix
-            ./hosts/mars/configuration.nix
+            ./hosts/mars
           ];
         };
         
