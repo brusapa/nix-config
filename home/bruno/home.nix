@@ -11,7 +11,6 @@
   home = {
     packages = with pkgs; [
       spotify
-      remmina
       jetbrains-mono
       bitwarden-desktop
       veracrypt
