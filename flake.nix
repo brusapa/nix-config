@@ -2,38 +2,31 @@
   description = "Nix configuration";
 
   inputs = {
-    # Nixpkgs
     nixpkgs.url = "nixpkgs/nixos-24.05";
 
-    # Disko
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Lanzaboote
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nixos hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Plasma manager
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
 
-    # Firefox addons
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +51,18 @@
             lanzaboote.nixosModules.lanzaboote
             ./modules/secure-boot.nix
             ./hosts/mars
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+              home-manager.backupFileExtension = "backup";
+
+              home-manager.users.bruno = import ./home/bruno/home.nix;
+              home-manager.users.gurenda = import ./home/gurenda/home.nix;
+            }
           ];
         };
         
@@ -68,6 +73,16 @@
             lanzaboote.nixosModules.lanzaboote
             ./modules/secure-boot.nix
             ./hosts/mercury/configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+
+              home-manager.users.bruno = import ./home/bruno/home.nix;
+              home-manager.users.gurenda = import ./home/gurenda/home.nix;
+            }
           ];
         };
 
@@ -77,6 +92,16 @@
             disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
             ./hosts/mercury/configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+
+              home-manager.users.bruno = import ./home/bruno/home.nix;
+              home-manager.users.gurenda = import ./home/gurenda/home.nix;
+            } 
           ];
         };
       };

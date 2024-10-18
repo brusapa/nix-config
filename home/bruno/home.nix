@@ -4,6 +4,8 @@
   imports = [
     ../common/virt-manager.nix
     ../features/firefox.nix
+    ../features/remmina.nix
+    ../features/changeResolutionDesktopEntries.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -66,6 +68,9 @@
     shellAliases = {
       la = "ls -la";
     };
+    initExtra = ''
+      gpgconf --create-socketdir
+    '';
   };
 
   programs.gpg = {
