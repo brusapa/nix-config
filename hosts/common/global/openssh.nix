@@ -9,11 +9,10 @@
       PermitRootLogin = "no";
       PasswordAuthentication = false;
       AllowUsers = [ "bruno" ];
+      AllowTcpForwarding = true;
+      AllowAgentForwarding = true;
+      StreamLocalBindUnlink = true;
     };
-    extraConfig = ''
-      AllowAgentForwarding yes
-      StreamLocalBindUnlink yes
-    '';
   };
 
   # Allow sudo through ssh agent
