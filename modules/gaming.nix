@@ -12,6 +12,11 @@
   programs.gamemode.enable = true;
   users.groups.gamemode.members = [ "bruno" ];
 
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
+
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;
@@ -36,6 +41,7 @@
 
   # Modify the game launcher to use the following options
   # gamescope --force-grab-cursor -W 2560 -H 1440 -r 120 -f -e gamemoderun %command%
+  # env LD_PRELOAD="" gamescope --force-grab-cursor -W 2560 -H 1440 -r 120 -f -e %command%
   # gamemoderun %command%
   # mangohud %command%
   # gamescope %command%

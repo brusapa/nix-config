@@ -60,7 +60,7 @@
               home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
               home-manager.backupFileExtension = "backup";
 
-              home-manager.users.bruno = import ./home/bruno/home.nix;
+              home-manager.users.bruno = import ./home/bruno/mars.nix;
               home-manager.users.gurenda = import ./home/gurenda/home.nix;
             }
           ];
@@ -80,7 +80,7 @@
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
 
-              home-manager.users.bruno = import ./home/bruno/home.nix;
+              home-manager.users.bruno = import ./home/bruno/mercury.nix;
               home-manager.users.gurenda = import ./home/gurenda/home.nix;
             }
           ];
@@ -99,46 +99,9 @@
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
 
-              home-manager.users.bruno = import ./home/bruno/home.nix;
+              home-manager.users.bruno = import ./home/bruno/mercury.nix;
               home-manager.users.gurenda = import ./home/gurenda/home.nix;
             } 
-          ];
-        };
-      };
-
-      # Home manager configurations
-      # Available through 'home-manager switch --flake .#username@hostname'
-      homeConfigurations = {
-        "bruno@mars" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
-          extraSpecialArgs = {inherit inputs outputs;};
-          modules = [
-            inputs.plasma-manager.homeManagerModules.plasma-manager
-            ./home/bruno/home.nix
-          ];
-        };
-        "bruno@mercury" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
-          extraSpecialArgs = {inherit inputs outputs;};
-          modules = [
-            inputs.plasma-manager.homeManagerModules.plasma-manager
-            ./home/bruno/home.nix
-          ];
-        };
-        "gurenda@mars" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
-          extraSpecialArgs = {inherit inputs outputs;};
-          modules = [
-            inputs.plasma-manager.homeManagerModules.plasma-manager
-            ./home/gurenda/home.nix
-          ];
-        };
-        "gurenda@mercury" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
-          extraSpecialArgs = {inherit inputs outputs;};
-          modules = [
-            inputs.plasma-manager.homeManagerModules.plasma-manager
-            ./home/gurenda/home.nix
           ];
         };
       };
