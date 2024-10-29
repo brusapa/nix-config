@@ -31,9 +31,14 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nixos-wsl, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -82,6 +87,23 @@
 
               home-manager.users.bruno = import ./home/bruno/mercury.nix;
               home-manager.users.gurenda = import ./home/gurenda/home.nix;
+            }
+          ];
+        };
+
+        wsl = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs;};
+          system = "x86_64-linux";
+          modules = [
+            nixos-wsl.nixosModules.wsl
+            ./hosts/wsl
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.bruno = import ./home/bruno/wsl.nix;
             }
           ];
         };
