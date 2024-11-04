@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ ... }:
 
 {
 
@@ -7,9 +7,11 @@
     userName = "Bruno Santamaria";
     lfs.enable = true;
     userEmail = "30648587+brusapa@users.noreply.github.com";
-    signing = {
-      signByDefault = true;
-      key = "BD6743DAE6ABDF36";
+    extraConfig = {
+      commit.gpgsign = true;
+      gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      user.signingkey = "~/.ssh/id_ed25519_sk.pub";
     };
   };
 

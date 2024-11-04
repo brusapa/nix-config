@@ -8,10 +8,11 @@
     ../../modules/plymouth.nix
     ../../modules/hardware/yubikey.nix
     ../../modules/hardware/printers/brother-printer.nix
-    ../common.nix
-    ../../home/users.nix
-    ../../home/bruno/network-shares.nix
-    ../../home/gurenda/network-shares.nix
+    ../common/global
+    ../common/users/bruno
+    ../common/users/bruno/nas-network-shares.nix
+    ../common/users/gurenda
+    ../common/users/gurenda/nas-network-shares.nix
     ../../modules/tailscale.nix
     ../../modules/kde.nix
     ../../modules/flatpak.nix

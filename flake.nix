@@ -77,13 +77,15 @@
             disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
             ./modules/secure-boot.nix
-            ./hosts/mercury/configuration.nix
+            ./hosts/mercury
 
             home-manager.nixosModules.home-manager
             {
+              home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+              home-manager.backupFileExtension = "backup";
 
               home-manager.users.bruno = import ./home/bruno/mercury.nix;
               home-manager.users.gurenda = import ./home/gurenda/home.nix;
@@ -100,8 +102,10 @@
 
             home-manager.nixosModules.home-manager
             {
+              home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
 
               home-manager.users.bruno = import ./home/bruno/wsl.nix;
             }
@@ -117,9 +121,11 @@
 
             home-manager.nixosModules.home-manager
             {
+              home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+              home-manager.backupFileExtension = "backup";
 
               home-manager.users.bruno = import ./home/bruno/mercury.nix;
               home-manager.users.gurenda = import ./home/gurenda/home.nix;

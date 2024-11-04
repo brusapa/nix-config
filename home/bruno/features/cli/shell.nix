@@ -7,9 +7,6 @@
     shellAliases = {
       la = "ls -la";
     };
-    initExtra = ''
-      gpgconf --create-socketdir
-    '';
   };
 
   programs.starship = {
