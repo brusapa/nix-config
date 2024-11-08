@@ -7,6 +7,4 @@
     enable = true;
     forwardAgent = true;
   };
-
-  services.ssh-agent.enable = true;
 }
