@@ -1,8 +1,9 @@
-{ inputs, lib, config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Use network manager to manage network connections.
   networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Enable the X11 windowing system.
   services.xserver = {
