@@ -10,6 +10,7 @@
     ./default-applications.nix
     ./changeResolutionDesktopEntries.nix
     ./development
+    ./kicad.nix
   ];
 
   home.packages = with pkgs; [
