@@ -27,6 +27,7 @@
     ../../modules/office.nix
     ../../modules/multimedia.nix
     ../../modules/development.nix
+    ../../modules/quiet-boot.nix
   ];
 
   # Create a swap file for hibernation.
