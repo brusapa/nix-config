@@ -16,6 +16,11 @@
   programs.ssh.startAgent = true;
 
   # Allow sudo through ssh agent
-  security.pam.sshAgentAuth.enable = true;
-  security.pam.services.sudo.sshAgentAuth = true;
+  security.pam = {
+    sshAgentAuth = {
+      enable = true;
+      authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u"];
+    };
+    services.sudo.sshAgentAuth = true;
+  };
 }
