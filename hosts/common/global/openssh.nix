@@ -15,12 +15,9 @@
 
   programs.ssh.startAgent = true;
 
-  # Allow sudo through ssh agent
+  # Allow sudo through ssh agent (RSSH)
   security.pam = {
-    sshAgentAuth = {
-      enable = true;
-      authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u"];
-    };
-    services.sudo.sshAgentAuth = true;
+    rssh.enable = true;
+    services.sudo.rssh = true;
   };
 }
