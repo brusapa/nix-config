@@ -4,6 +4,7 @@
 
   imports = [
     ./firefox.nix
+    ./chromium.nix
     ./remmina.nix
     ./virt-manager.nix
     ./vscode.nix
@@ -18,7 +19,6 @@
     jetbrains-mono
     bitwarden-desktop
     veracrypt
-    cryptomator
     microsoft-edge
     obsidian
     pinentry-qt
