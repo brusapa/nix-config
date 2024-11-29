@@ -1,4 +1,4 @@
-{ inputs, outputs, pkgs, ... }: 
+{ pkgs, ... }: 
 
 {
   imports = [
@@ -14,6 +14,16 @@
   nixpkgs.config.allowUnfree = true;
 
   hardware.enableRedistributableFirmware = true;
+
+  # Store optimization
+  nix.settings.auto-optimise-store = true;
+
+  # Garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than +5";
+  };
 
   # Basic packages
   environment.systemPackages = with pkgs; [
