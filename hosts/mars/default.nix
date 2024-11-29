@@ -13,6 +13,7 @@
     ../../modules/hardware/yubikey.nix
     ../../modules/hardware/keychron.nix
     ../../modules/hardware/printers/brother-printer.nix
+    ../../modules/hardware/scarlett.nix
     ../common/global
     ../common/users/bruno
     ../common/users/bruno/nas-network-shares.nix
