@@ -12,6 +12,7 @@
     ./changeResolutionDesktopEntries.nix
     ./development
     ./kicad.nix
+    ./obs-studio.nix
   ];
 
   home.packages = with pkgs; [
