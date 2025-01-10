@@ -1,16 +1,6 @@
-{ inputs, lib, config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-
-  # Distrobox
-  environment.systemPackages = with pkgs; [
-    distrobox
-  ];
-
-  # Docker
-  virtualisation.docker.enable = true;
-  users.extraGroups.docker.members = [ "bruno" ];
-
   # Libvirt
   virtualisation.libvirtd = {
     enable = true;
