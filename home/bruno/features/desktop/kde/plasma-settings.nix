@@ -125,7 +125,7 @@
       name = "bruno";
       colorScheme = "BlackOnWhite";
       font = {
-        name = "JetBrains Mono";
+        name = "JetBrainsMono  Nerd Font";
         size = 10;
       };
       extraConfig = {

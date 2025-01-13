@@ -9,6 +9,7 @@
 
 
   home.packages = with pkgs; [
+    nerdfonts
     jetbrains-mono
     pinentry-qt
   ];
