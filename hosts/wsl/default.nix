@@ -4,6 +4,7 @@
   imports = [
     ../common/global
     ../common/users/bruno
+    ../../modules/hardware/yubikey.nix
   ];
 
   wsl.enable = true;
@@ -11,6 +12,17 @@
 
   # Allow VSCode remote server
   programs.nix-ld.package = pkgs.nix-ld-rs;
+
+  # Enable USBIP passthrough 
+  wsl.usbip.enable = true;
+  # Udev rules to access USBIP devices as non root user
+  services.udev = {
+    enable = true;
+    extraRules = ''
+      SUBSYSTEM=="usb", MODE="0666"
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", TAG+="uaccess", MODE="0666"
+    '';
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
