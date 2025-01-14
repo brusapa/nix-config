@@ -26,6 +26,7 @@ in {
     openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/bruno/ssh.pub);
     home = "/home/bruno";
     createHome = true;
+    shell = pkgs.fish;
   };
 
   nix.settings.trusted-users = ["bruno"];
