@@ -5,6 +5,10 @@
   programs.plasma = {
     enable = true;
 
+    workspace = {
+      lookAndFeel = "Catppuccin-Latte-Blue";
+    };
+
     fonts = {
       general = {
         family = "JetBrains Mono";
@@ -121,9 +125,14 @@
         RememberWindowSize = false;
       };
     };
+    customColorSchemes = {
+      "catpuccin-latte" = ./konsole/themes/catppuccin-latte.colorscheme;
+    };
+
     profiles.default = {
       name = "bruno";
-      colorScheme = "BlackOnWhite";
+      command = "${pkgs.fish}/bin/fish";
+      colorScheme = "catpuccin-latte";
       font = {
         name = "JetBrainsMono  Nerd Font";
         size = 10;
