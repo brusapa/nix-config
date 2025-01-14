@@ -9,6 +9,6 @@
     #./gpg.nix
     ./shell.nix
     ./ssh.nix
-    ./neovim.nix
+    ./nvf.nix
   ];
 }
