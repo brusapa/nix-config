@@ -7,6 +7,7 @@
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
     ../../modules/plymouth.nix
     ../../modules/hardware/yubikey.nix
+    ../../modules/hardware/logitech.nix
     ../../modules/hardware/printers/brother-printer.nix
     ../common/global
     ../common/users/bruno
@@ -35,10 +36,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Use latest kernel available
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking.hostName = "mercury";
 
   # Wireless
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
