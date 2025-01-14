@@ -6,5 +6,12 @@
   programs.ssh = {
     enable = true;
     forwardAgent = true;
+    matchBlocks  = {
+      "NAS" = {
+        hostname = "nas.rex-eagle.ts.net";
+        user = "bruno";
+        forwardAgent = true;
+      };
+    };
   };
 }

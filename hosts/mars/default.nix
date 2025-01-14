@@ -22,7 +22,8 @@
     ../../modules/tailscale.nix
     ../../modules/kde.nix
     ../../modules/flatpak.nix
-    ../../modules/virtualisation.nix
+    ../../modules/docker.nix
+    ../../modules/libvirtd.nix
     ../../modules/gaming.nix
     ../../modules/sunshine.nix
     ../../modules/office.nix

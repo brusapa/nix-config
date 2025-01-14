@@ -32,13 +32,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
+    nvf = {
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+  
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nixos-wsl, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, nix-flatpak, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -62,7 +70,11 @@
               home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+              home-manager.sharedModules = [ 
+                nix-flatpak.homeManagerModules.nix-flatpak
+                plasma-manager.homeManagerModules.plasma-manager
+                nvf.homeManagerModules.default
+              ];
               home-manager.backupFileExtension = "backup";
 
               home-manager.users.bruno = import ./home/bruno/mars.nix;
@@ -84,7 +96,11 @@
               home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+              home-manager.sharedModules = [ 
+                nix-flatpak.homeManagerModules.nix-flatpak
+                plasma-manager.homeManagerModules.plasma-manager
+                nvf.homeManagerModules.default
+              ];
               home-manager.backupFileExtension = "backup";
 
               home-manager.users.bruno = import ./home/bruno/mercury.nix;
@@ -105,6 +121,10 @@
               home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ 
+                nvf.homeManagerModules.default
+              ];
+
               home-manager.backupFileExtension = "backup";
 
               home-manager.users.bruno = import ./home/bruno/wsl.nix;
@@ -124,7 +144,11 @@
               home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+              home-manager.sharedModules = [ 
+                nix-flatpak.homeManagerModules.nix-flatpak
+                plasma-manager.homeManagerModules.plasma-manager
+                nvf.homeManagerModules.default
+              ];
               home-manager.backupFileExtension = "backup";
 
               home-manager.users.bruno = import ./home/bruno/mercury.nix;

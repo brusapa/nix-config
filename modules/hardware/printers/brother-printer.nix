@@ -1,4 +1,4 @@
-{ inputs, lib, config, modulesPath, pkgs, ... }:
+{ modulesPath, pkgs, ... }:
 
 {  
   
@@ -9,9 +9,13 @@
   # Enable printing service
   services.printing.enable = true;
 
+  environment.systemPackages = [ 
+    pkgs.ghostscript
+  ];
+
   # Manually add the driver for the Brother MFC-L2710DW printer
   services.printing.drivers = [
-    (pkgs.callPackage ./mfcl2710dw.nix {})
+    pkgs.brlaser
   ];
 
   hardware.printers = {
@@ -20,7 +24,7 @@
         name = "Brother_Estudio";
         location = "Estudio";
         deviceUri = "lpd://10.80.0.80/binary_p1";
-        model = "brother-MFCL2710DW-cups-en.ppd";
+        model = "drv:///brlaser.drv/brl2710.ppd";
         ppdOptions = {
           PageSize = "A4";
         };
@@ -41,8 +45,5 @@
       };
     };
   };
-
-  users.extraGroups.scanner.members = [ "bruno" "gurenda" ];
-  users.extraGroups.lp.members = [ "bruno" "gurenda" ];
 
 }

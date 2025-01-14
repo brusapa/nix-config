@@ -26,6 +26,9 @@
   };
 
   # Basic packages
+
+  programs.fish.enable = true;
+
   environment.systemPackages = with pkgs; [
     home-manager
     wget
