@@ -15,6 +15,7 @@ in {
     uid = 1000;
     extraGroups = ifGroupExist [
       "docker"
+      "dialout"
       "gamemode"
       "libvirtd"
       "lp"
