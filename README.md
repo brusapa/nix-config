@@ -79,9 +79,3 @@ $ mv id_ed25519_sk_* id_ed25519_sk
 # sensors-detect --auto
 ```
 
-### Flatpak
-
-``` bash
-$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-$ flatpak update
-```
