@@ -4,6 +4,8 @@
 
   imports = [
     ../common
+    ./konsole
+    ./kate.nix
     ./plasma-settings.nix
   ];
 
@@ -12,15 +14,6 @@
     nerdfonts
     jetbrains-mono
     pinentry-qt
-    (catppuccin-kde.override {
-      flavour = [ "latte" ];
-      accents = [
-        "blue"
-        "teal"
-        "lavender"
-      ];
-    })
-    catppuccin-kde
   ];
 
 }

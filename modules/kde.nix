@@ -20,7 +20,6 @@
     kdePackages.kcalc
     kdePackages.kleopatra
     kdePackages.kdeconnect-kde
-    digikam
     haruna
     kdePackages.kio-fuse #to mount remote filesystems via FUSE
     kdePackages.kio-extras #extra protocols support (sftp, fish and more)
@@ -31,6 +30,11 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+  environment.plasma6.excludePackages = [ 
+    pkgs.kdePackages.discover
+    pkgs.kdePackages.elisa
+  ];
 
   # Unlock KDE wallet on login
   security.pam.services.sddm.kwallet.enable = true;

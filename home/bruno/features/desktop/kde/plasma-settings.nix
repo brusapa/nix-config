@@ -5,10 +5,6 @@
   programs.plasma = {
     enable = true;
 
-    workspace = {
-      lookAndFeel = "Catppuccin-Latte-Blue";
-    };
-
     fonts = {
       general = {
         family = "JetBrains Mono";
@@ -112,35 +108,6 @@
         turnOffDisplay = {
           idleTimeout = 300; # In seconds (5 minutes)
           idleTimeoutWhenLocked = "immediately";
-        };
-      };
-    };
-  };
-
-  programs.konsole = {
-    enable = true;
-    defaultProfile = "bruno";
-    extraConfig = {
-      KonsoleWindow = {
-        RememberWindowSize = false;
-      };
-    };
-    customColorSchemes = {
-      "catpuccin-latte" = ./konsole/themes/catppuccin-latte.colorscheme;
-    };
-
-    profiles.default = {
-      name = "bruno";
-      command = "${pkgs.fish}/bin/fish";
-      colorScheme = "catpuccin-latte";
-      font = {
-        name = "JetBrainsMono  Nerd Font";
-        size = 10;
-      };
-      extraConfig = {
-        General = {
-          TerminalColumns = 120;
-          TerminalRows = 40;
         };
       };
     };
