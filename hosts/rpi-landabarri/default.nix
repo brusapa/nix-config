@@ -31,6 +31,21 @@
   networking.hostName = "rpi-landabarri";
   networking.useDHCP = lib.mkDefault true;
 
+  networking = {
+    interfaces.end0 = {
+      ipv4.addresses = [{
+        address = "10.80.10.3";
+        prefixLength = 24;
+      }];
+    };
+    defaultGateway = {
+      address = "10.80.10.1";
+      interface = "end0";
+    };
+    nameservers = [ "10.80.10.1" ];
+  };
+
+
    # Tailscale
   services.tailscale = {
     enable = true;
