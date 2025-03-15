@@ -12,15 +12,6 @@
     nerdfonts
     jetbrains-mono
     pinentry-qt
-    (catppuccin-kde.override {
-      flavour = [ "latte" ];
-      accents = [
-        "blue"
-        "teal"
-        "lavender"
-      ];
-    })
-    catppuccin-kde
   ];
 
 }

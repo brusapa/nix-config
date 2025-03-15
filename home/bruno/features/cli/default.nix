@@ -11,10 +11,4 @@
     ./ssh.nix
     ./nvf.nix
   ];
-
-  catppuccin = {
-    enable = true;
-    flavor = "latte";
-  };
-
 }
