@@ -7,6 +7,8 @@
     ../common/users/bruno
   ];
 
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
     initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
