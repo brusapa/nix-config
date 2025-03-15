@@ -127,7 +127,28 @@
 
               home-manager.backupFileExtension = "backup";
 
-              home-manager.users.bruno = import ./home/bruno/wsl.nix;
+              home-manager.users.bruno = import ./home/bruno/generic-cli.nix;
+            }
+          ];
+        };
+
+        rpi-landabarri = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            ./hosts/rpi-landabarri
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ 
+                nix-flatpak.homeManagerModules.nix-flatpak
+                nvf.homeManagerModules.default
+              ];
+              home-manager.backupFileExtension = "backup";
+
+              home-manager.users.bruno = import ./home/bruno/generic-cli.nix;
             }
           ];
         };

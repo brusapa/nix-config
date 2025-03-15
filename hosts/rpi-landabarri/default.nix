@@ -3,10 +3,8 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
-    ../common.nix
-    ../../home/users.nix
-    ../../home/bruno/network-shares.nix
-    ../../home/gurenda/network-shares.nix
+    ../common/global
+    ../common/users/bruno
   ];
 
   boot = {
