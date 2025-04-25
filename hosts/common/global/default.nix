@@ -36,5 +36,6 @@
     usbutils
     pciutils
     unrar
+    pv
   ];
 }
