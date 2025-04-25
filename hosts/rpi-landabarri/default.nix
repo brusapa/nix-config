@@ -3,11 +3,11 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
-    ../common.nix
-    ../../home/users.nix
-    ../../home/bruno/network-shares.nix
-    ../../home/gurenda/network-shares.nix
+    ../common/global
+    ../common/users/bruno
   ];
+
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
@@ -30,6 +30,21 @@
 
   networking.hostName = "rpi-landabarri";
   networking.useDHCP = lib.mkDefault true;
+
+  networking = {
+    interfaces.end0 = {
+      ipv4.addresses = [{
+        address = "10.80.10.3";
+        prefixLength = 24;
+      }];
+    };
+    defaultGateway = {
+      address = "10.80.10.1";
+      interface = "end0";
+    };
+    nameservers = [ "10.80.10.1" ];
+  };
+
 
    # Tailscale
   services.tailscale = {

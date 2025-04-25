@@ -43,11 +43,10 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-
-    catppuccin.url = "github:catppuccin/nix";
+  
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, nix-flatpak, catppuccin, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, nix-flatpak, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -63,7 +62,6 @@
           modules = [
             disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
-            catppuccin.nixosModules.catppuccin
             ./modules/secure-boot.nix
             ./hosts/mars
 
@@ -76,7 +74,6 @@
                 nix-flatpak.homeManagerModules.nix-flatpak
                 plasma-manager.homeManagerModules.plasma-manager
                 nvf.homeManagerModules.default
-                catppuccin.homeManagerModules.catppuccin
               ];
               home-manager.backupFileExtension = "backup";
 
@@ -91,7 +88,6 @@
           modules = [
             disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
-            catppuccin.nixosModules.catppuccin
             ./modules/secure-boot.nix
             ./hosts/mercury
 
@@ -104,7 +100,6 @@
                 nix-flatpak.homeManagerModules.nix-flatpak
                 plasma-manager.homeManagerModules.plasma-manager
                 nvf.homeManagerModules.default
-                catppuccin.homeManagerModules.catppuccin
               ];
               home-manager.backupFileExtension = "backup";
 
@@ -119,7 +114,6 @@
           system = "x86_64-linux";
           modules = [
             nixos-wsl.nixosModules.wsl
-            catppuccin.nixosModules.catppuccin
             ./hosts/wsl
 
             home-manager.nixosModules.home-manager
@@ -129,12 +123,32 @@
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ 
                 nvf.homeManagerModules.default
-                catppuccin.homeManagerModules.catppuccin
               ];
 
               home-manager.backupFileExtension = "backup";
 
-              home-manager.users.bruno = import ./home/bruno/wsl.nix;
+              home-manager.users.bruno = import ./home/bruno/generic-cli.nix;
+            }
+          ];
+        };
+
+        rpi-landabarri = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs outputs;};
+          modules = [
+            ./hosts/rpi-landabarri
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ 
+                nix-flatpak.homeManagerModules.nix-flatpak
+                nvf.homeManagerModules.default
+              ];
+              home-manager.backupFileExtension = "backup";
+
+              home-manager.users.bruno = import ./home/bruno/generic-cli.nix;
             }
           ];
         };
@@ -144,7 +158,6 @@
           modules = [
             disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
-            catppuccin.nixosModules.catppuccin
             ./hosts/mercury/configuration.nix
 
             home-manager.nixosModules.home-manager
@@ -156,7 +169,6 @@
                 nix-flatpak.homeManagerModules.nix-flatpak
                 plasma-manager.homeManagerModules.plasma-manager
                 nvf.homeManagerModules.default
-                catppuccin.homeManagerModules.catppuccin
               ];
               home-manager.backupFileExtension = "backup";
 
