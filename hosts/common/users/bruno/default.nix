@@ -17,6 +17,7 @@ in {
       "docker"
       "dialout"
       "gamemode"
+      "input"
       "libvirtd"
       "lp"
       "networkmanager"
