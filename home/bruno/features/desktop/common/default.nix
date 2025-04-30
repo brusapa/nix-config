@@ -24,6 +24,7 @@
     obsidian
     pinentry-qt
     orca-slicer
+    cryptomator
   ];
 
 }
