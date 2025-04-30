@@ -41,12 +41,10 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, nix-flatpak, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -71,7 +69,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ 
-                nix-flatpak.homeManagerModules.nix-flatpak
                 plasma-manager.homeManagerModules.plasma-manager
                 nvf.homeManagerModules.default
               ];
@@ -97,7 +94,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ 
-                nix-flatpak.homeManagerModules.nix-flatpak
                 plasma-manager.homeManagerModules.plasma-manager
                 nvf.homeManagerModules.default
               ];
@@ -143,7 +139,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ 
-                nix-flatpak.homeManagerModules.nix-flatpak
                 nvf.homeManagerModules.default
               ];
               home-manager.backupFileExtension = "backup";
@@ -166,7 +161,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ 
-                nix-flatpak.homeManagerModules.nix-flatpak
                 plasma-manager.homeManagerModules.plasma-manager
                 nvf.homeManagerModules.default
               ];
