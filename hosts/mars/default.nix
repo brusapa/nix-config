@@ -8,6 +8,8 @@
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-gpu-amd
+    #./disko-config.nix
+    ../../modules/secure-boot.nix
     ../../modules/plymouth.nix
     ../../modules/hardware/logitech.nix
     ../../modules/hardware/yubikey.nix

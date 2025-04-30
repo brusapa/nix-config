@@ -1,8 +1,9 @@
-{ lib, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 
 {
 
   imports = [
+    inputs.plasma-manager.homeManagerModules.plasma-manager
     ../common
     ./konsole
     ./kate.nix

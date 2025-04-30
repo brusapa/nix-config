@@ -45,132 +45,44 @@
   };
 
   outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, ... }:
-    let
-      lib = nixpkgs.lib;
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-      inherit (self) outputs;
-    in {
+  let
+    lib = nixpkgs.lib;
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+    inherit (self) outputs;
+    makeNixosConfig = { hostname, users }: nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./hosts/${hostname}
+        (import ./modules/home-manager-config.nix {
+          inherit hostname users;
+        })
+      ];
+    };
+  in {
 
-      # NixOS configurations
-      # Available through 'nixos-rebuild switch --flake .#hostname'
-      nixosConfigurations = {
-        mars = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs;};
-          modules = [
-            disko.nixosModules.disko
-            lanzaboote.nixosModules.lanzaboote
-            ./modules/secure-boot.nix
-            ./hosts/mars
+    # NixOS configurations
+    # Available through 'nixos-rebuild switch --flake .#hostname'
+    nixosConfigurations = {
+      mars = makeNixosConfig { 
+        hostname = "mars";
+        users = ["bruno" "gurenda"];
+      };
+      
+      mercury = makeNixosConfig { 
+        hostname = "mercury";
+        users = ["bruno" "gurenda"];
+      };
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ 
-                plasma-manager.homeManagerModules.plasma-manager
-                nvf.homeManagerModules.default
-              ];
-              home-manager.backupFileExtension = "backup";
+      wsl = makeNixosConfig { 
+        hostname = "wsl";
+        users = ["bruno"];
+      };
 
-              home-manager.users.bruno = import ./home/bruno/mars.nix;
-              home-manager.users.gurenda = import ./home/gurenda/home.nix;
-            }
-          ];
-        };
-        
-        mercury = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs;};
-          modules = [
-            disko.nixosModules.disko
-            lanzaboote.nixosModules.lanzaboote
-            ./modules/secure-boot.nix
-            ./hosts/mercury
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ 
-                plasma-manager.homeManagerModules.plasma-manager
-                nvf.homeManagerModules.default
-              ];
-              home-manager.backupFileExtension = "backup";
-
-              home-manager.users.bruno = import ./home/bruno/mercury.nix;
-              home-manager.users.gurenda = import ./home/gurenda/home.nix;
-            }
-          ];
-        };
-
-        wsl = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs;};
-          system = "x86_64-linux";
-          modules = [
-            nixos-wsl.nixosModules.wsl
-            ./hosts/wsl
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ 
-                nvf.homeManagerModules.default
-              ];
-
-              home-manager.backupFileExtension = "backup";
-
-              home-manager.users.bruno = import ./home/bruno/generic-cli.nix;
-            }
-          ];
-        };
-
-        rpi-landabarri = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs;};
-          modules = [
-            ./hosts/rpi-landabarri
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ 
-                nvf.homeManagerModules.default
-              ];
-              home-manager.backupFileExtension = "backup";
-
-              home-manager.users.bruno = import ./home/bruno/generic-cli.nix;
-            }
-          ];
-        };
-
-        mercury-fresh = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs;};
-          modules = [
-            disko.nixosModules.disko
-            lanzaboote.nixosModules.lanzaboote
-            ./hosts/mercury/configuration.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ 
-                plasma-manager.homeManagerModules.plasma-manager
-                nvf.homeManagerModules.default
-              ];
-              home-manager.backupFileExtension = "backup";
-
-              home-manager.users.bruno = import ./home/bruno/mercury.nix;
-              home-manager.users.gurenda = import ./home/gurenda/home.nix;
-            } 
-          ];
-        };
+      rpi-landabarri = makeNixosConfig { 
+        hostname = "rpi-landabarri";
+        users = ["bruno"];
       };
     };
+  };
 }

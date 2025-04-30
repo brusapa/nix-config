@@ -2,6 +2,7 @@
 
 {
   imports = [
+    inputs.nixos-wsl.nixosModules.wsl
     ../common/global
     ../common/users/bruno
     ../../modules/hardware/yubikey.nix

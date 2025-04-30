@@ -3,8 +3,9 @@
 {
   imports = [
     ./hardware-configuration.nix # Include the results of the hardware scan.
-    ./disko-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+    ./disko-config.nix
+    ../../modules/secure-boot.nix
     ../../modules/plymouth.nix
     ../../modules/hardware/yubikey.nix
     ../../modules/hardware/logitech.nix

@@ -8,10 +8,16 @@
 # To store the passphrase for luks
 # echo -n "passphrase" > /tmp/cryptroot.key
 # echo -n "passphares" > /tmp/crypthome.key
+{ inputs, config, ... }:
 {
+  imports = [
+    inputs.disko.nixosModules.disko
+  ];
+
   config.disko.devices = {
     disk = {
       main = {
+        device = "/dev/nvme0n1";
         type = "disk";
           content = {
           type = "gpt";
@@ -33,9 +39,30 @@
                 settings.allowDiscards = true;
                 passwordFile = "/tmp/cryptroot.key";
                 content = {
-                  type = "filesystem";
-                  format = "ext4";
-                  mountpoint = "/";
+                  type = "btrfs";
+                  extraArgs = [ "-f" ];
+                  subvolumes = {
+                    "/root" = {
+                      mountpoint = "/";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                    "/home" = {
+                      mountpoint = "/home";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                    "/persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                    "/log" = {
+                      mountpoint = "/var/log";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                  };
                 };
               };
             };

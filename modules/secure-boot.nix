@@ -2,6 +2,10 @@
 
 {
 
+  imports = [
+    inputs.lanzaboote.nixosModules.lanzaboote
+  ];
+
   environment.systemPackages = with pkgs; [
     sbctl # For debugging and troubleshooting Secure Boot.
     tpm2-tss
