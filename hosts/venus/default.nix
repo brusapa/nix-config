@@ -26,7 +26,20 @@
     efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "venus";
+
+  # Networking
+  networking = {
+    hostName = "venus";
+    interfaces.enX0.ipv4.addresses = [ {
+      address = "10.80.0.17";
+      prefixLength = 24;
+    } ];
+    defaultGateway = "10.80.0.1";
+    nameservers = [ "10.80.0.1" ];
+  };
+
+
+  services.xe-guest-utilities.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

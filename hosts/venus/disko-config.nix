@@ -12,12 +12,11 @@
     inputs.disko.nixosModules.disko
   ];
   
-  {
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        device = "/dev/disk/by-diskseq/1";
+        device = "/dev/xvda";
         content = {
           type = "gpt";
           partitions = {
@@ -57,6 +56,4 @@
       };
     };
   };
-}
-
 }
