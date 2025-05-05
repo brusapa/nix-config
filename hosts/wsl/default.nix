@@ -14,8 +14,13 @@
   # Allow VSCode remote server
   programs.nix-ld.package = pkgs.nix-ld-rs;
 
-  # Enable USBIP passthrough 
-  wsl.usbip.enable = true;
+  # Enable USBIP passthrough and auto-attach for yubikey
+  wsl.usbip = {
+    enable = true;
+    autoAttach = [
+      "1-5"
+    ];
+  };
   # Udev rules to access USBIP devices as non root user
   services.udev = {
     enable = true;

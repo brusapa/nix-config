@@ -6,6 +6,7 @@
 
   environment.systemPackages = with pkgs; [
     yubikey-touch-detector
+    yubikey-manager
   ];
 
   # Get a notification when the yubikey is waiting for a touch
