@@ -47,9 +47,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, ... }:
   let
     lib = nixpkgs.lib;
     system = "x86_64-linux";

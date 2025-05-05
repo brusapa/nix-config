@@ -1,0 +1,16 @@
+keys:
+  - &users:
+    - &bruno age1d8v24reqkpev3zylzeqgaguwe5hwcd7sthl9ltauals2fvlxmgtqpklpzv
+  - &hosts:
+    - &venus age1zu50xpy6clr58sjs2nyw2rqtq52j4fcuft0pv0wdcepumyanya2sqdxzc8
+creation_rules:
+  - path_regex: hosts/common/secrets.ya?ml$
+    key_groups:
+      - age:
+        - *bruno
+        - *venus
+  - path_regex: hosts/venus/secrets.ya?ml$
+    key_groups:
+      - age:
+        - *bruno
+        - *venus
