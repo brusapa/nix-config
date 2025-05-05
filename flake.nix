@@ -42,15 +42,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   
+    fw-fanctrl = {
+      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, ... }:
   let
-    lib = nixpkgs.lib;
-    system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
-    inherit (self) outputs;
-    makeNixosConfig = { hostname, users }: nixpkgs.lib.nixosSystem {
+    makeNixosConfig = { hostname, users, system ? "x86_64-linux" }: 
+    nixpkgs.lib.nixosSystem {
+      inherit system;
       specialArgs = { inherit inputs; };
       modules = [
         ./hosts/${hostname}
@@ -74,12 +77,18 @@
         users = ["bruno" "gurenda"];
       };
 
+      venus = makeNixosConfig {
+        hostname = "venus";
+        users = ["bruno"];
+      };
+
       wsl = makeNixosConfig { 
         hostname = "wsl";
         users = ["bruno"];
       };
 
       rpi-landabarri = makeNixosConfig { 
+        system = "aarch64-linux";
         hostname = "rpi-landabarri";
         users = ["bruno"];
       };

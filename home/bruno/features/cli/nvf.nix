@@ -16,6 +16,12 @@
           style = "latte";
         };
 
+        options = {
+          shiftwidth = 2;
+          expandtab = true;
+          smarttab = true;
+        };
+
         lineNumberMode = "number";
         preventJunkFiles = true;
 
