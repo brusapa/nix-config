@@ -6,6 +6,7 @@
     ./gpg-agent.nix
     ./openssh.nix
     ./nix-ld.nix
+    ./sops.nix
   ];
 
   # Enable experimental features
