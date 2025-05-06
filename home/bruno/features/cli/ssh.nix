@@ -1,11 +1,6 @@
 {...}: {
-  #home.file.".ssh/id_ed25519_sk.pub".source = ../../ssh.pub;
-
-  home.file.".ssh/allowed_signers".text = "* ${builtins.readFile ../../ssh.pub}";
-
   programs.ssh = {
     enable = true;
-    forwardAgent = true;
     matchBlocks  = {
       "nas" = {
         hostname = "nas.brusapa.com";
@@ -16,6 +11,25 @@
         hostname = "venus.brusapa.com";
         user = "bruno";
         forwardAgent = true;
+        remoteForwards = [
+          {
+            bind.address = ''/run/user/1000/gnupg/S.gpg-agent'';
+            host.address = ''/run/user/1000/gnupg/S.gpg-agent.extra'';
+          }
+        ];
+        extraOptions.StreamLocalBindUnlink = "yes";
+      };
+      "mars" = {
+        hostname = "mars.brusapa.com";
+        user = "bruno";
+        forwardAgent = true;
+        remoteForwards = [
+          {
+            bind.address = ''/run/user/1000/gnupg/S.gpg-agent'';
+            host.address = ''/run/user/1000/gnupg/S.gpg-agent.extra'';
+          }
+        ];
+        extraOptions.StreamLocalBindUnlink = "yes";
       };
     };
   };
