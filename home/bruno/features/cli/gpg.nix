@@ -23,7 +23,9 @@
 
   services.gpg-agent = {
     enable = true;
+    enableSshSupport = true;
     enableExtraSocket = true;
+    sshKeys = [ "1D7C28419079D3FED5DFF21CBD6743DAE6ABDF36" ];
     enableFishIntegration = true;
     pinentryPackage = pkgs.pinentry-curses;
     defaultCacheTtl = 60; # https://github.com/drduh/config/blob/master/gpg-agent.conf
