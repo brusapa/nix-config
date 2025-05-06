@@ -7,8 +7,13 @@
     enable = true;
     forwardAgent = true;
     matchBlocks  = {
-      "NAS" = {
-        hostname = "nas.rex-eagle.ts.net";
+      "nas" = {
+        hostname = "nas.brusapa.com";
+        user = "bruno";
+        forwardAgent = true;
+      };
+      "venus" = {
+        hostname = "venus.brusapa.com";
         user = "bruno";
         forwardAgent = true;
       };
