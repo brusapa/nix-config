@@ -25,7 +25,10 @@ in {
       "vboxusers"
       "wheel"
     ];
-    openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/bruno/ssh.pub);
+    openssh.authorizedKeys.keyFiles = [
+      ../../../../home/bruno/ssh.pub 
+      ../../../../home/bruno/ssh-gpg.pub
+    ];
     home = "/home/bruno";
     createHome = true;
     shell = pkgs.fish;

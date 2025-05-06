@@ -22,7 +22,7 @@
     ];
   };
 
-  programs.ssh.startAgent = true;
+  programs.ssh.startAgent = false;
 
   # Allow sudo through ssh agent (RSSH)
   security.pam = {

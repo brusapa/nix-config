@@ -3,6 +3,7 @@
 {
   imports = [
     ./locale.nix
+    ./gpg-agent.nix
     ./openssh.nix
     ./nix-ld.nix
   ];

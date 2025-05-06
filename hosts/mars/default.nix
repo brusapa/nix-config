@@ -76,7 +76,7 @@
   '';
 
   # Enable Wake On Lan
-  networking.interfaces.enp7s0.wakeOnLan.enable = true;
+  networking.interfaces.enp5s0.wakeOnLan.enable = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
