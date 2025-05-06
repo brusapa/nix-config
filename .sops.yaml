@@ -6,11 +6,13 @@ keys:
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
-      - age:
+      - pgp:
         - *bruno
+        age:
         - *venus
   - path_regex: hosts/venus/secrets.ya?ml$
     key_groups:
-      - age:
+      - pgp:
         - *bruno
+        age:
         - *venus
