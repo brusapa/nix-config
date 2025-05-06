@@ -11,6 +11,13 @@
        signByDefault = true;
        key = "BD6743DAE6ABDF36";
     };
+    extraConfig = {
+      init.defaultBranch = "master";
+      # Merge on pull conflicts
+      pull.rebase = false;
+      # Automatically track remote branch
+      push.autoSetupRemote = true;
+    };
   };
 
   programs.lazygit = {
