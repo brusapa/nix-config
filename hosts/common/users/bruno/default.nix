@@ -14,6 +14,7 @@ in {
     description = "Bruno";
     uid = 1000;
     extraGroups = ifGroupExist [
+      "users"
       "docker"
       "dialout"
       "gamemode"

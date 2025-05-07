@@ -6,26 +6,38 @@
     ../../../../modules/samba.nix
   ];
 
+  sops.secrets.bruno-smb-password = {
+    file = "../../secrets.yaml";
+  };
+
+  sops.templates."bruno-smb-credentials" = {
+    content = ''
+      username=bruno;
+      password=${sops.secrets.bruno-smb-password};
+    '';
+    owner = "bruno";
+  };
+
   # SMB NAS Home Bruno
-  fileSystems."/home/bruno/NAS/home" = {
-    device = "//nas.rex-eagle.ts.net/home";
+  fileSystems."${config.users.users.bruno.home}/NAS/home" = {
+    device = "//nas.brusapa.com/home";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
 
-    in ["${automount_opts},credentials=${config.users.users.bruno.home}/.smb-secrets,uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
+    in ["${automount_opts},credentials=${config.sops.templates."bruno-smb-credentials".path},uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
   };
 
   # SMB NAS Casa Bruno
-  fileSystems."/home/bruno/NAS/casa" = {
-    device = "//nas.rex-eagle.ts.net/casa";
+  fileSystems."${config.users.users.bruno.home}/NAS/casa" = {
+    device = "//nas.brusapa.com/casa";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
 
-    in ["${automount_opts},credentials=${config.users.users.bruno.home}/.smb-secrets,uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
+    in ["${automount_opts},credentials=${config.sops.templates."bruno-smb-credentials".path},uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
   };
 
 }

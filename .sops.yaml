@@ -2,6 +2,7 @@ keys:
   - &users:
     - &bruno 1D7C28419079D3FED5DFF21CBD6743DAE6ABDF36
   - &hosts:
+    - &mars age14lqjdh9v8x52hh4308xes87g3c5hrzuqrtpe2eq6qm8qpcz5r4dqlh7wm3
     - &venus age1zu50xpy6clr58sjs2nyw2rqtq52j4fcuft0pv0wdcepumyanya2sqdxzc8
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
@@ -9,7 +10,14 @@ creation_rules:
       - pgp:
         - *bruno
         age:
+        - *mars
         - *venus
+  - path_regex: hosts/mars/secrets.ya?ml$
+    key_groups:
+      - pgp:
+        - *bruno
+        age:
+        - *mars
   - path_regex: hosts/venus/secrets.ya?ml$
     key_groups:
       - pgp:

@@ -10,9 +10,11 @@ in {
   users.users.gurenda = {
     isNormalUser = true;
     description = "Gurenda";
+    uid = 1001;
     home = "/home/gurenda";
     createHome = true;
     extraGroups = ifGroupExist [
+      "users"
       "lp"
       "scanner"
     ];
