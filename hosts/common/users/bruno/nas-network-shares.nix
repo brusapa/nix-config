@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
+{ config, ... }:
 
 {
 
@@ -7,37 +7,37 @@
   ];
 
   sops.secrets.bruno-smb-password = {
-    file = "../../secrets.yaml";
+    sopsFile = ../../secrets.yaml;
   };
 
-  sops.templates."bruno-smb-credentials" = {
+  sops.templates."bruno-cifs-credentials" = {
     content = ''
-      username=bruno;
-      password=${sops.secrets.bruno-smb-password};
+      username=bruno
+      password=${config.sops.placeholder.bruno-smb-password}
     '';
     owner = "bruno";
   };
 
   # SMB NAS Home Bruno
-  fileSystems."${config.users.users.bruno.home}/NAS/home" = {
+  fileSystems."/home/bruno/NAS/home" = {
     device = "//nas.brusapa.com/home";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
 
-    in ["${automount_opts},credentials=${config.sops.templates."bruno-smb-credentials".path},uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
+    in ["${automount_opts},credentials=${config.sops.templates."bruno-cifs-credentials".path},uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
   };
 
   # SMB NAS Casa Bruno
-  fileSystems."${config.users.users.bruno.home}/NAS/casa" = {
+  fileSystems."/home/bruno/NAS/casa" = {
     device = "//nas.brusapa.com/casa";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
 
-    in ["${automount_opts},credentials=${config.sops.templates."bruno-smb-credentials".path},uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
+    in ["${automount_opts},credentials=${config.sops.templates."bruno-cifs-credentials".path},uid=${toString config.users.users.bruno.uid},gid=${toString config.users.groups.users.gid}"];
   };
 
 }
