@@ -9,7 +9,7 @@ in {
   users.users.gurenda = {
     isNormalUser = true;
     description = "Gurenda";
-    hashedPasswordFile = config.sops.gurenda-hashed-password.path;
+    hashedPasswordFile = config.sops.secrets.gurenda-hashed-password.path;
     uid = 1001;
     home = "/home/gurenda";
     createHome = true;
