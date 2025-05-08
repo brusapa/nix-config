@@ -6,9 +6,7 @@
     ../../../../modules/samba.nix
   ];
 
-  sops.secrets.bruno-smb-password = {
-    sopsFile = ../../secrets.yaml;
-  };
+  sops.secrets.bruno-smb-password = { };
 
   sops.templates."bruno-cifs-credentials" = {
     content = ''

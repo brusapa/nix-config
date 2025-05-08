@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -29,6 +29,9 @@
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", TAG+="uaccess", MODE="0666"
     '';
   };
+
+  # Make the default user needs to input password to use sudo
+  #security.sudo.wheelNeedsPassword = true;
 
   networking.hostName = "wsl";
 

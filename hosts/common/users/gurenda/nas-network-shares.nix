@@ -6,9 +6,7 @@
     ../../../../modules/samba.nix
   ];
 
-  sops.secrets.gurenda-smb-password = {
-    sopsFile = ../../secrets.yaml;
-  };
+  sops.secrets.gurenda-smb-password = {};
 
   sops.templates."gurenda-cifs-credentials" = {
     content = ''

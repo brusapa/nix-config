@@ -4,6 +4,7 @@ keys:
   - &hosts:
     - &mars age14lqjdh9v8x52hh4308xes87g3c5hrzuqrtpe2eq6qm8qpcz5r4dqlh7wm3
     - &venus age1zu50xpy6clr58sjs2nyw2rqtq52j4fcuft0pv0wdcepumyanya2sqdxzc8
+    - &wsl age1lwjvyhr3drv8p2jarzj553g3wk94wzmfn00ymxp8tdmp5d9s9g8svrhv7u
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
@@ -12,6 +13,7 @@ creation_rules:
         age:
         - *mars
         - *venus
+        - *wsl
   - path_regex: hosts/mars/secrets.ya?ml$
     key_groups:
       - pgp:
@@ -24,3 +26,10 @@ creation_rules:
         - *bruno
         age:
         - *venus
+  - path_regex: hosts/wsl/secrets.ya?ml$
+    key_groups:
+      - pgp:
+        - *bruno
+        age:
+        - *wsl
+

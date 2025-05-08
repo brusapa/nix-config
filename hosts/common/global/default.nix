@@ -7,6 +7,7 @@
     ./openssh.nix
     ./nix-ld.nix
     ./sops.nix
+    ../users
   ];
 
   # Enable experimental features

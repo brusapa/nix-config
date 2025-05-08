@@ -1,17 +1,16 @@
 {
-  lib,
   config,
   pkgs,
   ...
 }: let
   ifGroupExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.groups.users.gid = 100;
+  sops.secrets.bruno-hashed-password.neededForUsers = true;
 
   users.users.bruno = {
     isNormalUser = true;
     description = "Bruno";
+    hashedPasswordFile = config.sops.secrets.bruno-hashed-password.path;
     uid = 1000;
     extraGroups = ifGroupExist [
       "users"
