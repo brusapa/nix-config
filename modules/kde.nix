@@ -12,6 +12,13 @@
       layout = "es";
       variant = "";
     };
+    # Being on SDDM before login for 300 seconds turns off the monitor
+    displayManager.setupCommands = ''
+      ${pkgs.xorg.xset}/bin/xset +dpms
+      ${pkgs.xorg.xset}/bin/xset dpms 0 0 300
+      ${pkgs.xorg.xset}/bin/xset s on
+      ${pkgs.xorg.xset}/bin/xset s 300 300
+    '';
   };
 
   environment.systemPackages = with pkgs; [
