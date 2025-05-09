@@ -25,6 +25,7 @@
     pinentry-qt
     orca-slicer
     cryptomator
+    gimp
   ];
 
 }
