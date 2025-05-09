@@ -4,6 +4,7 @@
 
   imports = [
     ./firefox.nix
+    ./autofirma.nix
     ./chromium.nix
     ./remmina.nix
     ./virt-manager.nix
