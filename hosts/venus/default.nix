@@ -9,6 +9,8 @@
     ../../modules/sops-nix.nix
     ../../modules/tailscale.nix
     ../../modules/docker.nix
+    # Selfhosted
+    ./services/torrent.nix
   ];
 
 
