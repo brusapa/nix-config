@@ -1,6 +1,10 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
+  imports = [
+    inputs.vpn-confinement.nixosModules.default 
+  ];
+
   # Create a group for the torrent service
   users.groups.torrent.gid = 3000;
 
@@ -19,7 +23,28 @@
   };
   # optional, but ensures rpc-statsd is running for on demand mounting
   boot.supportedFilesystems = [ "nfs" ];
+  
+  # Define VPN network namespace
+  sops.secrets.torrent-wireguard-config = {
+    sopsFile = ../secrets.yaml;
+  };
 
+  vpnNamespaces.wg = {
+    enable = true;
+    wireguardConfigFile = config.sops.secrets.torrent-wireguard-config.path;
+    accessibleFrom = [
+      "10.80.0.0/24"
+    ];
+    portMappings = [
+      { from = 9091; to = 9091; }
+    ];
+  };
+
+  # Add systemd service to VPN network namespace
+  systemd.services.transmission.vpnConfinement = {
+    enable = true;
+    vpnNamespace = "wg";
+  };
 
   services.transmission = {
     enable = true;
