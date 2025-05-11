@@ -24,6 +24,8 @@ in {
       "scanner"
       "vboxusers"
       "wheel"
+      "torrent"
+      "multimedia"
     ];
     openssh.authorizedKeys.keyFiles = [
       ../../../../home/bruno/ssh.pub 

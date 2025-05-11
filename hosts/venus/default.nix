@@ -10,6 +10,7 @@
     ../../modules/docker.nix
     # Selfhosted
     ./services/torrent.nix
+    ./services/jellyfin.nix
   ];
 
 
