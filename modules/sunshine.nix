@@ -57,9 +57,11 @@ in
           pipe_path.parent.mkdir(parents=True, exist_ok=True)
           pipe_path.unlink(missing_ok=True)
           os.mkfifo(pipe_path, 0o600)
+          steam_env = os.environ.copy()
+          steam_env["QT_QPA_PLATFORM"] = "wayland"
           while True:
               with pipe_path.open(encoding='utf-8') as pipe:
-                  subprocess.Popen(['steam', pipe.read().strip()])
+                  subprocess.Popen(['steam', pipe.read().strip()], env=steam_env)
       finally:
           pipe_path.unlink(missing_ok=True)
     '');
