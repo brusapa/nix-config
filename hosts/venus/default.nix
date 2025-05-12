@@ -6,7 +6,6 @@
     ./disko-config.nix
     ../common/global
     ../common/users/bruno
-    ../../modules/sops-nix.nix
     ../../modules/tailscale.nix
     ../../modules/docker.nix
   ];
