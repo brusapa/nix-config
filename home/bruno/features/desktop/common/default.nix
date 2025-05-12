@@ -27,6 +27,7 @@
     orca-slicer
     cryptomator
     gimp
+    moonlight-qt
   ];
 
 }
