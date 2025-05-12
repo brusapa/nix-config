@@ -8,8 +8,12 @@
   users.users.multimedia = {
     uid = 3001;
     group = "multimedia";
-    isSystemUser = true;
-    createHome = false;
+    isNormalUser = true;
+    #createHome = false;
+    extraGroups = [
+      "video"
+      "render"
+    ];
   };
 
   # Mount the NFS share for multimedia
@@ -20,21 +24,27 @@
   # optional, but ensures rpc-statsd is running for on demand mounting
   boot.supportedFilesystems = [ "nfs" ];
 
-  # Enable HW acceleration for Jellyfin
+  # Enable HW acceleration for jellyfin
+  boot.kernelParams = [ 
+    "i915.force_probe=4680"
+    "i915.enable_guc=3"
+    "i915.disable_display=1"
+  ];
   systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      libva-vdpau-driver
-      intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
-      # OpenCL support for intel CPUs before 12th gen
-      # see: https://github.com/NixOS/nixpkgs/issues/356535
-      intel-compute-runtime-legacy1 
-      vpl-gpu-rt # QSV on 11th gen or newer
-      intel-ocl # OpenCL support
-    ];
+  hardware = {
+    enableAllFirmware = true;
+    intel-gpu-tools.enable = true;
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiVdpau
+        intel-compute-runtime
+        vpl-gpu-rt # QSV on 11th gen or newer
+        intel-ocl
+      ];
+    };
   };
 
 
