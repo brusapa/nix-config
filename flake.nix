@@ -82,6 +82,11 @@
     # NixOS configurations
     # Available through 'nixos-rebuild switch --flake .#hostname'
     nixosConfigurations = {
+      sun = makeNixosConfig {
+        hostname = "sun";
+        users = ["bruno" "gurenda"];
+      };
+
       mars = makeNixosConfig { 
         hostname = "mars";
         users = ["bruno" "gurenda"];
