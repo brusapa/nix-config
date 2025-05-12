@@ -84,7 +84,7 @@
     nixosConfigurations = {
       sun = makeNixosConfig {
         hostname = "sun";
-        users = ["bruno" "gurenda"];
+        users = ["bruno"];
       };
 
       mars = makeNixosConfig { 
