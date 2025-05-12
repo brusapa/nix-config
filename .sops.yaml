@@ -2,7 +2,7 @@ keys:
   - &users:
     - &bruno 1D7C28419079D3FED5DFF21CBD6743DAE6ABDF36
   - &hosts:
-    - &sun age1nygqqrxty69p2cwsja84z8cva43v6l4acjawtufl2u46epqwj3kq2ns440
+    - &sun age1uac49mthsp8vy8aeus5p00p55eeqvc24tpty7uru2dav9vl54gqsltp2y3
     - &mars age14lqjdh9v8x52hh4308xes87g3c5hrzuqrtpe2eq6qm8qpcz5r4dqlh7wm3
     - &mercury age1wyeym84q5xcpv3a2fq09nw68fvuqv6s47a3uvamcellx836r7usqwyrhre
     - &venus age1zu50xpy6clr58sjs2nyw2rqtq52j4fcuft0pv0wdcepumyanya2sqdxzc8
