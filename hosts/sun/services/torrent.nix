@@ -18,7 +18,7 @@
     sopsFile = ../secrets.yaml;
   };
 
-  vpnNamespaces.downloads = {
+  vpnNamespaces.downl = {
     enable = true;
     wireguardConfigFile = config.sops.secrets.torrent-wireguard-config.path;
     accessibleFrom = [
@@ -32,7 +32,7 @@
   # Add systemd service to VPN network namespace
   systemd.services.transmission.vpnConfinement = {
     enable = true;
-    vpnNamespace = "downloads";
+    vpnNamespace = "downl";
   };
 
   services.transmission = {

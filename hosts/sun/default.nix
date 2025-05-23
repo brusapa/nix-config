@@ -9,6 +9,7 @@
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
     ./services/jellyfin.nix
+    ./services/torrent.nix
   ];
 
   # Bootloader.
