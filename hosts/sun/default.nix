@@ -32,8 +32,13 @@
   boot.zfs.forceImportRoot = false;
   services.zfs.autoScrub.enable = true;
 
-  fileSystems."/mnt/zstorage" = {
-    device = "zstorage";
+  fileSystems."/mnt/torrent" = {
+    device = "zstorage/torrent";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/multimedia" = {
+    device = "zstorage/multimedia";
     fsType = "zfs";
   };
 
