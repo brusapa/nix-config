@@ -67,60 +67,6 @@
           };
         };
       };
-      hdd1 = {
-        type = "disk";
-        device = "/dev/disk/by-id/ata-ST4000VN006-3CW104_ZW63GKXX";
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "zroot";
-              };
-            };
-          };
-        };
-      };
-      hdd2 = {
-        type = "disk";
-        device = "/dev/disk/by-id/ata-ST4000VN006-3CW104_ZW63GZK3";
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "zroot";
-              };
-            };
-          };
-        };
-      };
-    };
-    zpool = {
-      zstorage = {
-        type = "zpool";
-        mode = "mirror";
-        # Workaround: cannot import 'zstorage': I/O error in disko tests
-        options.cachefile = "none";
-        rootFsOptions = {
-          compression = "zstd";
-          "com.sun:auto-snapshot" = "false";
-        };
-        mountpoint = "/mnt/storage";
-        postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zstorage@blank$' || zfs snapshot zstorage@blank";
-
-        datasets = {
-          multimedia = {
-            type = "zfs_fs";
-            mountpoint = "/mnt/storage/multimedia";
-            options."com.sun:auto-snapshot" = "true";
-          };
-        };
-      };
     };
   };
 }
