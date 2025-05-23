@@ -15,11 +15,13 @@ in {
     extraGroups = ifGroupExist [
       "users"
       "docker"
+      "downloads"
       "dialout"
       "gamemode"
       "input"
       "libvirtd"
       "lp"
+      "multimedia"
       "networkmanager"
       "scanner"
       "vboxusers"

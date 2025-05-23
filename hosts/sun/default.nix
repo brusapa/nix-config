@@ -8,6 +8,7 @@
     ../common/users/bruno
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
+    ./services/jellyfin.nix
   ];
 
   # Bootloader.
