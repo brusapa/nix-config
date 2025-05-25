@@ -1,8 +1,6 @@
 { inputs, lib, pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-
   imports = [
     inputs.plasma-manager.homeManagerModules.plasma-manager
   ];

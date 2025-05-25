@@ -7,15 +7,15 @@
   ];
 
   # Enable printing service
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ 
+      pkgs.brlaser
+    ];
+  };
 
   environment.systemPackages = [ 
     pkgs.ghostscript
-  ];
-
-  # Manually add the driver for the Brother MFC-L2710DW printer
-  services.printing.drivers = [
-    pkgs.brlaser
   ];
 
   hardware.printers = {
@@ -24,7 +24,7 @@
         name = "Brother_Estudio";
         location = "Estudio";
         deviceUri = "lpd://10.80.0.80/binary_p1";
-        model = "drv:///brlaser.drv/brl2710.ppd";
+        model = "drv:///brlaser.drv/brl2710w.ppd";
         ppdOptions = {
           PageSize = "A4";
         };
