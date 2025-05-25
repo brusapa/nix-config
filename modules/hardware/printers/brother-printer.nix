@@ -9,8 +9,10 @@
   # Enable printing service
   services.printing = {
     enable = true;
-    drivers = [ pkgs.brlaser ];
-    stateless = true;
+    drivers = [ 
+      pkgs.brlaser
+    ];
+    logLevel = "debug";
   };
 
   environment.systemPackages = [ 
@@ -23,7 +25,7 @@
         name = "Brother_Estudio";
         location = "Estudio";
         deviceUri = "lpd://10.80.0.80/binary_p1";
-        model = "drv:///brlaser.drv/brl2710.ppd";
+        model = "drv:///brlaser.drv/brl2710w.ppd";
         ppdOptions = {
           PageSize = "A4";
         };
