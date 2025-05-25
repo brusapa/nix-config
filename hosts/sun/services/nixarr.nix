@@ -56,6 +56,7 @@
     sabnzbd = {
       enable = true;
       vpn.enable = true;
+      openFirewall = true;
       whitelistHostnames = [
         "sun.brusapa.com"
         "usenet.brusapa.com"
