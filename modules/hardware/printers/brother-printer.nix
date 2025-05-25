@@ -12,7 +12,6 @@
     drivers = [ 
       pkgs.brlaser
     ];
-    logLevel = "debug";
   };
 
   environment.systemPackages = [ 
