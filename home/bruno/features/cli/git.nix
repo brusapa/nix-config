@@ -32,7 +32,7 @@
       git = {
         merging.manualCommit = true;
         autoFetch = false;
-        overrideGpg = true;
+        #overrideGpg = true;
         disableForcePushing = true;
       };
       update.method = "never";
