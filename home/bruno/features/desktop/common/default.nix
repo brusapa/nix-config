@@ -12,7 +12,7 @@
     ./default-applications.nix
     ./changeResolutionDesktopEntries.nix
     ./development
-    ./kicad.nix
+    #./kicad.nix # Long build time
     ./obs-studio.nix
   ];
 
@@ -21,7 +21,6 @@
     jetbrains-mono
     bitwarden-desktop
     veracrypt
-    microsoft-edge
     obsidian
     pinentry-qt
     orca-slicer

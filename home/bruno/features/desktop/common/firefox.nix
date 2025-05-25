@@ -8,12 +8,12 @@
       id = 0;
       search = {
         force = true;
-        default = "Google";
-        privateDefault = "Google";
-        order = ["Google" "DuckDuckGo"];
+        default = "google";
+        privateDefault = "google";
+        order = ["google"];
       };
       bookmarks = {};
-      extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+      extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
         bitwarden
         raindropio
