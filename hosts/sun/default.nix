@@ -12,6 +12,7 @@
     #./services/download-vpn.nix
     #./services/torrent.nix
     #./services/usenet.nix
+    ./services/caddy.nix
     ./services/nixarr.nix
   ];
 
