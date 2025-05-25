@@ -35,6 +35,7 @@
     # WARNING: Do _not_ set them to `/home/user/whatever`, it will not work!
     mediaDir = "/data/multimedia";
     stateDir = "/data/media/.state/nixarr";
+    mediaUsers = [ "bruno" ];
 
     vpn = {
       enable = true;
@@ -47,17 +48,28 @@
 
     transmission = {
       enable = true;
+      extraAllowedIps = [ "10.80.0.* " ];
       vpn.enable = true;
       peerPort = 50000; # Set this to the port forwarded by your VPN
+    };
+
+    sabnzbd = {
+      enable = true;
+      vpn.enable = true;
+      whitelistHostnames = [
+        "sun.brusapa.com"
+        "usenet.brusapa.com"
+      ];
+      whitelistRanges = [
+        "10.80.0.0/24"
+      ];
     };
 
     # It is possible for this module to run the *Arrs through a VPN, but it
     # is generally not recommended, as it can cause rate-limiting issues.
     bazarr.enable = true;
-    lidarr.enable = true;
     prowlarr.enable = true;
     radarr.enable = true;
-    readarr.enable = true;
     sonarr.enable = true;
     jellyseerr.enable = true;
   };
