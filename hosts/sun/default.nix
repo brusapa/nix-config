@@ -8,10 +8,6 @@
     ../common/users/bruno
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
-    #./services/jellyfin.nix
-    #./services/download-vpn.nix
-    #./services/torrent.nix
-    #./services/usenet.nix
     ./services/caddy.nix
     ./services/nixarr.nix
   ];
