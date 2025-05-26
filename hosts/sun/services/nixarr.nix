@@ -48,8 +48,11 @@
 
     transmission = {
       enable = true;
-      extraAllowedIps = [ "10.80.0.* " ];
+      extraAllowedIps = [
+        "10.80.0.* "
+      ];
       vpn.enable = true;
+      openFirewall = true;
       peerPort = 56258; # Set this to the port forwarded by your VPN
     };
 
@@ -75,7 +78,7 @@
     jellyseerr.enable = true;
   };
 
-  services.jacket.enable = true;
+  services.jackett.enable = true;
   services.caddy.virtualHosts."jackett.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:9117
   '';
