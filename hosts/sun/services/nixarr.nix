@@ -74,4 +74,9 @@
     sonarr.enable = true;
     jellyseerr.enable = true;
   };
+
+  services.jacket.enable = true;
+  services.caddy.virtualHosts."jackett.brusapa.com".extraConfig = ''
+    reverse_proxy http://127.0.0.1:9117
+  '';
 }
