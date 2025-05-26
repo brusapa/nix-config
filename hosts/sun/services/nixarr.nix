@@ -33,7 +33,7 @@
     # These two values are also the default, but you can set them to whatever
     # else you want
     # WARNING: Do _not_ set them to `/home/user/whatever`, it will not work!
-    mediaDir = "/data/multimedia";
+    mediaDir = "/mnt/multimedia";
     stateDir = "/data/media/.state/nixarr";
     mediaUsers = [ "bruno" ];
 
@@ -58,11 +58,11 @@
       vpn.enable = true;
       openFirewall = true;
       whitelistHostnames = [
-        "sun.brusapa.com"
         "usenet.brusapa.com"
       ];
       whitelistRanges = [
         "10.80.0.0/24"
+        "192.168.0.0/16"
       ];
     };
 
