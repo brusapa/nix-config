@@ -5,11 +5,6 @@
     inputs.nixarr.nixosModules.default
   ];
 
-  # Define VPN network namespace
-  sops.secrets.torrent-wireguard-config = {
-    sopsFile = ../secrets.yaml;
-  };
-
   # Enable HW acceleration for jellyfin
   systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
@@ -25,6 +20,27 @@
         vpl-gpu-rt # QSV on 11th gen or newer
         intel-ocl
       ];
+    };
+  };
+
+  # Import the needed secrets
+  sops = {
+    secrets = {
+      torrent-wireguard-config = {
+        sopsFile = ../secrets.yaml;
+      };
+      transmission-rpc-password = {
+        sopsFile = ../secrets.yaml;
+      };
+    };
+    templates."transmission-credentials" = {
+      content = ''
+        {
+          "rpc-username": "bruno",
+          "rpc-password": "${config.sops.placeholder.transmission-rpc-password}"
+        }
+      '';
+      owner = "torrent";
     };
   };
 
