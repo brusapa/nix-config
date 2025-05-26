@@ -40,7 +40,7 @@
           "rpc-password": "${config.sops.placeholder.transmission-rpc-password}"
         }
       '';
-      owner = "torrent";
+      owner = "torrenter";
     };
   };
 
@@ -67,6 +67,10 @@
       extraAllowedIps = [
         "10.80.0.* "
       ];
+      credentialsFile = config.sops.templates."transmission-credentials".path;
+      extraSettings = {
+        rpc-authentication-required = true;
+      };
       vpn.enable = true;
       openFirewall = true;
       peerPort = 56258; # Set this to the port forwarded by your VPN
