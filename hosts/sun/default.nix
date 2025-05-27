@@ -11,6 +11,7 @@
     ./services/postfix.nix
     ./services/caddy.nix
     ./services/nixarr.nix
+    ./services/vaultwarden.nix
   ];
 
   # Bootloader.
