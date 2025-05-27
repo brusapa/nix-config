@@ -5,26 +5,23 @@
     secrets = {
       "vaultwarden/smtp-from-email" = {
         sopsFile = ../secrets.yaml;
-        owner = config.services.vaultwarden.user;
       };
       "vaultwarden/admin-token" = {
         sopsFile = ../secrets.yaml;
-        owner = config.services.vaultwarden.user;
       };
     };
     templates."vaultwarden-secrets.env" = {
       content = ''
-        ADMIN_TOKEN=${config.sops.placeholder.vaultwarden-admin-token}
-        SMTP_FROM=${config.sops.placeholder.vaultwarden-smtp-from-email}
+        ADMIN_TOKEN=${config.sops.placeholder."vaultwarden/admin-token"}
+        SMTP_FROM=${config.sops.placeholder."vaultwarden/smtp-from-email"}
       '';
-      owner = config.services.vaultwarden.user;
     };
   };
 
   services.vaultwarden = {
     enable = true;
     config = {
-      DOMAIN = "https://passwords.brusapa.com";
+      DOMAIN = "https://bitwarden.brusapa.com";
       SIGNUPS_ALLOWED = false;
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = 8222;
@@ -37,7 +34,8 @@
     environmentFile = config.sops.templates."vaultwarden-secrets.env".path;
   };
 
-  services.caddy.virtualHosts."passwords.brusapa.com".extraConfig = ''
+  services.caddy.virtualHosts."bitwarden.brusapa.com".extraConfig = ''
+    reverse_proxy /notifications/hub http://127.0.0.1:3012
     reverse_proxy http://127.0.0.1:8222
   '';
 }
