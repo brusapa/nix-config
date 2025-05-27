@@ -2,13 +2,15 @@
 {
 
   # Import the needed secrets
-  sops.secrets = {
-    "postfix/sasl_passwd" = {
-      sopsFile = ../secrets.yaml;
-      owner = config.services.postfix.user;
-    };
-    root-email-alias = {
-      sopsFile = ../secrets.yaml;
+  sops = {
+    secrets = {
+      "postfix/sasl_passwd" = {
+        sopsFile = ../secrets.yaml;
+        owner = config.services.postfix.user;
+      };
+      root-email-alias = {
+        sopsFile = ../secrets.yaml;
+      };
     };
     templates."postfix-secrets.env" = {
       content = ''
