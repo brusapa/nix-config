@@ -8,6 +8,7 @@
     ../common/users/bruno
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
+    ./services/postfix.nix
     ./services/caddy.nix
     ./services/nixarr.nix
   ];
