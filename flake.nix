@@ -100,12 +100,7 @@
         hostname = "mercury";
         users = ["bruno" "gurenda"];
       };
-
-      venus = makeNixosConfig {
-        hostname = "venus";
-        users = ["bruno"];
-      };
-
+      
       wsl = makeNixosConfig { 
         hostname = "wsl";
         users = ["bruno"];
