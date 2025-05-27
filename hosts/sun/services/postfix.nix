@@ -1,4 +1,4 @@
-{ config, ... }:
+{ lib, config, ... }:
 {
 
   # Import the needed secrets
@@ -12,21 +12,14 @@
         sopsFile = ../secrets.yaml;
       };
     };
-    templates."postfix-secrets.env" = {
+    templates."postfix-aliases" = {
       content = ''
-        ROOT_EMAIL_ALIAS="${config.sops.placeholder.root-email-alias}"
+        postmaster: root
+        root: ${config.sops.placeholder.root-email-alias}
       '';
-      owner = config.services.postfix.user;
-    };
-    templates."root-alias" = {
-      content = ''
-        root: "${config.sops.placeholder.root-email-alias}"
-      '';
-      owner = config.services.postfix.user;
+      mode = "0444";
     };
   };
-
-  systemd.services.postfix.serviceConfig.EnvironmentFile = config.sops.templates."postfix-secrets.env".path;
 
   services.postfix = {
     enable = true;
@@ -37,8 +30,7 @@
       smtp_sasl_auth_enable = "yes";
       smtp_sasl_security_options = "";
       smtp_sasl_password_maps = "texthash:${config.sops.secrets."postfix/sasl_passwd".path}";
-      virtual_alias_maps = "hash:${config.sops.templates."root-alias".path}";
     };
-    aliasFiles."root-alias" = config.sops.templates."root-alias".path;
+    aliasFiles.aliases = lib.mkForce config.sops.templates."postfix-aliases".path;
   };
 }
