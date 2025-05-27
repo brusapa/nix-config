@@ -22,7 +22,6 @@
     bitwarden-desktop
     veracrypt
     obsidian
-    pinentry-qt
     orca-slicer
     cryptomator
     gimp

@@ -3,7 +3,6 @@
 {
 
   environment.systemPackages = with pkgs; [
-    xboxdrv # X-Box controller
     mangohud # FPS counter
     lutris
     bottles
