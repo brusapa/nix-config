@@ -1,13 +1,28 @@
-{ ... }:
+{ config, ... }:
 {
+
   # Import the needed secrets
-  sops.secrets."postfix/sasl_passwd" = {
-    sopsFile = ../secrets.yaml;
-    owner = config.services.postfix.user;
+  sops.secrets = {
+    "postfix/sasl_passwd" = {
+      sopsFile = ../secrets.yaml;
+      owner = config.services.postfix.user;
+    };
+    root-email-alias = {
+      sopsFile = ../secrets.yaml;
+    };
+    templates."postfix-secrets.env" = {
+      content = ''
+        ROOT_EMAIL_ALIAS="${config.sops.placeholder.root-email-alias}"
+      '';
+      owner = config.services.postfix.user;
+    };
   };
+
+  systemd.services.postfix.serviceConfig.EnvironmentFile = config.sops.templates."postfix-secrets.env".path;
+
   services.postfix = {
     enable = true;
-    #rootAlias = "";
+    rootAlias = "{env.ROOT_EMAIL_ALIAS}";
     relayHost = "smtp.eu.mailgun.org";
     relayPort = 587;
     config = {
