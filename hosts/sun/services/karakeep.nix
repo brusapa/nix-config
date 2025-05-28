@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   # Import the needed secrets
   sops = {
@@ -17,12 +17,17 @@
   services.karakeep = {
     enable = true;
     extraEnvironment = {
-      PORT = 3000;
+      PORT = "3000";
       NEXTAUTH_URL = "https://karakeep.brusapa.com";
       DISABLE_NEW_RELEASE_CHECK = "true";
       OCR_LANGS = "eng,spa";
     };
     environmentFile = config.sops.templates."karakeep-secrets.env".path;
+  };
+
+  services.meilisearch = {
+    enable = true;
+    package = pkgs.meilisearch;
   };
 
   services.caddy.virtualHosts."karakeep.brusapa.com".extraConfig = ''

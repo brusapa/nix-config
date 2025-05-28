@@ -12,6 +12,7 @@
     ./services/caddy.nix
     ./services/nixarr.nix
     ./services/vaultwarden.nix
+    ./services/karakeep.nix
   ];
 
   # Bootloader.
