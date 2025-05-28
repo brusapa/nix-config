@@ -13,6 +13,7 @@
     ./services/nixarr.nix
     ./services/vaultwarden.nix
     ./services/karakeep.nix
+    ./services/homeassistant.nix
   ];
 
   # Bootloader.
