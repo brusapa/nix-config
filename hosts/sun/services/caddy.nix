@@ -32,29 +32,11 @@
       email {env.CF_EMAIL}
       acme_dns cloudflare {env.CF_API_TOKEN}
     '';
-    virtualHosts."jellyfin.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:8096
+    virtualHosts."router.brusapa.com".extraConfig = ''
+      reverse_proxy https://10.80.0.1
     '';
-    virtualHosts."torrent.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:9091
-    '';
-    virtualHosts."usenet.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:8080
-    '';
-    virtualHosts."radarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:7878
-    '';
-    virtualHosts."sonarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:8989
-    '';
-    virtualHosts."bazarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:6767
-    '';
-    virtualHosts."prowlarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:9696
-    '';
-    virtualHosts."jellyserr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:5055
+    virtualHosts."ender.brusapa.com".extraConfig = ''
+      reverse_proxy http://10.80.0.3
     '';
   };
 
