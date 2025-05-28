@@ -33,10 +33,11 @@
       acme_dns cloudflare {env.CF_API_TOKEN}
     '';
     virtualHosts."router.brusapa.com".extraConfig = ''
-      reverse_proxy 10.80.0.1:443
-      transport http {
-        tls
-        tls_insecure_skip_verify
+      reverse_proxy 10.80.0.1:443 {
+        transport http {
+          tls
+          tls_insecure_skip_verify
+        }
       }
     '';
     virtualHosts."ender.brusapa.com".extraConfig = ''
