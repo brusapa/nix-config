@@ -98,7 +98,17 @@
     jellyseerr.enable = true;
   };
 
-  services.jackett.enable = true;
+  services.jackett.enable = false;
+  virtualisation.oci-containers = {
+    containers.jackett = {
+      volumes = [ "jackett:/config" ];
+      environment.TZ = "Europe/Madrid";
+      environment.AUTO_UPDATE = true;
+      # Note: The image will not be updated on rebuilds, unless the version label changes
+      image = "lscr.io/linuxserver/jackett:latest";
+      ports = [ "9117:9117" ];
+    };
+  };
   services.caddy.virtualHosts."jackett.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:9117
   '';
