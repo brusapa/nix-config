@@ -59,13 +59,21 @@
   networking = {
     hostName = "sun";
     hostId = "696795a0";
-    interfaces.enp8s0.ipv4.addresses = [ {
+    interfaces.enp9s0.ipv4.addresses = [ {
       address = "10.80.0.15";
       prefixLength = 24;
     } ];
     defaultGateway = "10.80.0.1";
     nameservers = [ "10.80.0.1" ];
   };
+
+  # Allow VsCode SSH remote connections
+  programs.nix-ld.enable = true;
+
+  # Nvidia
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;  # see the note above
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
