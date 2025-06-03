@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   virtualisation.oci-containers = {
     backend = "podman";
@@ -50,4 +50,43 @@
     reverse_proxy http://127.0.0.1:8081
   '';
   networking.firewall.allowedTCPPorts = [ 8081 8123 ];
+
+  nixpkgs =  {
+    # Set ctranslate2 cuda support
+    overlays = [
+      (final: prev: {
+        ctranslate2 = prev.ctranslate2.override {
+          withCUDA = true;
+          withCuDNN = true;
+        };
+      })
+    ];
+  };
+
+  nix.settings = {
+    substituters = [ "https://nix-community.cachix.org"];
+    trusted-public-keys = [
+      # Compare to the key published at https://nix-community.org/cache
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    python3Packages.pytorch-bin
+    whisper-ctranslate2
+  ];
+
+  services.wyoming.faster-whisper.servers.homeassistant = {
+    enable = true;
+    device = "cuda";
+    uri = "tcp://0.0.0.0:10300";
+    model = "medium";
+    language = "es";
+  };
+  services.wyoming.piper.servers.homeassistant = {
+    enable = true;
+    voice = "es_ES-mls_10246-low";
+    uri = "tcp://0.0.0.0:10200";
+  };
+
 }

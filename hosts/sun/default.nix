@@ -14,6 +14,7 @@
     ./services/vaultwarden.nix
     ./services/karakeep.nix
     ./services/homeassistant.nix
+    ./services/ollama.nix
   ];
 
   # Bootloader.
