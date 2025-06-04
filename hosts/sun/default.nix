@@ -17,6 +17,7 @@
     ./services/karakeep.nix
     ./services/homeassistant.nix
     ./services/ollama.nix
+    ./services/webdav.nix
   ];
 
   # Bootloader.

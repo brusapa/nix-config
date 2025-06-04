@@ -1,24 +1,49 @@
-{ ... }:
+{ config, ... }:
 {
+  # Import the needed secrets
+  sops = {
+    secrets = {
+      obsidian-personal-password = {
+        sopsFile = ../secrets.yaml;
+      };
+      obsidian-work-password = {
+        sopsFile = ../secrets.yaml;
+      };
+    };
+    templates."webdav-secrets.env" = {
+      content = ''
+        OBSIDIAN_PERSONAL_PASSWORD="${config.sops.placeholder.obsidian-personal-password}"
+        OBSIDIAN_WORK_PASSWORD="${config.sops.placeholder.obsidian-work-password}"
+      '';
+    };
+  };
+
   services.webdav = {
     enable = true;
-    address = "127.0.0.1";
-    port = 8989;
-    behindProxy = true;
-    path = "/var/lib/webdav";
-    users = [
-      {
-        username = "obsidian-personal";
-        password = "{env}OBSIDIAN_PERSONAL_PASSWORD";
-        permissions = "CRUD";
-        directory = "/var/lib/webdav/obsidian-personal";
-      },
-      {
-        username = "obsidian-work";
-        password = "{env}OBSIDIAN_WORK_PASSWORD";
-        permissions = "CRUD";
-        directory = "/var/lib/webdav/obsidian-work";
-      }
-    ];
+    settings = {
+      address = "127.0.0.1";
+      port = 8989;
+      behindProxy = true;
+      path = "/var/lib/webdav";
+      users = [
+        {
+          username = "obsidian-personal";
+          password = "{env}OBSIDIAN_PERSONAL_PASSWORD";
+          permissions = "CRUD";
+          directory = "/var/lib/webdav/obsidian-personal";
+        },
+        {
+          username = "obsidian-work";
+          password = "{env}OBSIDIAN_WORK_PASSWORD";
+          permissions = "CRUD";
+          directory = "/var/lib/webdav/obsidian-work";
+        }
+      ];
+    };
+    environmentFile = config.sops.templates."webdav-secrets.env".path;
   };
+
+  services.caddy.virtualHosts."webdav.brusapa.com".extraConfig = ''
+    reverse_proxy http://127.0.0.1:8989
+  '';
 }
