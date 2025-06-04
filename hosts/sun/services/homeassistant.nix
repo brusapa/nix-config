@@ -43,6 +43,14 @@
     };
   };
 
+  # Glances for homeassistant monitoring of the server
+  services.glances = {
+    enable = true;
+  };
+  services.caddy.virtualHosts."glances.brusapa.com".extraConfig = ''
+    reverse_proxy http://127.0.0.1:61208
+  '';
+
   services.caddy.virtualHosts."casa.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:8123
   '';
