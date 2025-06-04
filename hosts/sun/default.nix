@@ -6,8 +6,10 @@
     ./disko-config.nix
     ../common/global
     ../common/users/bruno
+    ../common/users/gurenda
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
+    ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
     ./services/nixarr.nix
@@ -38,13 +40,18 @@
   boot.zfs.forceImportRoot = false;
   services.zfs.autoScrub.enable = true;
 
-  fileSystems."/mnt/torrent" = {
-    device = "zstorage/torrent";
+  fileSystems."/mnt/multimedia" = {
+    device = "zstorage/multimedia";
     fsType = "zfs";
   };
 
-  fileSystems."/mnt/multimedia" = {
-    device = "zstorage/multimedia";
+  fileSystems."/mnt/users" = {
+    device = "zstorage/users";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/backups" = {
+    device = "zstorage/backups";
     fsType = "zfs";
   };
 
