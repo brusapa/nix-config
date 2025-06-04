@@ -3,17 +3,17 @@
   # Import the needed secrets
   sops = {
     secrets = {
-      obsidian-personal-password = {
+      "webdav/obsidian-personal-password" = {
         sopsFile = ../secrets.yaml;
       };
-      obsidian-work-password = {
+      "webdav/obsidian-work-password" = {
         sopsFile = ../secrets.yaml;
       };
     };
     templates."webdav-secrets.env" = {
       content = ''
-        OBSIDIAN_PERSONAL_PASSWORD="${config.sops.placeholder.obsidian-personal-password}"
-        OBSIDIAN_WORK_PASSWORD="${config.sops.placeholder.obsidian-work-password}"
+        OBSIDIAN_PERSONAL_PASSWORD=${config.sops.placeholder."webdav/obsidian-personal-password"}
+        OBSIDIAN_WORK_PASSWORD=${config.sops.placeholder."webdav/obsidian-work-password"}
       '';
     };
   };
@@ -22,7 +22,7 @@
     enable = true;
     settings = {
       address = "127.0.0.1";
-      port = 8989;
+      port = 48989;
       behindProxy = true;
       path = "/var/lib/webdav";
       users = [
@@ -31,7 +31,7 @@
           password = "{env}OBSIDIAN_PERSONAL_PASSWORD";
           permissions = "CRUD";
           directory = "/var/lib/webdav/obsidian-personal";
-        },
+        }
         {
           username = "obsidian-work";
           password = "{env}OBSIDIAN_WORK_PASSWORD";
@@ -44,6 +44,6 @@
   };
 
   services.caddy.virtualHosts."webdav.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:8989
+    reverse_proxy http://127.0.0.1:48989
   '';
 }
