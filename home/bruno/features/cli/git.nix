@@ -17,6 +17,8 @@
       pull.rebase = false;
       # Automatically track remote branch
       push.autoSetupRemote = true;
+      # Fetch removed upstream branches
+      fetch.prune = true;
     };
   };
 
