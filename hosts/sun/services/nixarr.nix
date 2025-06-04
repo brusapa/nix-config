@@ -98,8 +98,47 @@
     jellyseerr.enable = true;
   };
 
-  services.jackett.enable = true;
-  services.caddy.virtualHosts."jackett.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:9117
-  '';
+  services.jackett = {
+    enable = true;
+    openFirewall = true;
+  };
+  vpnnamespaces.wg = {
+    portMappings = [{
+      from = 9117;
+      to = 9117;
+    }];
+  };
+  systemd.services.jackett.vpnconfinement = {
+    enable = true;
+    vpnnamespace = "wg";
+  };
+  services.caddy.virtualHosts = {
+    "jellyfin.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:8096
+    '';
+    "torrent.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:9091
+    '';
+    "usenet.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:8080
+    '';
+    "radarr.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:7878
+    '';
+    "sonarr.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:8989
+    '';
+    "bazarr.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:6767
+    '';
+    "prowlarr.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:9696
+    '';
+    "jellyserr.brusapa.com".extraConfig = ''
+      reverse_proxy http://127.0.0.1:5055
+    '';
+    "jackett.brusapa.com".extraConfig = ''
+      reverse_proxy http://192.168.15.1:9117
+    '';
+  };
 }

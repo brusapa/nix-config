@@ -6,13 +6,18 @@
     ./disko-config.nix
     ../common/global
     ../common/users/bruno
+    ../common/users/gurenda
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
+    ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
     ./services/nixarr.nix
     ./services/vaultwarden.nix
     ./services/karakeep.nix
+    ./services/homeassistant.nix
+    ./services/ollama.nix
+    ./services/webdav.nix
   ];
 
   # Bootloader.
@@ -52,13 +57,18 @@
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
-  fileSystems."/mnt/torrent" = {
-    device = "zstorage/torrent";
+  fileSystems."/mnt/multimedia" = {
+    device = "zstorage/multimedia";
     fsType = "zfs";
   };
 
-  fileSystems."/mnt/multimedia" = {
-    device = "zstorage/multimedia";
+  fileSystems."/mnt/users" = {
+    device = "zstorage/users";
+    fsType = "zfs";
+  };
+
+  fileSystems."/mnt/backups" = {
+    device = "zstorage/backups";
     fsType = "zfs";
   };
 
@@ -74,13 +84,21 @@
   networking = {
     hostName = "sun";
     hostId = "696795a0";
-    interfaces.enp8s0.ipv4.addresses = [ {
+    interfaces.enp9s0.ipv4.addresses = [ {
       address = "10.80.0.15";
       prefixLength = 24;
     } ];
     defaultGateway = "10.80.0.1";
     nameservers = [ "10.80.0.1" ];
   };
+
+  # Allow VsCode SSH remote connections
+  programs.nix-ld.enable = true;
+
+  # Nvidia
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;  # see the note above
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
