@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   virtualisation.oci-containers = {
     backend = "podman";
@@ -43,6 +43,14 @@
     };
   };
 
+  # Glances for homeassistant monitoring of the server
+  services.glances = {
+    enable = true;
+  };
+  services.caddy.virtualHosts."glances.brusapa.com".extraConfig = ''
+    reverse_proxy http://127.0.0.1:61208
+  '';
+
   services.caddy.virtualHosts."casa.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:8123
   '';
@@ -50,4 +58,35 @@
     reverse_proxy http://127.0.0.1:8081
   '';
   networking.firewall.allowedTCPPorts = [ 8081 8123 ];
+
+  nixpkgs =  {
+    # Set ctranslate2 cuda support
+    overlays = [
+      (final: prev: {
+        ctranslate2 = prev.ctranslate2.override {
+          withCUDA = true;
+          withCuDNN = true;
+        };
+      })
+    ];
+  };
+
+  #  environment.systemPackages = with pkgs; [
+  #    python3Packages.pytorch-bin
+  #  whisper-ctranslate2
+  #];
+
+  #services.wyoming.faster-whisper.servers.homeassistant = {
+  #  enable = true;
+  #  device = "cuda";
+  #  uri = "tcp://0.0.0.0:10300";
+  #  model = "medium";
+  #  language = "es";
+  #};
+  #services.wyoming.piper.servers.homeassistant = {
+  #  enable = true;
+  #  voice = "es_ES-mls_10246-low";
+  #  uri = "tcp://0.0.0.0:10200";
+  #};
+
 }

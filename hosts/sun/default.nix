@@ -6,17 +6,21 @@
     ./disko-config.nix
     ../common/global
     ../common/users/bruno
+    ../common/users/gurenda
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
+    ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
     ./services/nixarr.nix
     ./services/vaultwarden.nix
     ./services/karakeep.nix
     ./services/homeassistant.nix
+    #./services/ollama.nix
+    ./services/webdav.nix
   ];
 
-  # Bootloader.
+  # Bootloader
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
@@ -35,17 +39,23 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/disk/by-id";
   boot.zfs.forceImportRoot = false;
+  boot.zfs.extraPools = [ "zstorage" ];
   services.zfs.autoScrub.enable = true;
+  services.zfs.zed.settings = {
+    ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+    ZED_EMAIL_ADDR = [ "root" ];
+    ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
+    ZED_EMAIL_OPTS = "@ADDRESS@";
 
-  fileSystems."/mnt/torrent" = {
-    device = "zstorage/torrent";
-    fsType = "zfs";
+    ZED_NOTIFY_INTERVAL_SECS = 3600;
+    ZED_NOTIFY_VERBOSE = true;
+
+    ZED_USE_ENCLOSURE_LEDS = true;
+    ZED_SCRUB_AFTER_RESILVER = true;
   };
 
-  fileSystems."/mnt/multimedia" = {
-    device = "zstorage/multimedia";
-    fsType = "zfs";
-  };
+  # Power management
+  powerManagement.powertop.enable = true;
 
   # Prevent suspension/hybernation
   systemd.sleep.extraConfig = ''
@@ -59,13 +69,21 @@
   networking = {
     hostName = "sun";
     hostId = "696795a0";
-    interfaces.enp8s0.ipv4.addresses = [ {
+    interfaces.enp7s0.ipv4.addresses = [ {
       address = "10.80.0.15";
       prefixLength = 24;
     } ];
     defaultGateway = "10.80.0.1";
     nameservers = [ "10.80.0.1" ];
   };
+
+  # Allow VsCode SSH remote connections
+  programs.nix-ld.enable = true;
+
+  # Nvidia
+  #  hardware.graphics.enable = true;
+  #  services.xserver.videoDrivers = [ "nvidia" ];
+  #  hardware.nvidia.open = true;  # see the note above
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -23,6 +23,7 @@
 
   services.postfix = {
     enable = true;
+    setSendmail = false;
     relayHost = "smtp.eu.mailgun.org";
     relayPort = 587;
     config = {
@@ -32,5 +33,22 @@
       smtp_sasl_password_maps = "texthash:${config.sops.secrets."postfix/sasl_passwd".path}";
     };
     aliasFiles.aliases = lib.mkForce config.sops.templates."postfix-aliases".path;
+  };
+
+  programs.msmtp = {
+    enable = true;
+    setSendmail = true;
+    defaults = {
+      aliases = config.sops.templates."postfix-aliases".path;
+      port = 25;
+      tls = false;
+    };
+    accounts = {
+      default = {
+        auth = false;
+        host = "127.0.0.1";
+        from = "sun@brusapa.com";
+      };
+    };
   };
 }

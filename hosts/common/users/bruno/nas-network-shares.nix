@@ -18,7 +18,7 @@
 
   # SMB NAS Home Bruno
   fileSystems."/home/bruno/NAS/home" = {
-    device = "//nas.brusapa.com/home";
+    device = "//sun.brusapa.com/bruno";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
@@ -29,7 +29,7 @@
 
   # SMB NAS Casa Bruno
   fileSystems."/home/bruno/NAS/casa" = {
-    device = "//nas.brusapa.com/casa";
+    device = "//sun.brusapa.com/casa";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
