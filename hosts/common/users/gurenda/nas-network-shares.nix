@@ -18,7 +18,7 @@
 
   # SMB NAS Home Gurenda
   fileSystems."/home/gurenda/NAS/home" = {
-    device = "//nas.brusapa.com/home";
+    device = "//sun.brusapa.com/gurenda";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
@@ -29,7 +29,7 @@
 
   # SMB NAS Casa Gurenda
   fileSystems."/home/gurenda/NAS/casa" = {
-    device = "//nas.brusapa.com/casa";
+    device = "//sun.brusapa.com/casa";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
