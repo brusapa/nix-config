@@ -49,7 +49,7 @@
     # These two values are also the default, but you can set them to whatever
     # else you want
     # WARNING: Do _not_ set them to `/home/user/whatever`, it will not work!
-    mediaDir = "/mnt/multimedia";
+    mediaDir = "/zstorage/media";
     stateDir = "/data/media/.state/nixarr";
     mediaUsers = [ "bruno" ];
 
@@ -102,7 +102,7 @@
     enable = true;
     openFirewall = true;
   };
-  vpnnamespaces.wg = {
+  vpnNamespaces.wg = {
     portMappings = [{
       from = 9117;
       to = 9117;
