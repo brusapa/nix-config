@@ -71,30 +71,22 @@
     ];
   };
 
-  nix.settings = {
-    substituters = [ "https://nix-community.cachix.org"];
-    trusted-public-keys = [
-      # Compare to the key published at https://nix-community.org/cache
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
+  #  environment.systemPackages = with pkgs; [
+  #    python3Packages.pytorch-bin
+  #  whisper-ctranslate2
+  #];
 
-  environment.systemPackages = with pkgs; [
-    python3Packages.pytorch-bin
-    whisper-ctranslate2
-  ];
-
-  services.wyoming.faster-whisper.servers.homeassistant = {
-    enable = true;
-    device = "cuda";
-    uri = "tcp://0.0.0.0:10300";
-    model = "medium";
-    language = "es";
-  };
-  services.wyoming.piper.servers.homeassistant = {
-    enable = true;
-    voice = "es_ES-mls_10246-low";
-    uri = "tcp://0.0.0.0:10200";
-  };
+  #services.wyoming.faster-whisper.servers.homeassistant = {
+  #  enable = true;
+  #  device = "cuda";
+  #  uri = "tcp://0.0.0.0:10300";
+  #  model = "medium";
+  #  language = "es";
+  #};
+  #services.wyoming.piper.servers.homeassistant = {
+  #  enable = true;
+  #  voice = "es_ES-mls_10246-low";
+  #  uri = "tcp://0.0.0.0:10200";
+  #};
 
 }
