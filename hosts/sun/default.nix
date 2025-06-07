@@ -18,6 +18,7 @@
     ./services/homeassistant.nix
     #./services/ollama.nix
     ./services/webdav.nix
+    ./services/userdata.nix
   ];
 
   environment.systemPackages = [
