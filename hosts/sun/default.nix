@@ -20,6 +20,10 @@
     ./services/webdav.nix
   ];
 
+  environment.systemPackages = [
+    pkgs.e2fsprogs
+  ];
+
   # Bootloader
   boot.loader = {
     systemd-boot.enable = true;
@@ -54,8 +58,18 @@
     ZED_SCRUB_AFTER_RESILVER = true;
   };
 
+  # Mount internal backup disk
+  environment.etc."crypttab".text = ''
+    cryptbackup /dev/disk/by-id/nvme-CT4000P3SSD8_2336E8744EB7-part1 /root/internalBackup.key
+  '';
+  fileSystems."/mnt/internalBackup".device = "/dev/mapper/cryptbackup";
+
   # Power management
-  powerManagement.powertop.enable = true;
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "powersave";
+    powertop.enable = true;
+  };
 
   # Prevent suspension/hybernation
   systemd.sleep.extraConfig = ''
