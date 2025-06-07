@@ -16,7 +16,6 @@
       extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
         bitwarden
-        raindropio
       ];
       settings = {
         /*** [SECTION 0100]: STARTUP ***/
