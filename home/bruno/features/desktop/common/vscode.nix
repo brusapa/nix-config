@@ -15,7 +15,6 @@
         github.copilot
         github.copilot-chat
         yzhang.markdown-all-in-one
-        ms-vscode-remote.vscode-remote-extensionpack
         # Better configuration files support
         tamasfe.even-better-toml
         redhat.vscode-xml
@@ -38,6 +37,8 @@
         ms-python.debugpy
         # Rust
         rust-lang.rust-analyzer
+        # Remote development extensions
+        ms-vscode-remote.remote-ssh
       ];
       userSettings = {
         "workbench.colorTheme" = "Default Light Modern";
