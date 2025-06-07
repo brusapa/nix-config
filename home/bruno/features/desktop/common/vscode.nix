@@ -42,6 +42,7 @@
       ];
       userSettings = {
         "workbench.colorTheme" = "Default Light Modern";
+        "workbench.startupEditor" = "none";
         "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Droid Sans Mono', 'monospace'";
         "editor.renderWhitespace" = "all";
         "editor.minimap.enabled" = false;
