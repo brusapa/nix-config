@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
 
   # Import the needed secrets
