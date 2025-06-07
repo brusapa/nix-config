@@ -19,6 +19,7 @@
     #./services/ollama.nix
     ./services/webdav.nix
     ./services/userdata.nix
+    ./services/immich.nix
   ];
 
   environment.systemPackages = [
