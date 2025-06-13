@@ -72,7 +72,6 @@
         rpc-authentication-required = true;
       };
       vpn.enable = true;
-      openFirewall = true;
       peerPort = 56258; # Set this to the port forwarded by your VPN
     };
 
@@ -86,6 +85,7 @@
       whitelistRanges = [
         "10.80.0.0/24"
         "192.168.0.0/16"
+        "192.168.15.0/24"
       ];
     };
 
@@ -100,7 +100,6 @@
 
   services.jackett = {
     enable = true;
-    openFirewall = true;
   };
   vpnNamespaces.wg = {
     portMappings = [{
@@ -114,28 +113,28 @@
   };
   services.caddy.virtualHosts = {
     "jellyfin.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:8096
+      reverse_proxy http://localhost:8096
     '';
     "torrent.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:9091
+      reverse_proxy http://localhost:9091
     '';
     "usenet.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:8080
+      reverse_proxy http://192.168.15.1:8080
     '';
     "radarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:7878
+      reverse_proxy http://localhost:7878
     '';
     "sonarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:8989
+      reverse_proxy http://localhost:8989
     '';
     "bazarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:6767
+      reverse_proxy http://localhost:6767
     '';
     "prowlarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:9696
+      reverse_proxy http://localhost:9696
     '';
     "jellyserr.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:5055
+      reverse_proxy http://localhost:5055
     '';
     "jackett.brusapa.com".extraConfig = ''
       reverse_proxy http://192.168.15.1:9117
