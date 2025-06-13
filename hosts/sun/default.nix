@@ -20,6 +20,7 @@
     ./services/webdav.nix
     ./services/userdata.nix
     ./services/immich.nix
+    ./services/paperless.nix
   ];
 
   environment.systemPackages = [
