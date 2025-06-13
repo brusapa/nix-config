@@ -18,6 +18,7 @@ in {
       "downloads"
       "dialout"
       "gamemode"
+      "immich"
       "input"
       "libvirtd"
       "lp"

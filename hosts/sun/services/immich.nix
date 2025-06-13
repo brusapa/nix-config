@@ -7,6 +7,11 @@
       server = {
         externalDomain = "https://fotos.brusapa.com";
       };
+      storageTemplate = {
+        enabled = true;
+        hashVerificationEnabled = true;
+        template = "{{y}}/{{#if album}}{{album}}{{else}}Other{{/if}}/{{filename}}";
+      };
       notifications = {
         smtp = {
           enabled = true;
