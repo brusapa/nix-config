@@ -14,7 +14,7 @@
     enable = true;
     dataDir = "/zstorage/paperless";
     settings = {
-      PAPERLESS_OCR_LANGUAGE = "spa";
+      PAPERLESS_OCR_LANGUAGE = "spa+eus+eng";
       PAPERLESS_URL = "https://documentos.brusapa.com";
     };
     passwordFile = config.sops.secrets.paperless-admin-password.path;
