@@ -28,7 +28,39 @@
     ];
   };
 
+  # Reverse proxy
   services.caddy.virtualHosts."fotos.brusapa.com".extraConfig = ''
     reverse_proxy http://localhost:2283
   '';
+
+  # Backups
+  services.restic.backups.immich = {
+    repository = "/mnt/internalBackup/immich";
+    initialize = true;
+
+    backupPrepareCommand = writeShellScript "immich-backup-prepare" ''
+      systemctl stop immich-server.service immich-machine-learning.service
+      sudo -u postgres pg_dump immich > /zstorage/photos/database-backup/immich.sql
+      systemctl start immich-server.service immich-machine-learning.service
+    '';
+
+    paths = [ 
+      "/zstorage/photos" 
+    ];
+
+    exclude = [
+      "/backups"
+      "/encoded-video"
+    ];
+
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-monthly 12"
+    ];
+  };
 }
