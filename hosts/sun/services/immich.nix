@@ -1,5 +1,14 @@
-{ ... }:
+{ config, ... }:
 {
+  # Import the needed secrets
+  sops = {
+    secrets = {
+      backup-password = {
+        sopsFile = ../secrets.yaml;
+      };
+    };
+  };
+
   services.immich = {
     enable = true;
     mediaLocation = "/zstorage/photos";
@@ -34,11 +43,13 @@
   '';
 
   # Backups
+  
   services.restic.backups.immich = {
     repository = "/mnt/internalBackup/immich";
+    passwordFile = config.sops.secrets.backup-password.path;
     initialize = true;
 
-    backupPrepareCommand = writeShellScript "immich-backup-prepare" ''
+    backupPrepareCommand = ''
       systemctl stop immich-server.service immich-machine-learning.service
       sudo -u postgres pg_dump immich > /zstorage/photos/database-backup/immich.sql
       systemctl start immich-server.service immich-machine-learning.service
