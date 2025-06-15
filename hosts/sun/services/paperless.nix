@@ -16,8 +16,8 @@
     };
     templates."paperless-secrets.env" = {
       content = ''
-        PAPERLESS_GMAIL_OAUTH_CLIENT_ID=${config.sops.placeholder."paperless/gmail-oauth-client-id"}
-        PAPERLESS_GMAIL_OAUTH_CLIENT_SECRET=${config.sops.placeholder."paperless/gmail-oauth-client-secret"}
+        PAPERLESS_GMAIL_OAUTH_CLIENT_ID="${config.sops.placeholder."paperless/gmail-oauth-client-id"}"
+        PAPERLESS_GMAIL_OAUTH_CLIENT_SECRET="${config.sops.placeholder."paperless/gmail-oauth-client-secret"}"
       '';
     };
   };
