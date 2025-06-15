@@ -22,6 +22,7 @@
     ./services/immich.nix
     ./services/paperless.nix
     ./services/apcupsd.nix
+    ./services/homebox.nix
   ];
 
   environment.systemPackages = [
