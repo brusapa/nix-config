@@ -21,6 +21,7 @@
     ./services/userdata.nix
     ./services/immich.nix
     ./services/paperless.nix
+    ./services/apcupsd.nix
   ];
 
   environment.systemPackages = [
