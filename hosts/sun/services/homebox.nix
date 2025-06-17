@@ -10,7 +10,7 @@
       HBOX_OPTIONS_CHECK_GITHUB_RELEASE = "false";
       HBOX_MODE = "production";
       HBOX_MAILER_HOST = "localhost";
-      HBOX_MAILER_PORT = 25;
+      HBOX_MAILER_PORT = "25";
       HBOX_MAILER_FROM = "cosas@brusapa.com";
     };
   };
