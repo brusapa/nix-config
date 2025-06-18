@@ -25,10 +25,6 @@
     ./services/homebox.nix
   ];
 
-  environment.systemPackages = [
-    pkgs.e2fsprogs
-  ];
-
   # Bootloader
   boot.loader = {
     systemd-boot.enable = true;
@@ -49,7 +45,10 @@
   boot.zfs.devNodes = "/dev/disk/by-id";
   boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "zstorage" ];
-  services.zfs.autoScrub.enable = true;
+  services.zfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+  };
   services.zfs.zed.settings = {
     ZED_DEBUG_LOG = "/tmp/zed.debug.log";
     ZED_EMAIL_ADDR = [ "root" ];
@@ -61,6 +60,14 @@
 
     ZED_USE_ENCLOSURE_LEDS = true;
     ZED_SCRUB_AFTER_RESILVER = true;
+  };
+
+  # SMART checks
+  services.smartd = {
+    enable = true;
+    notifications = {
+      mail.enable = true;
+    };
   };
 
   # Mount internal backup disk
