@@ -5,24 +5,6 @@
     inputs.nixarr.nixosModules.default
   ];
 
-  # Enable HW acceleration for jellyfin
-  systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
-  hardware = {
-    enableAllFirmware = true;
-    intel-gpu-tools.enable = true;
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        vaapiVdpau
-        intel-compute-runtime
-        vpl-gpu-rt # QSV on 11th gen or newer
-        intel-ocl
-      ];
-    };
-  };
-
   # Import the needed secrets
   sops = {
     secrets = {
@@ -40,7 +22,7 @@
           "rpc-password": "${config.sops.placeholder.transmission-rpc-password}"
         }
       '';
-      owner = "torrenter";
+      owner = config.util-nixarr.globals.transmission.user;
     };
   };
 
@@ -60,13 +42,12 @@
 
     jellyfin = {
       enable = true;
+      openFirewall = false;
     };
 
     transmission = {
       enable = true;
-      extraAllowedIps = [
-        "10.80.0.* "
-      ];
+      openFirewall = false;
       credentialsFile = config.sops.templates."transmission-credentials".path;
       extraSettings = {
         rpc-authentication-required = true;
@@ -78,24 +59,34 @@
     sabnzbd = {
       enable = true;
       vpn.enable = true;
-      openFirewall = true;
+      openFirewall = false;
       whitelistHostnames = [
         "usenet.brusapa.com"
-      ];
-      whitelistRanges = [
-        "10.80.0.0/24"
-        "192.168.0.0/16"
-        "192.168.15.0/24"
       ];
     };
 
     # It is possible for this module to run the *Arrs through a VPN, but it
     # is generally not recommended, as it can cause rate-limiting issues.
-    bazarr.enable = true;
-    prowlarr.enable = true;
-    radarr.enable = true;
-    sonarr.enable = true;
-    jellyseerr.enable = true;
+    bazarr = {
+      enable = true;
+      openFirewall = false;
+    };
+    prowlarr = {
+      enable = true;
+      openFirewall = false;
+    };
+    radarr = {
+      enable = true;
+      openFirewall = false;
+    };
+    sonarr = {
+      enable = true;
+      openFirewall = false;
+    };
+    jellyseerr = {
+      enable = true;
+      openFirewall = false;
+    };
   };
 
   services.jackett = {
@@ -119,7 +110,7 @@
       reverse_proxy http://localhost:9091
     '';
     "usenet.brusapa.com".extraConfig = ''
-      reverse_proxy http://192.168.15.1:8080
+      reverse_proxy http://localhost:6336
     '';
     "radarr.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:7878

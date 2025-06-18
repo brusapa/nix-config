@@ -46,7 +46,7 @@
 
   # Used to advertise the shares to windows hosts
   services.samba-wsdd = {
-    enable = true;
+    enable = false;
     openFirewall = true;
   };
 

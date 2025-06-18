@@ -50,14 +50,12 @@
   services.caddy.virtualHosts."glances.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:61208
   '';
-
   services.caddy.virtualHosts."casa.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:8123
   '';
   services.caddy.virtualHosts."zigbee2mqtt.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:8081
   '';
-  networking.firewall.allowedTCPPorts = [ 8081 8123 ];
 
   nixpkgs =  {
     # Set ctranslate2 cuda support
