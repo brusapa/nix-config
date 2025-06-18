@@ -54,8 +54,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
-
     nixarr.url = "github:rasmus-kirk/nixarr";
   };
 
@@ -68,7 +66,7 @@
     ];
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, vpn-confinement, nixarr, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, ... }:
   let
     makeNixosConfig = { hostname, users, system ? "x86_64-linux" }: 
     nixpkgs.lib.nixosSystem {
