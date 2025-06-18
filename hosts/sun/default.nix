@@ -9,6 +9,7 @@
     ../common/users/gurenda
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
+    ../../modules/intel-gpu-hw-acceleration.nix
     ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
