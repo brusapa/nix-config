@@ -22,11 +22,11 @@
         "valid users" = "bruno";
       };
       gurenda = {
-        path = "/ztorage/users/gurenda";
+        path = "/zstorage/users/gurenda";
         browseable = "yes";
-        "ready only" = "no";
+        "read only" = "no";
         "guest ok" = "no";
-        "valid users" = "bruno, gurenda";
+        "valid users" = "gurenda";
       };
       casa = {
         path = "/zstorage/users/casa";
