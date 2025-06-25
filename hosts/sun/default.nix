@@ -24,7 +24,13 @@
     ./services/paperless.nix
     ./services/apcupsd.nix
     ./services/homebox.nix
+    ./services/monitoring.nix
   ];
+
+  environment.systemPackages = [
+    pkgs.restic
+  ];
+
 
   # Bootloader
   boot.loader = {
