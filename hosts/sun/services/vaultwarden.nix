@@ -32,6 +32,7 @@
       SMTP_FROM_NAME = "Bitwarden server";
     };
     environmentFile = config.sops.templates."vaultwarden-secrets.env".path;
+    backupDir = "/mnt/internalBackup/vaultwarden";
   };
 
   services.caddy.virtualHosts."bitwarden.brusapa.com".extraConfig = ''
