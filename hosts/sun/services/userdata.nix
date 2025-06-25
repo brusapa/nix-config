@@ -29,4 +29,23 @@
     ];
   };
 
+  # Daily external backup
+  services.restic.backups.usersExternalBackup = {
+    repository = "/mnt/dailyBackupHdd";
+    passwordFile = config.sops.secrets.backup-password.path;
+    initialize = true;
+
+    paths = [ "/zstorage/users" ];
+
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-monthly 12"
+    ];
+  };
+
 }
