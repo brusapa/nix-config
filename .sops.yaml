@@ -5,7 +5,7 @@ keys:
     - &sun age1uac49mthsp8vy8aeus5p00p55eeqvc24tpty7uru2dav9vl54gqsltp2y3
     - &mars age14lqjdh9v8x52hh4308xes87g3c5hrzuqrtpe2eq6qm8qpcz5r4dqlh7wm3
     - &mercury age1wyeym84q5xcpv3a2fq09nw68fvuqv6s47a3uvamcellx836r7usqwyrhre
-    - &wsl age1lwjvyhr3drv8p2jarzj553g3wk94wzmfn00ymxp8tdmp5d9s9g8svrhv7u
+    - &wsl age1aa2wdywz3tw89jfu8xscyfryauq62pt85829ge8qptcey2u2tf0qrc574w
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
