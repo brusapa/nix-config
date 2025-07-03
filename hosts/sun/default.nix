@@ -17,9 +17,9 @@
     ./services/vaultwarden.nix
     ./services/karakeep.nix
     ./services/homeassistant.nix
-    #./services/ollama.nix
+    ./services/ollama.nix
     ./services/webdav.nix
-    ./services/userdata.nix
+    ./services/backups.nix
     ./services/immich.nix
     ./services/paperless.nix
     ./services/apcupsd.nix
@@ -77,6 +77,11 @@
     };
   };
 
+  # Backup userdata
+  backup.job.userdata.paths = [
+    "/zstorage/users"
+  ];
+
   # Mount internal backup disk
   environment.etc."crypttab".text = ''
     cryptbackup /dev/disk/by-id/nvme-CT4000P3SSD8_2336E8744EB7-part1 /root/internalBackup.key
@@ -102,7 +107,7 @@
   networking = {
     hostName = "sun";
     hostId = "696795a0";
-    interfaces.enp7s0.ipv4.addresses = [ {
+    interfaces.enp8s0.ipv4.addresses = [ {
       address = "10.80.0.15";
       prefixLength = 24;
     } ];
@@ -114,9 +119,9 @@
   programs.nix-ld.enable = true;
 
   # Nvidia
-  #  hardware.graphics.enable = true;
-  #  services.xserver.videoDrivers = [ "nvidia" ];
-  #  hardware.nvidia.open = true;  # see the note above
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;  # see the note above
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

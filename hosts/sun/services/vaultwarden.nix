@@ -32,11 +32,17 @@
       SMTP_FROM_NAME = "Bitwarden server";
     };
     environmentFile = config.sops.templates."vaultwarden-secrets.env".path;
-    backupDir = "/mnt/internalBackup/vaultwarden";
+    backupDir = "/zstorage/backups/vaultwarden";
   };
 
   services.caddy.virtualHosts."bitwarden.brusapa.com".extraConfig = ''
     reverse_proxy /notifications/hub http://127.0.0.1:3012
     reverse_proxy http://127.0.0.1:8222
   '';
+
+  backup.job.vaultwarden = {
+    paths = [
+      "/zstorage/backups/vaultwarden"
+    ];
+  };
 }

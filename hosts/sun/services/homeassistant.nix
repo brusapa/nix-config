@@ -6,6 +6,7 @@
     containers.homeassistant = {
       volumes = [ 
         "homeassistant:/config" 
+        "/zstorage/backups/home-assistant:/config/backups"
       ];
       environment.TZ = "Europe/Madrid";
       # Note: The image will not be updated on rebuilds, unless the version label changes
@@ -18,7 +19,7 @@
 
     containers.zigbee2mqtt = {
       volumes = [
-        "zigbee2mqtt:/app/data"
+        "/var/lib/home-assistant/zigbee2mqtt:/app/data"
       ];
       environment.TZ = "Europe/Madrid";
       # Note: The image will not be updated on rebuilds, unless the version label changes
@@ -30,7 +31,7 @@
 
     containers.mosquitto = {
       volumes = [
-        "mosquitto-config:/mosquitto/config" 
+        "/var/lib/home-assistant/mosquitto/config:/mosquitto/config" 
         "mosquitto-data:/mosquitto/data"
       ];
       environment.TZ = "Europe/Madrid";
@@ -57,6 +58,13 @@
     reverse_proxy http://127.0.0.1:8081
   '';
 
+  backup.job.home-assistant = {
+    paths = [
+      "/zstorage/backups/home-assistant"
+      "/var/lib/home-assistant/zigbee2mqtt"
+    ];
+  };
+
   nixpkgs =  {
     # Set ctranslate2 cuda support
     overlays = [
@@ -69,22 +77,22 @@
     ];
   };
 
-  #  environment.systemPackages = with pkgs; [
-  #    python3Packages.pytorch-bin
-  #  whisper-ctranslate2
-  #];
+  environment.systemPackages = with pkgs; [
+    python3Packages.pytorch-bin
+    whisper-ctranslate2
+  ];
 
-  #services.wyoming.faster-whisper.servers.homeassistant = {
-  #  enable = true;
-  #  device = "cuda";
-  #  uri = "tcp://0.0.0.0:10300";
-  #  model = "medium";
-  #  language = "es";
-  #};
-  #services.wyoming.piper.servers.homeassistant = {
-  #  enable = true;
-  #  voice = "es_ES-mls_10246-low";
-  #  uri = "tcp://0.0.0.0:10200";
-  #};
+  services.wyoming.faster-whisper.servers.homeassistant = {
+    enable = true;
+    device = "cuda";
+    uri = "tcp://0.0.0.0:10300";
+    model = "medium";
+    language = "es";
+  };
+  services.wyoming.piper.servers.homeassistant = {
+    enable = true;
+    voice = "es_ES-mls_10246-low";
+    uri = "tcp://0.0.0.0:10200";
+  };
 
 }

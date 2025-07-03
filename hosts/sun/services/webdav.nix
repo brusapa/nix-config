@@ -46,4 +46,11 @@
   services.caddy.virtualHosts."webdav.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:48989
   '';
+
+  backup.job.webdav = {
+    paths = [
+      "/var/lib/webdav/obsidian-personal"
+      "/var/lib/webdav/obsidian-work"
+    ];
+  };
 }

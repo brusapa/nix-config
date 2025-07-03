@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   # Import the needed secrets
   sops = {
@@ -43,35 +43,31 @@
   '';
 
   # Backups
-  
-  services.restic.backups.immich = {
-    repository = "/mnt/internalBackup/immich";
-    passwordFile = config.sops.secrets.backup-password.path;
-    initialize = true;
+  systemd.services.immich-db-backup = {
+    description = "Backup Immich DB safely";
+    serviceConfig = {
+      Type = "oneshot";
+      # This makes it run as postgres just for the pg_dump
+      ExecStart = [
+        "${pkgs.postgresql}/bin/pg_dump immich -f /zstorage/backups/immich-database/immich.sql"
+      ];
+      User = "postgres";
+    };
+  };
 
+  backup.job.immich = {
+    paths = [
+      "/zstorage/photos"
+      "/zstorage/backups/immich-database"
+    ];
+    exclude = [
+      "/zstorage/photos/backups"
+      "/zstorage/photos/encoded-video"
+    ];
     backupPrepareCommand = ''
       systemctl stop immich-server.service immich-machine-learning.service
-      sudo -u postgres pg_dump immich > /zstorage/photos/database-backup/immich.sql
+      systemctl start immich-db-backup.service
       systemctl start immich-server.service immich-machine-learning.service
     '';
-
-    paths = [ 
-      "/zstorage/photos" 
-    ];
-
-    exclude = [
-      "/backups"
-      "/encoded-video"
-    ];
-
-    timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true;
-    };
-
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-monthly 12"
-    ];
   };
 }
