@@ -42,7 +42,7 @@
 
     jellyfin = {
       enable = true;
-      openFirewall = false;
+      openFirewall = true;
     };
 
     transmission = {
