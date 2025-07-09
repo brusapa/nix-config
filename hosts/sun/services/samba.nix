@@ -38,8 +38,9 @@
       media = {
         path = "/zstorage/media";
         browseable = "yes";
-        "read only" = "yes";
+        "read only" = "no";
         "guest ok" = "no";
+        "valid users" = "bruno";
       };
     };
   };
