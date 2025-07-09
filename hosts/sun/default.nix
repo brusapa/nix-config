@@ -25,6 +25,7 @@
     ./services/apcupsd.nix
     ./services/homebox.nix
     ./services/monitoring.nix
+    ./services/aitas-backup.nix
   ];
 
   environment.systemPackages = [

@@ -1,5 +1,9 @@
-{ config, ...}:
+{ config, lib, ...}:
 {
+
+  # Create the ssh-login group
+  users.groups.ssh-login = { };
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
@@ -7,11 +11,16 @@
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
-      AllowUsers = ["bruno"];
+      AllowUsers = [ "bruno" "nas-aitas-backup" ];
+      AllowGroups = [ "ssh-login" ];
       AllowTcpForwarding = true;
       AllowAgentForwarding = true;
       StreamLocalBindUnlink = true;
     };
+    extraConfig = ''
+        Match User nas-aitas-backup
+            PasswordAuthentication yes
+     '';
     hostKeys = [
       {
         comment = "${config.networking.hostName}";
@@ -27,6 +36,9 @@
   # Allow sudo through ssh agent (RSSH)
   security.pam = {
     rssh.enable = true;
-    services.sudo.rssh = true;
+    services = {
+      sshd.unixAuth = lib.mkForce true; # Specific users password login
+      sudo.rssh = true; # Sudo over ssh
+    };
   };
 }

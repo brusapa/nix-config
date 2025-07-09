@@ -25,6 +25,7 @@ in {
       "multimedia"
       "networkmanager"
       "scanner"
+      "ssh-login"
       "vboxusers"
       "wheel"
     ];
