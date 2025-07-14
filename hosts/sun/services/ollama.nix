@@ -19,7 +19,7 @@
     };
   };
   services.caddy.virtualHosts."ollama.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:11434;
+    reverse_proxy http://localhost:11434
   '';
   services.caddy.virtualHosts."ai.brusapa.com".extraConfig = ''
     reverse_proxy http://localhost:11111
