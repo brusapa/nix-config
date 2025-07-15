@@ -4,7 +4,9 @@
   imports = [
     ./hardware-configuration.nix # Include the results of the hardware scan.
     inputs.nixos-hardware.nixosModules.common-hidpi
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-gpu-amd
@@ -53,30 +55,10 @@
   # Use latest kernel available
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Detect fans on Gigabyte Z690 motherboard
-  boot.kernelParams = [ "acpi_enforce_resources=lax" ];
-  boot.kernelModules = [ "coretemp" "it87" ];
-  boot.extraModprobeConfig = ''
-    options it87 force_id=0x8628
-  '';
-
-  # Cooler control
-  programs.coolercontrol.enable = true;
-  environment.etc.coolercontrol-config-file = {
-    target = "coolercontrol/config.toml";
-    mode = "0644";
-    source = ./coolercontrol-config.toml;
-  };
-
   networking.hostName = "mars"; # Define your hostname.
 
-  # Fix immediate wake up after suspend
-  services.udev.extraRules = ''
-    ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x8086" ATTR{device}=="0x7ae0" ATTR{power/wakeup}="disabled"
-  '';
-
-  # Enable Wake On Lan
-  networking.interfaces.enp5s0.wakeOnLan.enable = true;
+  # # Enable Wake On Lan
+  # networking.interfaces.enp5s0.wakeOnLan.enable = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
