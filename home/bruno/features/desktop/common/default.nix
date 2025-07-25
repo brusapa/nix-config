@@ -26,6 +26,7 @@
     cryptomator
     gimp
     moonlight-qt
+    ente-auth
   ];
 
 }
