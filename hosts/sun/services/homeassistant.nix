@@ -10,7 +10,7 @@
       ];
       environment.TZ = "Europe/Madrid";
       # Note: The image will not be updated on rebuilds, unless the version label changes
-      image = "ghcr.io/home-assistant/home-assistant:2025.5";
+      image = "ghcr.io/home-assistant/home-assistant:2025.7";
       extraOptions = [ 
         # Use the host network namespace for all sockets
         "--network=host"
@@ -26,6 +26,17 @@
       image = "ghcr.io/koenkk/zigbee2mqtt:2.3.0";
       ports = [ 
         "8081:8080" # Zigbee2MQTT web interface
+      ];
+    };
+
+    containers.zigbee2mqtt-trastero = {
+      volumes = [
+        "/var/lib/home-assistant/zigbee2mqtt-trastero:/app/data"
+      ];
+      environment.TZ = "Europe/Madrid";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.3.0";
+      ports = [
+        "8082:8080"
       ];
     };
 
@@ -57,11 +68,15 @@
   services.caddy.virtualHosts."zigbee2mqtt.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:8081
   '';
+  services.caddy.virtualHosts."zigbee2mqtt-trastero.brusapa.com".extraConfig = ''
+    reverse_proxy http://127.0.0.1:8082
+  '';
 
   backup.job.home-assistant = {
     paths = [
       "/zstorage/backups/home-assistant"
       "/var/lib/home-assistant/zigbee2mqtt"
+      "/var/lib/home-assistant/zigbee2mqtt-trastero"
     ];
   };
 

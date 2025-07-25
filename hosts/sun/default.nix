@@ -26,8 +26,10 @@
     ./services/homebox.nix
     ./services/monitoring.nix
     ./services/aitas-backup.nix
-    ./services/kimai.nix
     ./services/pangolin-client.nix
+    ./services/gatus.nix
+    ./services/ntfy.nix
+    ./services/rustdesk-server.nix
   ];
 
   environment.systemPackages = [
