@@ -27,6 +27,7 @@
     gimp
     moonlight-qt
     ente-auth
+    freecad-wayland
   ];
 
 }
