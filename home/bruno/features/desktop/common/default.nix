@@ -14,6 +14,7 @@
     ./development
     #./kicad.nix # Long build time
     ./obs-studio.nix
+    ./scrcpy.nix
   ];
 
   home.packages = with pkgs; [
