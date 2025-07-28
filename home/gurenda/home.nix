@@ -1,11 +1,16 @@
 { lib, pkgs, ... }:
 
 {
+  imports = [
+    ../common/autofirma.nix
+  ];
+
   home = {
     packages = with pkgs; [
       spotify
       bitwarden-desktop
       google-chrome
+      firefox
     ];
 
     language.base = "es_ES.UTF-8";
