@@ -39,6 +39,7 @@
         rust-lang.rust-analyzer
         # Remote development extensions
         ms-vscode-remote.remote-ssh
+        ms-vscode-remote.remote-containers
       ];
       userSettings = {
         "workbench.colorTheme" = "Default Light Modern";
@@ -48,6 +49,7 @@
         "editor.minimap.enabled" = false;
         "telemetry.feedback.enabled" = false;
         "telemetry.telemetryLevel" = "off";
+        "remote.SSH.useLocalServer" = false; # Fix SSH connection issues
       };
     };
   };
