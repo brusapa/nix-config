@@ -50,6 +50,9 @@
         "telemetry.feedback.enabled" = false;
         "telemetry.telemetryLevel" = "off";
         "remote.SSH.useLocalServer" = false; # Fix SSH connection issues
+        "remote.SSH.remotePlatform" = {
+          "sun" = "linux";
+        };
       };
     };
   };
