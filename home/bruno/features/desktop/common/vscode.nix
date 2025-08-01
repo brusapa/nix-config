@@ -12,8 +12,6 @@
         # General
         mkhl.direnv
         gruntfuggly.todo-tree
-        github.copilot
-        github.copilot-chat
         yzhang.markdown-all-in-one
         # Better configuration files support
         tamasfe.even-better-toml
