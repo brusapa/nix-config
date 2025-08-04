@@ -14,7 +14,6 @@
     ./development
     #./kicad.nix # Long build time
     ./obs-studio.nix
-    ./scrcpy.nix
   ];
 
   home.packages = with pkgs; [
@@ -29,6 +28,7 @@
     moonlight-qt
     ente-auth
     freecad-wayland
+    scrcpy
   ];
 
 }

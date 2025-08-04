@@ -33,6 +33,7 @@
     ../../modules/multimedia.nix
     ../../modules/development.nix
     ../../modules/quiet-boot.nix
+    ../../modules/localsend.nix
   ];
 
   # Create a swap file for hibernation.
