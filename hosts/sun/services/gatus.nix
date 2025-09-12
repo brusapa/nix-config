@@ -25,8 +25,27 @@
   };
 
   config = {
+    # Import the needed secrets
+    sops = {
+      secrets = {
+        "gatus/notification-email" = {
+          sopsFile = ../secrets.yaml;
+        };
+        "gatus/from-email" = {
+          sopsFile = ../secrets.yaml;
+        };
+      };
+      templates."gatus-secrets.env" = {
+        content = ''
+          NOTIFICATION_EMAIL=${config.sops.placeholder."gatus/notification-email"}
+          FROM_EMAIL=${config.sops.placeholder."gatus/from-email"}
+        '';
+      };
+    };
+
     services.gatus = {
       enable = true;
+      environmentFile = config.sops.templates."gatus-secrets.env".path;
       settings = {
         ui.dark-mode = false;
 
@@ -78,18 +97,22 @@
             (builtins.attrValues config.external-health-check.job);
 
         alerting.email = {
-          # TODO: Esto mejor como secreto
-          from = "gatus@brusapa.com";
+          from = "\${FROM_EMAIL}";
           host = "127.0.0.1";
           port = 25;
-          # TODO: Esto mejor como secreto
-          to = "brusapa@brusapa.com";
+          to = "\${NOTIFICATION_EMAIL}";
           default-alert = {
             description = "Health check failed";
             send-on-resolved = true;
             failure-threshold = 5;
             success-threshold = 5;
           };
+        };
+
+        storage = {
+          type = "sqlite";
+          path = "/var/lib/gatus/historic.db";
+          caching = true;
         };
       };
     };
