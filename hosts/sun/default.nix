@@ -24,12 +24,13 @@
     ./services/paperless.nix
     ./services/apcupsd.nix
     ./services/homebox.nix
-    ./services/monitoring.nix
+    #./services/monitoring.nix
     ./services/aitas-backup.nix
     ./services/pangolin-client.nix
     ./services/gatus.nix
     ./services/ntfy.nix
     ./services/rustdesk-server.nix
+    ./services/frigate-container.nix
   ];
 
   environment.systemPackages = [
