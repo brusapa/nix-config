@@ -41,7 +41,7 @@
       ];
       environment.TZ = "Europe/Madrid";
       # Note: The image will not be updated on rebuilds, unless the version label changes
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.3.0";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.6.1";
       ports = [ 
         "8081:8080" # Zigbee2MQTT web interface
       ];
@@ -52,7 +52,7 @@
         "/var/lib/home-assistant/zigbee2mqtt-trastero:/app/data"
       ];
       environment.TZ = "Europe/Madrid";
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.3.0";
+      image = "ghcr.io/koenkk/zigbee2mqtt:2.6.1";
       ports = [
         "8082:8080"
       ];
