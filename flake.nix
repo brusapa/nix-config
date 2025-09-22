@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     disko = {
       url = "github:nix-community/disko";
@@ -85,6 +86,8 @@
       ];
     };
   in {
+
+    overlays = import ./overlays {inherit inputs;};
 
     # NixOS configurations
     # Available through 'nixos-rebuild switch --flake .#hostname'

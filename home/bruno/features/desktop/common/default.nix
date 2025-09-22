@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, overlays, ... }:
 
 {
 
@@ -16,6 +16,8 @@
     ./obs-studio.nix
   ];
 
+  nixpkgs.overlays = [ overlays.unstable-packages ];
+
   home.packages = with pkgs; [
     spotify
     jetbrains-mono
@@ -29,6 +31,7 @@
     ente-auth
     freecad-wayland
     scrcpy
+    unstable.bambu-studio
   ];
 
 }
