@@ -118,6 +118,8 @@
     hostId = "696795a0";
   };
 
+  services.tailscale.useRoutingFeatures = "server";
+
   # Allow VsCode SSH remote connections
   programs.nix-ld.enable = true;
 
