@@ -9,6 +9,7 @@
     ./sops.nix
     ./nix-language-support.nix
     ../users
+    ../../../modules/flatpak.nix
   ];
 
   # Enable experimental features

@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
 
   imports = [
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
     ./firefox.nix
     ../../../../common/autofirma.nix
     ./chromium.nix
@@ -31,4 +32,7 @@
     scrcpy
   ];
 
+  services.flatpak.packages = [
+    "com.bambulab.BambuStudio"
+  ];
 }

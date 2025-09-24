@@ -61,6 +61,8 @@
       url = "github:brusapa/newt/fix1.2.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   nixConfig = {
@@ -72,7 +74,7 @@
     ];
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, pangolin-newt, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, pangolin-newt, nix-flatpak, ... }:
   let
     makeNixosConfig = { hostname, users, system ? "x86_64-linux" }: 
     nixpkgs.lib.nixosSystem {
