@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ inputs, pkgs, ... }: 
 
 {
   imports = [
@@ -16,6 +16,8 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  # Enable the usage of unstable packages
+  nixpkgs.overlays = [ inputs.self.overlays.unstable-packages ];
 
   hardware.enableRedistributableFirmware = true;
 
