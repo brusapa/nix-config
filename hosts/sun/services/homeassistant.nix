@@ -1,4 +1,20 @@
 { config, pkgs, ... }:
+let
+  vars = {
+    homeassistant = {
+      version = "2025.9";
+      port = 8123;
+    };
+    zigbee2mqtt = {
+      version = "2.6.1";
+      port = 8081;
+      trastero-port = 8082;
+    };
+    mosquitto = {
+      version = "2.0.21";
+    };
+  };
+in
 {
   # Import the needed secrets
   sops = {
@@ -25,10 +41,8 @@
         "/zstorage/backups/home-assistant:/config/backups"
       ];
       environment.TZ = "Europe/Madrid";
-      # Note: The image will not be updated on rebuilds, unless the version label changes
-      image = "ghcr.io/home-assistant/home-assistant:2025.9";
-      extraOptions = [ 
-        # Use the host network namespace for all sockets
+      image = "ghcr.io/home-assistant/home-assistant:${vars.homeassistant.version}";
+      extraOptions = [
         "--network=host"
       ];
     };
@@ -39,9 +53,9 @@
       ];
       environment.TZ = "Europe/Madrid";
       # Note: The image will not be updated on rebuilds, unless the version label changes
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.6.1";
+      image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
       ports = [ 
-        "8081:8080" # Zigbee2MQTT web interface
+        "${toString vars.zigbee2mqtt.port}:8080" # Zigbee2MQTT web interface
       ];
     };
 
@@ -50,9 +64,9 @@
         "/var/lib/home-assistant/zigbee2mqtt-trastero:/app/data"
       ];
       environment.TZ = "Europe/Madrid";
-      image = "ghcr.io/koenkk/zigbee2mqtt:2.6.1";
+      image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
       ports = [
-        "8082:8080"
+        "${toString vars.zigbee2mqtt.trastero-port}:8080"
       ];
     };
 
@@ -63,7 +77,7 @@
       ];
       environment.TZ = "Europe/Madrid";
       # Note: The image will not be updated on rebuilds, unless the version label changes
-      image = "eclipse-mosquitto:2.0.21";
+      image = "eclipse-mosquitto:${vars.mosquitto.version}";
       ports = [ 
         "1883:1883"
         "9001:9001"
@@ -109,24 +123,24 @@
   };
 
   services.caddy.virtualHosts."influxdb.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:8086
+    reverse_proxy http://localhost:${toString vars.homeassistant.port}
   '';
 
   services.caddy.virtualHosts."glances.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:61208
+    reverse_proxy http://127.0.0.1:${toString config.services.glances.port}
   '';
   services.caddy.virtualHosts."casa.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:8123
   '';
   services.caddy.virtualHosts."zigbee2mqtt.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:8081
+    reverse_proxy http://127.0.0.1:${toString vars.zigbee2mqtt.port}
   '';
   services.caddy.virtualHosts."zigbee2mqtt-trastero.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:8082
+    reverse_proxy http://127.0.0.1:${toString vars.zigbee2mqtt.trastero-port}
   '';
 
   services.caddy.virtualHosts."esphome.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:6052
+    reverse_proxy http://127.0.0.1:${toString config.services.esphome.port}
   '';
 
   backup.job.home-assistant = {
