@@ -7,7 +7,6 @@
     ./openssh.nix
     ./nix-ld.nix
     ./sops.nix
-    ./nix-language-support.nix
     ../users
   ];
 
@@ -51,4 +50,5 @@
   # Fish enables it by default, but takes a really long timetime.
   documentation.man.generateCaches = false;
 
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 }

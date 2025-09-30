@@ -9,5 +9,6 @@
     ./shell.nix
     ./ssh.nix
     ./nvf.nix
+    ./development.nix
   ];
 }

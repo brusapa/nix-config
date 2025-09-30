@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -7,7 +7,6 @@
     ./fancontrol.nix
     ./disko-config.nix
     ../../modules/secure-boot.nix
-    ../../modules/plymouth.nix
     ../../modules/hardware/yubikey.nix
     ../../modules/hardware/logitech.nix
     ../../modules/hardware/printers/brother-printer.nix
@@ -20,9 +19,6 @@
     ../../modules/kde.nix
     ../../modules/containers.nix
     ../../modules/libvirtd.nix
-    ../../modules/office.nix
-    ../../modules/multimedia.nix
-    ../../modules/development.nix
     ../../modules/flatpak.nix
   ];
 

@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -12,12 +12,10 @@
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     #./disko-config.nix
     ../../modules/secure-boot.nix
-    ../../modules/plymouth.nix
     ../../modules/hardware/logitech.nix
     ../../modules/hardware/yubikey.nix
     ../../modules/hardware/keychron.nix
     ../../modules/hardware/printers/brother-printer.nix
-    ../../modules/hardware/scarlett.nix
     ../common/global
     ../common/users/bruno
     ../common/users/bruno/nas-network-shares.nix
@@ -29,9 +27,6 @@
     ../../modules/libvirtd.nix
     ../../modules/gaming.nix
     ../../modules/sunshine.nix
-    ../../modules/office.nix
-    ../../modules/multimedia.nix
-    ../../modules/development.nix
     ../../modules/quiet-boot.nix
     ../../modules/localsend.nix
     ../../modules/flatpak.nix

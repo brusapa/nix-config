@@ -1,9 +1,9 @@
-{ inputs, lib, config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
   environment.systemPackages = with pkgs; [
-    pkgs.cifs-utils # For mount.cifs, required unless domain name resolution is not needed.
+    cifs-utils # For mount.cifs, required unless domain name resolution is not needed.
   ];
 
   # Allow samba through the firewall

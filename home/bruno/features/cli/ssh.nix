@@ -2,11 +2,6 @@
   programs.ssh = {
     enable = true;
     matchBlocks  = {
-      "nas" = {
-        hostname = "nas.brusapa.com";
-        user = "bruno";
-        forwardAgent = true;
-      };
       "sun" = {
         hostname = "sun.brusapa.com";
         user = "bruno";

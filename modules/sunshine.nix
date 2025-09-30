@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ pkgs, ... }:
 let
   # https://discourse.nixos.org/t/sunshine-self-hosted-game-stream/25608/24
   # Copied from: https://github.com/jhakonen/nixos-config/blob/3c3c2c78a678e40eccd01b9ae3be4dab55ec47f5/roles/nixos/sunshine.nix 

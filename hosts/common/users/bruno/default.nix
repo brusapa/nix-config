@@ -31,7 +31,6 @@ in {
       "wheel"
     ];
     openssh.authorizedKeys.keyFiles = [
-      ../../../../home/bruno/ssh.pub 
       ../../../../home/bruno/ssh-gpg.pub
     ];
     home = "/home/bruno";

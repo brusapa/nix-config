@@ -1,5 +1,5 @@
 { hostname, users }:
-{ config, lib, inputs, ... }:
+{ inputs, ... }:
 
 let 
   userModules = builtins.listToAttrs (builtins.map (user:

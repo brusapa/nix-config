@@ -1,9 +1,10 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
     inputs.plasma-manager.homeModules.plasma-manager
     ../common/autofirma.nix
+    ../common/libreoffice.nix
   ];
 
   home = {

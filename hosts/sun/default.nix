@@ -11,6 +11,7 @@
     ../../modules/secure-boot.nix
     ../../modules/intel-gpu-hw-acceleration.nix
     ../../modules/containers.nix
+    ../../modules/hardware/nvidia-gpu.nix
     ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
@@ -39,7 +40,6 @@
   environment.systemPackages = [
     pkgs.restic
   ];
-
 
   # Bootloader
   boot.loader = {
@@ -124,20 +124,6 @@
 
   # Allow VsCode SSH remote connections
   programs.nix-ld.enable = true;
-
-  # Nvidia
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
-  # CUDA cache
-  nix.settings = {
-    substituters = [
-      "https://nix-community.cachix.org"
-    ];
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
