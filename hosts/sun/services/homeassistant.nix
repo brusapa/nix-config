@@ -18,10 +18,8 @@
     };
   };
 
-  virtualisation.oci-containers = {
-    backend = "podman";
-
-    containers.homeassistant = {
+  virtualisation.oci-containers.containers = {
+    homeassistant = {
       volumes = [ 
         "homeassistant:/config" 
         "/zstorage/backups/home-assistant:/config/backups"
@@ -35,7 +33,7 @@
       ];
     };
 
-    containers.zigbee2mqtt = {
+    zigbee2mqtt = {
       volumes = [
         "/var/lib/home-assistant/zigbee2mqtt:/app/data"
       ];
@@ -47,7 +45,7 @@
       ];
     };
 
-    containers.zigbee2mqtt-trastero = {
+    zigbee2mqtt-trastero = {
       volumes = [
         "/var/lib/home-assistant/zigbee2mqtt-trastero:/app/data"
       ];
@@ -58,7 +56,7 @@
       ];
     };
 
-    containers.mosquitto = {
+    mosquitto = {
       volumes = [
         "/var/lib/home-assistant/mosquitto/config:/mosquitto/config" 
         "mosquitto-data:/mosquitto/data"

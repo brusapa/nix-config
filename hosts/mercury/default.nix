@@ -18,11 +18,12 @@
     ../common/users/gurenda/nas-network-shares.nix
     ../../modules/tailscale.nix
     ../../modules/kde.nix
-    ../../modules/docker.nix
+    ../../modules/containers.nix
     ../../modules/libvirtd.nix
     ../../modules/office.nix
     ../../modules/multimedia.nix
     ../../modules/development.nix
+    ../../modules/flatpak.nix
   ];
 
   # Create a swap file for hibernation.

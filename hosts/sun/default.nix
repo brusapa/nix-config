@@ -10,6 +10,7 @@
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
     ../../modules/intel-gpu-hw-acceleration.nix
+    ../../modules/containers.nix
     ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
@@ -92,7 +93,7 @@
   # Mount internal backup and sata ssd disks
   environment.etc."crypttab".text = ''
     cryptbackup /dev/disk/by-id/nvme-CT4000P3SSD8_2336E8744EB7-part1 /root/internalBackup.key
-    cryptsatassd /dev/disk/by-id/ata-SanDisk_SDSSDH3_2T00_23212E800066 /root/internalBackup.key
+    cryptsatassd /dev/disk/by-id/ata-SanDisk_SDSSDH3_2T00_23212E800066 /root/satassd.key
   '';
   fileSystems."/mnt/internalBackup".device = "/dev/mapper/cryptbackup";
   fileSystems."/mnt/satassd".device = "/dev/mapper/cryptsatassd";
@@ -136,7 +137,6 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

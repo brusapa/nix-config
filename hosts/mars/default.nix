@@ -25,7 +25,7 @@
     ../common/users/gurenda/nas-network-shares.nix
     ../../modules/tailscale.nix
     ../../modules/kde.nix
-    ../../modules/docker.nix
+    ../../modules/containers.nix
     ../../modules/libvirtd.nix
     ../../modules/gaming.nix
     ../../modules/sunshine.nix
@@ -34,6 +34,7 @@
     ../../modules/development.nix
     ../../modules/quiet-boot.nix
     ../../modules/localsend.nix
+    ../../modules/flatpak.nix
   ];
 
   # Create a swap file for hibernation.

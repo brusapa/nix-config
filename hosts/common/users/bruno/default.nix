@@ -24,6 +24,7 @@ in {
       "lp"
       "multimedia"
       "networkmanager"
+      "podman"
       "scanner"
       "ssh-login"
       "vboxusers"
