@@ -33,6 +33,7 @@
     ./services/rustdesk-server.nix
     ./services/frigate-container.nix
     ./services/syncthing.nix
+    ./services/music-assistant.nix
   ];
 
   environment.systemPackages = [
