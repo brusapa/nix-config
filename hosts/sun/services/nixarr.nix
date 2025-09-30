@@ -83,6 +83,10 @@
       enable = true;
       openFirewall = false;
     };
+    lidarr = {
+      enable = true;
+      openFirewall = false;
+    };
     jellyseerr = {
       enable = true;
       openFirewall = false;
@@ -120,6 +124,9 @@
     '';
     "bazarr.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:6767
+    '';
+    "lidarr.brusapa.com".extraConfig = ''
+      reverse_proxy http://localhost:8686
     '';
     "prowlarr.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:9696
