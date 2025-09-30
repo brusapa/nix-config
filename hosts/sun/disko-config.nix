@@ -6,7 +6,7 @@
 
 # To store the passphrase for luks
 # echo -n "passphrase" > /tmp/cryptroot.key
-{ inputs, config, ... }:
+{ inputs, ... }:
 {
   imports = [
     inputs.disko.nixosModules.disko

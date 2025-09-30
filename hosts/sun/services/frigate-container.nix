@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   virtualisation.oci-containers.containers.frigate = {
     image = "ghcr.io/blakeblackshear/frigate:0.16.1";

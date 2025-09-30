@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    (pkgs.writeShellScriptBin "fixgpg" ''
+    (writeShellScriptBin "fixgpg" ''
     #!/bin/sh
     gpgconf --kill gpg-agent
     echo "GPG agent restarted. Please, re-establish the SSH connection."

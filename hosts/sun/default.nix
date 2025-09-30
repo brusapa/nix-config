@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -9,7 +9,7 @@
     ../common/users/gurenda
     ../../modules/tailscale.nix
     ../../modules/secure-boot.nix
-    ../../modules/intel-gpu-hw-acceleration.nix
+    ../../modules/hardware/intel-gpu-hw-acceleration.nix
     ../../modules/containers.nix
     ../../modules/hardware/nvidia-gpu.nix
     ./services/samba.nix
