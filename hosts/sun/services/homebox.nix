@@ -1,8 +1,9 @@
-{ ... }:
+{ config, ... }:
 {
   services.homebox = {
     enable = true;
     settings = {
+      HBOX_WEB_PORT = "7745";
       HBOX_STORAGE_DATA = "/var/lib/homebox/data";
       HBOX_DATABASE_DRIVER = "sqlite3";
       HBOX_DATABASE_SQLITE_PATH = "/var/lib/homebox/data/homebox.db?_pragma=busy_timeout=999&_pragma=journal_mode=WAL&_fk=1";
@@ -15,6 +16,6 @@
     };
   };
   services.caddy.virtualHosts."cosas.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:7745
+    reverse_proxy http://127.0.0.1:${toString config.services.homebox.settings.HBOX_WEB_PORT}
   '';
 }

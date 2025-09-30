@@ -39,7 +39,7 @@
 
   # Reverse proxy
   services.caddy.virtualHosts."fotos.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:2283
+    reverse_proxy http://localhost:${toString config.services.immich.port}
   '';
 
   # Backups

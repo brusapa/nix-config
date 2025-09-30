@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   services.syncthing = {
     enable = true;
@@ -17,6 +17,6 @@
   };
 
   services.caddy.virtualHosts."syncthing.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:8384
+    reverse_proxy http://${toString config.services.syncthing.guiAddress}
   '';
 }

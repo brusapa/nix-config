@@ -48,7 +48,7 @@
   };
 
   services.caddy.virtualHosts."documentos.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:28981
+    reverse_proxy http://127.0.0.1:${toString config.services.paperless.port}
   '';
   backup.job.paperless = {
     paths = [

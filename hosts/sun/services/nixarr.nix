@@ -111,31 +111,31 @@
       reverse_proxy http://localhost:8096
     '';
     "torrent.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:9091
+      reverse_proxy http://localhost:${toString config.nixarr.transmission.uiPort}
     '';
     "usenet.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:6336
+      reverse_proxy http://localhost:${toString config.nixarr.sabnzbd.guiPort}
     '';
     "radarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:7878
+      reverse_proxy http://localhost:${toString config.nixarr.radarr.port}
     '';
     "sonarr.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:8989
     '';
     "bazarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:6767
+      reverse_proxy http://localhost:${toString config.nixarr.bazarr.port}
     '';
     "lidarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:8686
+      reverse_proxy http://localhost:${toString config.nixarr.lidarr.port}
     '';
     "prowlarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:9696
+      reverse_proxy http://localhost:${toString config.nixarr.prowlarr.port}
     '';
     "jellyserr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:5055
+      reverse_proxy http://localhost:${toString config.nixarr.jellyseerr.port}
     '';
     "jackett.brusapa.com".extraConfig = ''
-      reverse_proxy http://192.168.15.1:9117
+      reverse_proxy http://192.168.15.1:${toString config.services.jackett.port}
     '';
   };
 }

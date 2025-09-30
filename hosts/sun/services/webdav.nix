@@ -44,7 +44,7 @@
   };
 
   services.caddy.virtualHosts."webdav.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:48989
+    reverse_proxy http://127.0.0.1:${toString config.services.webdav.settings.port}
   '';
 
   backup.job.webdav = {

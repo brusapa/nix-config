@@ -101,6 +101,6 @@
 
 
   services.caddy.virtualHosts."grafana.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:3101
+    reverse_proxy http://127.0.0.1:${toString config.services.grafana.settings.http_port}
   '';
 }
