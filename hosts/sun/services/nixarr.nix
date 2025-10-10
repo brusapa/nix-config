@@ -26,6 +26,9 @@
     };
   };
 
+  # Fix the GID of the media group
+  users.groups.media.gid = 169;
+
   nixarr = {
     enable = true;
     # These two values are also the default, but you can set them to whatever

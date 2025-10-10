@@ -35,6 +35,7 @@
     ./services/frigate-container.nix
     ./services/syncthing.nix
     ./services/music-assistant.nix
+    ./services/unpackerr.nix
   ];
 
   environment.systemPackages = [
