@@ -1,5 +1,7 @@
 { config, ... }:
-{
+let
+  configurationDirectory = "/var/lib/unpackerr/.config";
+in {
   # Import the needed secrets
   sops = {
     secrets = {
@@ -22,13 +24,18 @@
     };
   };
 
+  # Create configuration directory
+  systemd.tmpfiles.rules = [
+    "d ${configurationDirectory} 0755 ${config.users.users.transmission.name} ${config.users.groups.media.name}"
+  ];
+
   virtualisation.oci-containers.containers.unpackerr = {
     user = "${ toString config.users.users.transmission.uid }:${ toString config.users.groups.media.gid }";
 
     image = "golift/unpackerr:latest";
 
     volumes = [
-      "/var/lib/unpackerr/.config:/config"
+      "${configurationDirectory}:/config"
       "/zstorage/media/torrents:/downloads"
     ];
 
