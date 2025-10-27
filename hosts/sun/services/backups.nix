@@ -1,179 +1,109 @@
-{ config, lib, pkgs, ... }:
-{
+{ lib, pkgs, ... }:
+let
+  # Source variables
+  sourcePool = "zstorage";
+  datasets = [ "users" "paperless" "photos" ];
 
-  options.backup.job = lib.mkOption {
-    type = lib.types.attrsOf (
-      lib.types.submodule {
-        options = {
-          paths = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-            default = [ ];
-            description = "Paths to back up";
-          };
-          exclude = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-            default = [ ];
-            description = "Paths to exclude from backup";
-          };
-          backupPrepareCommand = lib.mkOption {
-            type = lib.types.nullOr lib.types.str;
-            default = null;
-            description = "Optional commands to  run before backup";
-          };
-        };
+  syncoidCommonArgs = [
+    # Tell syncoid not to create its own snapshots; rely on sanoid
+    "--no-sync-snap"
+    # This argument tells syncoid to create a zfs bookmark for the newest snapshot after it got replicated successfully.
+    "--create-bookmark"
+    # Prune old snapshots on the target that don't exist on the source
+    "--delete-target-snapshots"
+    # Do not mount newly received datasets
+    "--recvoptions=-u"
+  ];
+  
+  dailyTargetPool = "daily-backup";
+
+  weeklyTargetPool = "weekly-backup";
+  weeklyUsbSerial = "WD-WXE2E11DE846";
+
+  # Script that performs the import → syncoid → export sequence.
+  # IMPORTANT: %i is expanded by systemd in ExecStart. The script
+  # reads the target pool name as $1.
+  syncScript = pkgs.writeShellScript "usb-zfs-sync.sh" ''
+    set -euo pipefail
+    TARGET_POOL="$1"
+    echo "[usb-zfs-sync] Backup started for $TARGET_POOL"
+
+    # Import the pool if it isn't already imported (-N to avoid mounting).
+    if ! ${pkgs.zfs}/bin/zpool list -H -o name | grep -qx "$TARGET_POOL"; then
+      echo "[usb-zfs-sync] Importing pool: $TARGET_POOL"
+      ${pkgs.zfs}/bin/zpool import -N -f "$TARGET_POOL" || {
+        echo "[usb-zfs-sync] Pool $TARGET_POOL not found or import failed"
+        exit 1
       }
-    );
-  };
+    fi
 
-  config = {
-    # Import the needed secrets
-    sops = {
-      secrets = {
-        backup-password = {
-          sopsFile = ../secrets.yaml;
-        };
+    echo "[usb-zfs-sync] Starting replications to pool $TARGET_POOL ..."
+    for dataset in ${lib.concatStringsSep " " datasets}; do
+      ${pkgs.sanoid}/bin/syncoid \
+        ${lib.escapeShellArgs syncoidCommonArgs} \
+        ${sourcePool}/"$dataset" \
+        "$TARGET_POOL/$dataset"
+    done
+
+    echo "[usb-zfs-sync] Replications finished."
+
+    # Export the pool so it’s safely removable.
+    echo "[usb-zfs-sync] Exporting pool $TARGET_POOL"
+    ${pkgs.zfs}/bin/zpool export "$TARGET_POOL" || true
+    echo "[usb-zfs-sync] Backup finished for $TARGET_POOL"
+  '';
+in {
+  services.sanoid = {
+    enable = true;
+    interval = "hourly";
+    templates = {
+      standard = {
+        autosnap = true;
+        autoprune = true;
+        hourly = 8;        # Keep 8 hourly snapshots
+        daily = 7;         # Keep 7 daily snapshots
+        weekly = 4;        # Keep 4 weekly snapshots
       };
     };
 
-    assertions = lib.mkMerge [
-      [
-        {
-          # Check that there is at least one backup.job configured
-          assertion = builtins.length (builtins.attrNames config.backup.job) > 0;
-          message = "You must define at least one backup job";
-        }
-      ]
-      (builtins.map (name: {
-        assertion = config.backup.job.${name}.paths != [ ];
-        message = "Backup configuration '${name}' has no paths defined!";
-      }) (builtins.attrNames config.backup.job))
-    ];
-
-    # Restic backups configuration
-    services.restic.backups = lib.mkAfter (
-      lib.listToAttrs (
-        # Daily backups to internal disk
-        (lib.mapAttrsToList (name: job: {
-          name = "${name}-daily-internal";
-          value = {
-            repository = "/mnt/internalBackup/${name}";
-            passwordFile = config.sops.secrets.backup-password.path;
-            initialize = true;
-
-            paths = job.paths;
-            exclude = job.exclude;
-            backupPrepareCommand = job.backupPrepareCommand;
-            timerConfig = {
-              OnCalendar = "01:00";
-              Persistent = true;
-              RandomizedDelaySec = "4h";
-            };
-
-            pruneOpts = [
-              "--keep-daily 7"
-              "--keep-monthly 12"
-            ];
-          };
-        }) config.backup.job)
-        ++
-        # Daily backups to external disk
-        (lib.mapAttrsToList (name: job: {
-          name = "${name}-daily-external";
-          value = {
-            repository = "/mnt/dailyExternalBackup/${name}";
-            passwordFile = config.sops.secrets.backup-password.path;
-            initialize = true;
-
-            paths = job.paths;
-            exclude = job.exclude;
-            backupPrepareCommand = job.backupPrepareCommand;
-            timerConfig = null; # Run manually
-
-            pruneOpts = [
-              "--keep-daily 7"
-              "--keep-monthly 12"
-            ];
-          };
-        }) config.backup.job)
-      )
-    );
-
-    # Set the health-checks for the backups
-    external-health-check.job = lib.mkMerge [
-      (
-        lib.mapAttrs' (name: resticCfg:
-          lib.nameValuePair name {
-            name = name;
-            group = "backups";
-            token = "secret";
-          }
-        ) config.services.restic.backups
-      )
-    ];
-
-    # Auxiliary systemd services and jobs customizations
-    systemd.services = lib.mkMerge [
-      {
-        # Custom daily backup orchestrator
-        daily-external-backup = {
-          description = "Daily backup on external HDD";
-          after = [ "local-fs.target" ];
-
-          preStart = ''
-            /run/wrappers/bin/mount --uuid ebf564fe-357e-41d6-a591-476abea587e0 /mnt/dailyExternalBackup
-          '';
-
-          # Start multiple restic backup units synchronously
-          script = lib.concatStringsSep "\n" (
-            builtins.map (name: "/run/current-system/sw/bin/systemctl start --wait restic-backups-${name}-daily-external.service")
-              (builtins.attrNames config.backup.job)
-          );
-
-          postStop = ''
-            /run/wrappers/bin/umount /mnt/dailyExternalBackup
-          '';
-        };
-      }
-
-      # Create the on success systemd services
-      (lib.mapAttrs' (name: _: 
-        let
-          serviceName = "restic-backups-${name}-onSuccess";
-        in
-        lib.nameValuePair serviceName {
-          script = ''
-            /run/current-system/sw/bin/curl -X POST -H "Authorization: Bearer secret" https://gatus.brusapa.com/api/v1/endpoints/backups_${name}/external?success=true
-          '';
-        }
-      ) config.services.restic.backups)
-
-      # Create the on failure systemd services
-      (lib.mapAttrs' (name: _: 
-        let
-          serviceName = "restic-backups-${name}-onFailure";
-        in
-        lib.nameValuePair serviceName {
-          script = ''
-            /run/current-system/sw/bin/curl -X POST -H "Authorization: Bearer secret" https://gatus.brusapa.com/api/v1/endpoints/backups_${name}/external?success=false
-          '';
-        }
-      ) config.services.restic.backups)
-
-      # Inject the per-restic-backup onSuccess onFailure handlers
-      (lib.mapAttrs' (name: _: 
-        let
-          serviceName = "restic-backups-${name}";
-        in
-        lib.nameValuePair serviceName {
-          onFailure = [ 
-            "${serviceName}-onFailure.service"
-          ];
-          onSuccess = [
-            "${serviceName}-onSuccess.service"
-          ];
-        }
-      ) config.services.restic.backups)
-    ];
-
+    datasets = lib.listToAttrs (map (dataset: {
+      name = "${sourcePool}/${dataset}";
+      value.useTemplate = [ "standard" ];
+    }) datasets);
   };
+
+  services.syncoid = {
+    enable = true;
+    interval = "hourly";
+    commonArgs = syncoidCommonArgs;
+
+    commands = lib.listToAttrs (map (dataset: {
+      name = "backup-${dataset}-to-daily";
+      value = {
+        source = "${sourcePool}/${dataset}";
+        target = "${dailyTargetPool}/${dataset}";
+      };
+    }) datasets);
+  };
+
+  # ---- On-plug USB replication unit (triggered by udev) ----
+  systemd.services."usb-zfs-sync@" = {
+    description = "Replicate to USB ZFS pool %I on plug";
+    after = [ "zfs-import.target" "local-fs.target" ];
+    wantedBy = [ ]; # udev will start it; don’t start automatically
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutStartSec = 0;
+      # CRITICAL: Expand %i here, not inside the script.
+      ExecStart = "${syncScript} %i";
+    };
+  };
+
+  # ---- udev rule: start the job when the USB disk appears ----
+  # Match the DISK (not partitions), and use ATTRS{serial} for robust USB enclosures.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", \
+      ENV{ID_BUS}=="usb", ATTRS{serial}=="${weeklyUsbSerial}", \
+      TAG+="systemd", ENV{SYSTEMD_WANTS}+="usb-zfs-sync@${weeklyTargetPool}.service"
+  '';
 }

@@ -50,7 +50,7 @@
   services.caddy.virtualHosts."documentos.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:${toString config.services.paperless.port}
   '';
-  backup.job.paperless = {
+  backup-offsite-landabarri.job.paperless = {
     paths = [
       "/zstorage/backups/paperless"
     ];

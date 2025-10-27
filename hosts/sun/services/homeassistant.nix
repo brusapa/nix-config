@@ -123,7 +123,7 @@ in
   };
 
   services.caddy.virtualHosts."influxdb.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString vars.homeassistant.port}
+    reverse_proxy http://localhost:8086
   '';
 
   services.caddy.virtualHosts."glances.brusapa.com".extraConfig = ''
@@ -143,7 +143,7 @@ in
     reverse_proxy http://127.0.0.1:${toString config.services.esphome.port}
   '';
 
-  backup.job.home-assistant = {
+  backup-offsite-landabarri.job.home-assistant = {
     paths = [
       "/zstorage/backups/home-assistant"
       "/var/lib/home-assistant/zigbee2mqtt"

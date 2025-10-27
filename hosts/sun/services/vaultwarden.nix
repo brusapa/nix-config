@@ -40,7 +40,7 @@
     reverse_proxy http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}
   '';
 
-  backup.job.vaultwarden = {
+  backup-offsite-landabarri.job.vaultwarden = {
     paths = [
       "/zstorage/backups/vaultwarden"
     ];

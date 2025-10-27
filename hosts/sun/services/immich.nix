@@ -55,7 +55,7 @@
     };
   };
 
-  backup.job.immich = {
+  backup-offsite-landabarri.job.immich = {
     paths = [
       "/zstorage/photos"
       "/zstorage/backups/immich-database"
