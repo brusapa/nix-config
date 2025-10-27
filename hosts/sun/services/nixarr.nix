@@ -109,6 +109,10 @@
     enable = true;
     vpnnamespace = "wg";
   };
+
+  # Add jellyfin user to render group
+  users.users.jellyfin.extraGroups = [ "render" ];
+
   services.caddy.virtualHosts = {
     "jellyfin.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:8096
