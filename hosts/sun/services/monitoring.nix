@@ -55,11 +55,6 @@
       apcupsd.enable = true;
       zfs.enable = true;
       smartctl.enable = true;
-      restic = {
-        enable = true;
-        repository = "/mnt/internalBackup/users/";
-        passwordFile = config.sops.secrets.backup-password.path;
-      };
       postgres.enable = true;
       postfix.enable = true;
       #nvidia-gpu.enable = true;
@@ -90,17 +85,11 @@
           targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}" ];
         }];
       }
-      {
-        job_name = "restic_userdata";
-        static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.restic.port}" ];
-        }];
-      }
     ];
   };
 
 
   services.caddy.virtualHosts."grafana.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString config.services.grafana.settings.http_port}
+    reverse_proxy http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}
   '';
 }
