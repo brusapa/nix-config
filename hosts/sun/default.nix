@@ -16,6 +16,7 @@
     ./services/postfix.nix
     ./services/caddy.nix
     ./services/nixarr.nix
+    ./services/servarr
     ./services/vaultwarden.nix
     ./services/karakeep.nix
     ./services/homeassistant.nix
@@ -26,7 +27,7 @@
     ./services/paperless.nix
     ./services/apcupsd.nix
     ./services/homebox.nix
-    #./services/monitoring.nix
+    ./services/monitoring.nix
     ./services/aitas-backup.nix
     ./services/pangolin-client.nix
     ./services/gatus.nix
@@ -36,6 +37,10 @@
     ./services/syncthing.nix
     ./services/music-assistant.nix
     ./services/unpackerr.nix
+    ./services/qbittorrent.nix
+    ./services/dispatcharr.nix
+    ./services/backups-offsite.nix
+    ./services/radicale.nix
   ];
 
   environment.systemPackages = [
@@ -64,7 +69,7 @@
   boot.zfs.extraPools = [ "zstorage" ];
   services.zfs.autoScrub = {
     enable = true;
-    interval = "weekly";
+    interval = "Mon *-*-* 22:00:00";
   };
   services.zfs.zed.settings = {
     ZED_DEBUG_LOG = "/tmp/zed.debug.log";
@@ -88,7 +93,7 @@
   };
 
   # Backup userdata
-  backup.job.userdata.paths = [
+  backup-offsite-landabarri.job.userdata.paths = [
     "/zstorage/users"
   ];
 

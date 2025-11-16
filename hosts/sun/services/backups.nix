@@ -13,6 +13,8 @@ let
     "--delete-target-snapshots"
     # Do not mount newly received datasets
     "--recvoptions=-u"
+    # Use raw. End-to-end encrypted backups
+    "--sendoptions=-w"
   ];
   
   dailyTargetPool = "daily-backup";

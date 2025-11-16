@@ -2,7 +2,7 @@
 {
   services.qbittorrent = {
     enable = true;
-    user = "transmission";
+    user = "qbittorrent";
     group = "media";
     webuiPort = 18080;
     torrentingPort = 56259;

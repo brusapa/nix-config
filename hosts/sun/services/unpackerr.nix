@@ -26,11 +26,11 @@ in {
 
   # Create configuration directory
   systemd.tmpfiles.rules = [
-    "d ${configurationDirectory} 0755 ${config.users.users.transmission.name} ${config.users.groups.media.name}"
+    "d ${configurationDirectory} 0755 ${config.users.users.qbittorrent.name} ${config.users.groups.media.name}"
   ];
 
   virtualisation.oci-containers.containers.unpackerr = {
-    user = "${ toString config.users.users.transmission.uid }:${ toString config.users.groups.media.gid }";
+    user = "${ toString config.users.users.qbittorrent.uid }:${ toString config.users.groups.media.gid }";
 
     image = "golift/unpackerr:latest";
 
