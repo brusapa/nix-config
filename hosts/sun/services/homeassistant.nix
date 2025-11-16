@@ -92,7 +92,7 @@ in
 
   # EspHome 
   services.esphome = {
-    enable = true;
+    enable = false;
   };
 
   # DB for historic data
