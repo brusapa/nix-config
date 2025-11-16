@@ -41,6 +41,11 @@
   ];
   zramSwap.enable = true;
 
+  # ZFS related options
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.devNodes = "/dev/disk/by-id";
+  boot.zfs.forceImportRoot = false;
+
   environment.systemPackages = with pkgs; [
     lm_sensors
   ];
@@ -50,9 +55,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel available
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "mars"; # Define your hostname.
+  networking = {
+    hostName = "mars";
+    hostId = "c66a2250";
+  };
 
   # # Enable Wake On Lan
   # networking.interfaces.enp5s0.wakeOnLan.enable = true;

@@ -3,7 +3,7 @@
 {
 
   imports = [
-    ../../../../modules/samba.nix
+    ../../../../modules/samba-client.nix
   ];
 
   sops.secrets.bruno-smb-password = { };
