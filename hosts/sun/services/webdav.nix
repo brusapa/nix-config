@@ -47,7 +47,7 @@
     reverse_proxy http://127.0.0.1:${toString config.services.webdav.settings.port}
   '';
 
-  backup.job.webdav = {
+  backup-offsite-landabarri.job.webdav = {
     paths = [
       "/var/lib/webdav/obsidian-personal"
       "/var/lib/webdav/obsidian-work"

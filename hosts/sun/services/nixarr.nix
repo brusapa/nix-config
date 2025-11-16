@@ -11,18 +11,6 @@
       torrent-wireguard-config = {
         sopsFile = ../secrets.yaml;
       };
-      transmission-rpc-password = {
-        sopsFile = ../secrets.yaml;
-      };
-    };
-    templates."transmission-credentials" = {
-      content = ''
-        {
-          "rpc-username": "bruno",
-          "rpc-password": "${config.sops.placeholder.transmission-rpc-password}"
-        }
-      '';
-      owner = config.util-nixarr.globals.transmission.user;
     };
   };
 
@@ -48,17 +36,6 @@
       openFirewall = true;
     };
 
-    transmission = {
-      enable = true;
-      openFirewall = false;
-      credentialsFile = config.sops.templates."transmission-credentials".path;
-      extraSettings = {
-        rpc-authentication-required = true;
-      };
-      vpn.enable = true;
-      peerPort = 56258; # Set this to the port forwarded by your VPN
-    };
-
     sabnzbd = {
       enable = true;
       vpn.enable = true;
@@ -79,11 +56,11 @@
       openFirewall = false;
     };
     radarr = {
-      enable = true;
+      enable = false;
       openFirewall = false;
     };
     sonarr = {
-      enable = true;
+      enable = false;
       openFirewall = false;
     };
     lidarr = {
@@ -109,6 +86,10 @@
     enable = true;
     vpnnamespace = "wg";
   };
+
+  # Add jellyfin user to render group
+  users.users.jellyfin.extraGroups = [ "render" ];
+
   services.caddy.virtualHosts = {
     "jellyfin.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:8096
@@ -119,12 +100,12 @@
     "usenet.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:${toString config.nixarr.sabnzbd.guiPort}
     '';
-    "radarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.nixarr.radarr.port}
-    '';
-    "sonarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:8989
-    '';
+    # "radarr.brusapa.com".extraConfig = ''
+    #   reverse_proxy http://localhost:${toString config.nixarr.radarr.port}
+    # '';
+    # "sonarr.brusapa.com".extraConfig = ''
+    #   reverse_proxy http://localhost:8989
+    # '';
     "bazarr.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:${toString config.nixarr.bazarr.port}
     '';

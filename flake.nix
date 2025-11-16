@@ -63,6 +63,12 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.flake-parts.follows = "flake-parts"
+    };
   };
 
   nixConfig = {
@@ -74,7 +80,7 @@
     ];
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, pangolin-newt, nix-flatpak, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, pangolin-newt, nix-flatpak, authentik-nix, ... }:
   let
     makeNixosConfig = { hostname, users, system ? "x86_64-linux" }: 
     nixpkgs.lib.nixosSystem {

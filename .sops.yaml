@@ -22,6 +22,12 @@ creation_rules:
         - *bruno
         age:
         - *sun
+  - path_regex: hosts/sun/secrets/.*\.sops$
+    key_groups:
+      - pgp:
+        - *bruno
+        age:
+        - *sun
   - path_regex: hosts/mars/secrets.ya?ml$
     key_groups:
       - pgp:
