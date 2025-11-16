@@ -31,6 +31,8 @@
   ];
   zramSwap.enable = true;
 
+  boot.supportedFilesystems = [ "zfs" ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -38,7 +40,10 @@
   # Use latest kernel available
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "mercury";
+  networking = {
+    hostName = "mercury";
+    hostId = "46b34875";
+  };
 
   # Wireless
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
