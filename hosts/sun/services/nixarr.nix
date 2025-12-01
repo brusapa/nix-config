@@ -73,19 +73,19 @@
     };
   };
 
-  services.jackett = {
-    enable = true;
-  };
-  vpnNamespaces.wg = {
-    portMappings = [{
-      from = 9117;
-      to = 9117;
-    }];
-  };
-  systemd.services.jackett.vpnconfinement = {
-    enable = true;
-    vpnnamespace = "wg";
-  };
+  # services.jackett = {
+  #   enable = true;
+  # };
+  # vpnNamespaces.wg = {
+  #   portMappings = [{
+  #     from = 9117;
+  #     to = 9117;
+  #   }];
+  # };
+  # systemd.services.jackett.vpnconfinement = {
+  #   enable = true;
+  #   vpnnamespace = "wg";
+  # };
 
   # Add jellyfin user to render group
   users.users.jellyfin.extraGroups = [ "render" ];
@@ -118,8 +118,8 @@
     "jellyserr.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:${toString config.nixarr.jellyseerr.port}
     '';
-    "jackett.brusapa.com".extraConfig = ''
-      reverse_proxy http://192.168.15.1:${toString config.services.jackett.port}
-    '';
+    # "jackett.brusapa.com".extraConfig = ''
+    #   reverse_proxy http://192.168.15.1:${toString config.services.jackett.port}
+    # '';
   };
 }

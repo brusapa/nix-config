@@ -32,7 +32,7 @@
       SMTP_FROM_NAME = "Bitwarden server";
     };
     environmentFile = config.sops.templates."vaultwarden-secrets.env".path;
-    backupDir = "/zstorage/backups/vaultwarden";
+    backupDir = "/zstorage/internal-backups/vaultwarden";
   };
 
   services.caddy.virtualHosts."bitwarden.brusapa.com".extraConfig = ''
@@ -42,7 +42,7 @@
 
   backup-offsite-landabarri.job.vaultwarden = {
     paths = [
-      "/zstorage/backups/vaultwarden"
+      "/zstorage/internal-backups/vaultwarden"
     ];
   };
 }

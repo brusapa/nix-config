@@ -1,4 +1,9 @@
 { config, pkgs, ... }:
+let
+  vars = {
+    backup-directory = "/zstorage/internal-backups/immich";
+  };
+in
 {
   # Import the needed secrets
   sops = {
@@ -42,23 +47,33 @@
     reverse_proxy http://localhost:${toString config.services.immich.port}
   '';
 
-  # Backups
+  # Backup Immich database
+  systemd.tmpfiles.rules = [
+    "d ${vars.backup-directory} 0755 postgres postgres 30d"
+  ];
   systemd.services.immich-db-backup = {
     description = "Backup Immich DB safely";
     serviceConfig = {
       Type = "oneshot";
+      User = "postgres";
       # This makes it run as postgres just for the pg_dump
       ExecStart = [
-        "${pkgs.postgresql}/bin/pg_dump immich -f /zstorage/backups/immich-database/immich.sql"
+        "${pkgs.bash}/bin/bash -c '${pkgs.postgresql}/bin/pg_dump immich > ${vars.backup-directory}/immich-db-$(date +%%Y%%m%%d-%%H%%M%%S).sql'"
       ];
-      User = "postgres";
+    };
+  };
+  systemd.timers.immich-db-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Unit = "immich-db-backup.service";
     };
   };
 
   backup-offsite-landabarri.job.immich = {
     paths = [
       "/zstorage/photos"
-      "/zstorage/backups/immich-database"
+      vars.backup-directory
     ];
     exclude = [
       "/zstorage/photos/backups"

@@ -2,16 +2,16 @@
 let
   vars = {
     homeassistant = {
-      version = "2025.9";
+      version = "2025.11";
       port = 8123;
     };
     zigbee2mqtt = {
-      version = "2.6.1";
+      version = "2.6.3";
       port = 8081;
       trastero-port = 8082;
     };
     mosquitto = {
-      version = "2.0.21";
+      version = "2.0.22";
     };
   };
 in
@@ -38,7 +38,7 @@ in
     homeassistant = {
       volumes = [ 
         "homeassistant:/config" 
-        "/zstorage/backups/home-assistant:/config/backups"
+        "/zstorage/internal-backups/home-assistant:/config/backups"
       ];
       environment.TZ = "Europe/Madrid";
       image = "ghcr.io/home-assistant/home-assistant:${vars.homeassistant.version}";

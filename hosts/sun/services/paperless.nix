@@ -1,4 +1,9 @@
 { config, ... }:
+let
+  vars = {
+    backup-directory = "/zstorage/internal-backups/paperless";
+  };
+in
 {
 
   # Import the needed secrets
@@ -26,6 +31,11 @@
     };
   };
 
+  # Create backup directory if it does not exist
+  systemd.tmpfiles.rules = [
+    "d ${vars.backup-directory} 0755 paperless paperless -"
+  ];
+
   services.paperless = {
     enable = true;
     dataDir = "/zstorage/paperless";
@@ -38,8 +48,8 @@
     environmentFile = config.sops.templates."paperless-secrets.env".path;
     exporter = {
       enable = true;
-      onCalendar = null;
-      directory = "/zstorage/backups/paperless";
+      onCalendar = "daily";
+      directory = vars.backup-directory;
       settings = {
         no-color = true;
         no-progress-bar = true;
@@ -50,12 +60,10 @@
   services.caddy.virtualHosts."documentos.brusapa.com".extraConfig = ''
     reverse_proxy http://127.0.0.1:${toString config.services.paperless.port}
   '';
+
   backup-offsite-landabarri.job.paperless = {
     paths = [
-      "/zstorage/backups/paperless"
+      vars.backup-directory
     ];
-    backupPrepareCommand = ''
-      systemctl start paperless-exporter.service
-    '';
   };
 }
