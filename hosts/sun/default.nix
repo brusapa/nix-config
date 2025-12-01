@@ -11,7 +11,7 @@
     ../../modules/secure-boot.nix
     ../../modules/hardware/intel-gpu-hw-acceleration.nix
     ../../modules/containers.nix
-    ../../modules/hardware/nvidia-gpu.nix
+    #../../modules/hardware/nvidia-gpu.nix
     ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
@@ -20,7 +20,6 @@
     ./services/vaultwarden.nix
     ./services/karakeep.nix
     ./services/homeassistant.nix
-    ./services/ollama.nix
     ./services/webdav.nix
     ./services/backups.nix
     ./services/immich.nix

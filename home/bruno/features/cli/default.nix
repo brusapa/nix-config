@@ -8,7 +8,7 @@
     ./gpg.nix
     ./shell.nix
     ./ssh.nix
-    ./nvf.nix
+    ./neovim.nix
     ./development.nix
   ];
 }

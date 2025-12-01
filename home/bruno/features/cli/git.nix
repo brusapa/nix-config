@@ -4,14 +4,11 @@
 
   programs.git = {
     enable = true;
-    userName = "Bruno Santamaria";
-    lfs.enable = true;
-    userEmail = "30648587+brusapa@users.noreply.github.com";
-    signing = {
-       signByDefault = true;
-       key = "BD6743DAE6ABDF36";
-    };
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Bruno Santamaria";
+        email = "30648587+brusapa@users.noreply.github.com";
+      };
       init.defaultBranch = "master";
       # Merge on pull conflicts
       pull.rebase = false;
@@ -19,6 +16,11 @@
       push.autoSetupRemote = true;
       # Fetch removed upstream branches
       fetch.prune = true;
+    };
+    lfs.enable = true;
+    signing = {
+       signByDefault = true;
+       key = "BD6743DAE6ABDF36";
     };
   };
 

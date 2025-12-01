@@ -24,9 +24,10 @@
   services.postfix = {
     enable = true;
     setSendmail = false;
-    relayHost = "smtp.eu.mailgun.org";
-    relayPort = 587;
-    config = {
+    settings.main = {
+      relayHost = [
+        "smtp.eu.mailgun.org:587"
+      ];
       smtp_use_tls = "yes";
       smtp_sasl_auth_enable = "yes";
       smtp_sasl_security_options = "";

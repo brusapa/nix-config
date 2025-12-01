@@ -2,7 +2,7 @@
   description = "Nix configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.05";
+    nixpkgs.url = "nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     disko = {
@@ -11,14 +11,14 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -57,18 +57,7 @@
 
     nixarr.url = "github:rasmus-kirk/nixarr";
 
-    pangolin-newt = {
-      url = "github:brusapa/newt/fix1.2.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-
-    authentik-nix = {
-      url = "github:nix-community/authentik-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.flake-parts.follows = "flake-parts"
-    };
   };
 
   nixConfig = {
@@ -80,7 +69,7 @@
     ];
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nvf, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, pangolin-newt, nix-flatpak, authentik-nix, ... }:
+  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nixvim, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, nix-flatpak, ... }:
   let
     makeNixosConfig = { hostname, users, system ? "x86_64-linux" }: 
     nixpkgs.lib.nixosSystem {

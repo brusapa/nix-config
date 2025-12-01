@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   # Import the needed secrets
   sops = {
@@ -23,11 +23,6 @@
       OCR_LANGS = "eng,spa";
     };
     environmentFile = config.sops.templates."karakeep-secrets.env".path;
-  };
-
-  services.meilisearch = {
-    enable = true;
-    package = pkgs.meilisearch;
   };
 
   services.caddy.virtualHosts."karakeep.brusapa.com".extraConfig = ''
