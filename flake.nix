@@ -5,6 +5,8 @@
     nixpkgs.url = "nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,51 +71,79 @@
     ];
   };
 
-  outputs = inputs@ { self, nixpkgs, disko, lanzaboote, nixos-hardware, home-manager, plasma-manager, firefox-addons, nixvim, nixos-wsl, fw-fanctrl, sops-nix, autofirma-nix, nixarr, nix-flatpak, ... }:
-  let
-    makeNixosConfig = { hostname, users, system ? "x86_64-linux" }: 
-    nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./hosts/${hostname}
-        (import ./modules/home-manager-config.nix {
-          inherit hostname users;
-        })
-      ];
+  outputs = inputs@{
+    self,
+    nixpkgs,
+    flake-parts,
+    disko,
+    lanzaboote,
+    nixos-hardware,
+    home-manager,
+    plasma-manager,
+    firefox-addons,
+    nixpkgs-unstable,
+    nixos-wsl,
+    fw-fanctrl,
+    sops-nix,
+    autofirma-nix,
+    nixarr,
+    nix-flatpak,
+    ...
+  }:
+  flake-parts.lib.mkFlake { inherit inputs; } ({
+    # define the systems for which we want to compute things
+    systems = [ "x86_64-linux" "aarch64-linux" ];
+
+    # flake-parts passes { self, inputs, lib, ... } here
+    perSystem = { system, pkgs, ... }: {
+      # You can put perSystem packages, devShells, checks, etc. here later.
+      # Example:
+      # packages.hello = pkgs.hello;
     };
-  in {
 
-    overlays = import ./overlays {inherit inputs;};
+    flake = let
+      makeNixosConfig = { hostname, users, system ? "x86_64-linux" }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/${hostname}
+            (import ./modules/home-manager-config.nix {
+              inherit hostname users;
+            })
+          ];
+        };
+    in {
+      overlays = import ./overlays { inherit inputs; };
 
-    # NixOS configurations
-    # Available through 'nixos-rebuild switch --flake .#hostname'
-    nixosConfigurations = {
-      sun = makeNixosConfig {
-        hostname = "sun";
-        users = ["bruno"];
-      };
+      # NixOS configurations
+      nixosConfigurations = {
+        sun = makeNixosConfig {
+          hostname = "sun";
+          users = [ "bruno" ];
+        };
 
-      mars = makeNixosConfig { 
-        hostname = "mars";
-        users = ["bruno" "gurenda"];
-      };
-      
-      mercury = makeNixosConfig { 
-        hostname = "mercury";
-        users = ["bruno" "gurenda"];
-      };
-      
-      wsl = makeNixosConfig { 
-        hostname = "wsl";
-        users = ["bruno"];
-      };
+        mars = makeNixosConfig {
+          hostname = "mars";
+          users = [ "bruno" "gurenda" ];
+        };
 
-      rpi-landabarri = makeNixosConfig { 
-        system = "aarch64-linux";
-        hostname = "rpi-landabarri";
-        users = ["bruno"];
+        mercury = makeNixosConfig {
+          hostname = "mercury";
+          users = [ "bruno" "gurenda" ];
+        };
+
+        wsl = makeNixosConfig {
+          hostname = "wsl";
+          users = [ "bruno" ];
+        };
+
+        rpi-landabarri = makeNixosConfig {
+          system = "aarch64-linux";
+          hostname = "rpi-landabarri";
+          users = [ "bruno" ];
+        };
       };
     };
-  };
+  });
 }
