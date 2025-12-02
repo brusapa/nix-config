@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 let
   vars = {
     config-path = "/var/lib/jackett/.config";
@@ -7,8 +7,15 @@ let
   };
 in {
 
+  users.groups.jackett.gid = config.ids.gids.jackett;
+  users.users.jackett = {
+    group = "jackett";
+    home = vars.config-path;
+    uid = config.ids.uids.jackett;
+  };
+
   systemd.tmpfiles.rules = [
-    "d ${vars.config-path} 0750 root root -"
+    "d ${vars.config-path} 0750 jackett jackett -"
   ];
 
   virtualisation.oci-containers.containers = {
@@ -23,6 +30,8 @@ in {
 
       environment = {
         TZ   = "Europe/Madrid";
+        PUID = toString config.users.users.jackett.uid;
+        PGID = toString config.users.groups.jackett.gid;
       };
 
       dependsOn = [ "servarr-vpn" ];
