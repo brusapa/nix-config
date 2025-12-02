@@ -37,7 +37,7 @@
     };
 
     sabnzbd = {
-      enable = true;
+      enable = false;
       vpn.enable = true;
       openFirewall = false;
       whitelistHostnames = [
@@ -48,11 +48,11 @@
     # It is possible for this module to run the *Arrs through a VPN, but it
     # is generally not recommended, as it can cause rate-limiting issues.
     bazarr = {
-      enable = true;
+      enable = false;
       openFirewall = false;
     };
     prowlarr = {
-      enable = true;
+      enable = false;
       openFirewall = false;
     };
     radarr = {
@@ -64,7 +64,7 @@
       openFirewall = false;
     };
     lidarr = {
-      enable = true;
+      enable = false;
       openFirewall = false;
     };
     jellyseerr = {
@@ -97,24 +97,24 @@
     "torrent.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:${toString config.nixarr.transmission.uiPort}
     '';
-    "usenet.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.nixarr.sabnzbd.guiPort}
-    '';
+    # "usenet.brusapa.com".extraConfig = ''
+    #   reverse_proxy http://localhost:${toString config.nixarr.sabnzbd.guiPort}
+    # '';
     # "radarr.brusapa.com".extraConfig = ''
     #   reverse_proxy http://localhost:${toString config.nixarr.radarr.port}
     # '';
     # "sonarr.brusapa.com".extraConfig = ''
     #   reverse_proxy http://localhost:8989
     # '';
-    "bazarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.nixarr.bazarr.port}
-    '';
-    "lidarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.nixarr.lidarr.port}
-    '';
-    "prowlarr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.nixarr.prowlarr.port}
-    '';
+    # "bazarr.brusapa.com".extraConfig = ''
+    #   reverse_proxy http://localhost:${toString config.nixarr.bazarr.port}
+    # '';
+    # "lidarr.brusapa.com".extraConfig = ''
+    #   reverse_proxy http://localhost:${toString config.nixarr.lidarr.port}
+    # '';
+    # "prowlarr.brusapa.com".extraConfig = ''
+    #   reverse_proxy http://localhost:${toString config.nixarr.prowlarr.port}
+    # '';
     "jellyserr.brusapa.com".extraConfig = ''
       reverse_proxy http://localhost:${toString config.nixarr.jellyseerr.port}
     '';
