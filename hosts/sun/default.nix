@@ -33,13 +33,13 @@
     ./services/ntfy.nix
     ./services/rustdesk-server.nix
     ./services/frigate-container.nix
-    ./services/syncthing.nix
     ./services/music-assistant.nix
     ./services/unpackerr.nix
     ./services/qbittorrent.nix
     ./services/dispatcharr.nix
     ./services/backups-offsite.nix
     ./services/radicale.nix
+    ./services/whale-frigate-sync.nix
   ];
 
   environment.systemPackages = [
