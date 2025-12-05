@@ -40,8 +40,13 @@
         }
       }
     '';
-    virtualHosts."ender.brusapa.com".extraConfig = ''
-      reverse_proxy http://10.80.0.3
+    virtualHosts."router.trastero.brusapa.com".extraConfig = ''
+      reverse_proxy 10.80.9.1:443 {
+        transport http {
+          tls
+          tls_insecure_skip_verify
+        }
+      }
     '';
   };
 
