@@ -11,16 +11,12 @@
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
-      AllowUsers = [ "bruno" "nas-aitas-backup" ];
+      AllowUsers = [ "bruno" ];
       AllowGroups = [ "ssh-login" ];
       AllowTcpForwarding = true;
       AllowAgentForwarding = true;
       StreamLocalBindUnlink = true;
     };
-    extraConfig = ''
-        Match User nas-aitas-backup
-            PasswordAuthentication yes
-     '';
     hostKeys = [
       {
         comment = "${config.networking.hostName}";
