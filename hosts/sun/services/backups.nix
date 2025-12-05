@@ -2,7 +2,7 @@
 let
   # Source variables
   sourcePool = "zstorage";
-  datasets = [ "users" "paperless" "photos" ];
+  datasets = [ "users" "paperless" "photos" "internal-backups" ];
 
   syncoidCommonArgs = [
     # Tell syncoid not to create its own snapshots; rely on sanoid
@@ -55,6 +55,16 @@ let
     echo "[usb-zfs-sync] Backup finished for $TARGET_POOL"
   '';
 in {
+
+  # Mount daily backup at boot if present
+  fileSystems."/${dailyTargetPool}" = {
+    device = dailyTargetPool;
+    fsType = "zfs";
+    options = [
+      "nofail" # Do not block boot if missing
+    ];
+  };
+
   services.sanoid = {
     enable = true;
     interval = "hourly";
