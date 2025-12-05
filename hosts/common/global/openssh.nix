@@ -31,7 +31,12 @@
 
   # Allow sudo through ssh agent (RSSH)
   security.pam = {
-    rssh.enable = true;
+    rssh = {
+      enable = true;
+      settings = {
+        cue = true;
+      };
+    };
     services = {
       sshd.unixAuth = lib.mkForce true; # Specific users password login
       sudo.rssh = true; # Sudo over ssh
