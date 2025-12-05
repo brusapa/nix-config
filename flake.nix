@@ -44,11 +44,6 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  
-    fw-fanctrl = {
-      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     sops-nix.url = "github:Mic92/sops-nix";
 
@@ -83,7 +78,6 @@
     firefox-addons,
     nixpkgs-unstable,
     nixos-wsl,
-    fw-fanctrl,
     sops-nix,
     autofirma-nix,
     nixarr,
