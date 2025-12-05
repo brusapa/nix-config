@@ -121,9 +121,12 @@
 
   # Networking
   networking = {
+    useDHCP = true;
+    useNetworkd = true;
     hostName = "sun";
     hostId = "696795a0";
   };
+  systemd.network.wait-online.enable = true;
 
   services.tailscale.useRoutingFeatures = "server";
 
