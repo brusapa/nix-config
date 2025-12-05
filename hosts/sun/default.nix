@@ -70,17 +70,19 @@
     enable = true;
     interval = "Mon *-*-* 22:00:00";
   };
-  services.zfs.zed.settings = {
-    ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-    ZED_EMAIL_ADDR = [ "root" ];
-    ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
-    ZED_EMAIL_OPTS = "@ADDRESS@";
+  services.zfs.zed = {
+    settings = {
+      ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+      ZED_EMAIL_ADDR = [ "root" ];
+      ZED_EMAIL_PROG = "mail";
+      ZED_EMAIL_OPTS = "-s '@SUBJECT@' @ADDRESS@";
 
-    ZED_NOTIFY_INTERVAL_SECS = 3600;
-    ZED_NOTIFY_VERBOSE = true;
+      ZED_NOTIFY_INTERVAL_SECS = 3600;
+      ZED_NOTIFY_VERBOSE = true;
 
-    ZED_USE_ENCLOSURE_LEDS = true;
-    ZED_SCRUB_AFTER_RESILVER = true;
+      ZED_USE_ENCLOSURE_LEDS = true;
+      ZED_SCRUB_AFTER_RESILVER = true;
+    };
   };
 
   # SMART checks
