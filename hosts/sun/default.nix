@@ -33,13 +33,13 @@
     ./services/ntfy.nix
     ./services/rustdesk-server.nix
     ./services/frigate-container.nix
-    ./services/syncthing.nix
     ./services/music-assistant.nix
     ./services/unpackerr.nix
     ./services/qbittorrent.nix
     ./services/dispatcharr.nix
     ./services/backups-offsite.nix
     ./services/radicale.nix
+    ./services/whale-frigate-sync.nix
   ];
 
   environment.systemPackages = [
@@ -70,17 +70,19 @@
     enable = true;
     interval = "Mon *-*-* 22:00:00";
   };
-  services.zfs.zed.settings = {
-    ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-    ZED_EMAIL_ADDR = [ "root" ];
-    ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
-    ZED_EMAIL_OPTS = "@ADDRESS@";
+  services.zfs.zed = {
+    settings = {
+      ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+      ZED_EMAIL_ADDR = [ "root" ];
+      ZED_EMAIL_PROG = "mail";
+      ZED_EMAIL_OPTS = "-s '@SUBJECT@' @ADDRESS@";
 
-    ZED_NOTIFY_INTERVAL_SECS = 3600;
-    ZED_NOTIFY_VERBOSE = true;
+      ZED_NOTIFY_INTERVAL_SECS = 3600;
+      ZED_NOTIFY_VERBOSE = true;
 
-    ZED_USE_ENCLOSURE_LEDS = true;
-    ZED_SCRUB_AFTER_RESILVER = true;
+      ZED_USE_ENCLOSURE_LEDS = true;
+      ZED_SCRUB_AFTER_RESILVER = true;
+    };
   };
 
   # SMART checks
@@ -121,9 +123,12 @@
 
   # Networking
   networking = {
+    useDHCP = true;
+    useNetworkd = true;
     hostName = "sun";
     hostId = "696795a0";
   };
+  systemd.network.wait-online.enable = true;
 
   services.tailscale.useRoutingFeatures = "server";
 

@@ -2,7 +2,7 @@
 let
   vars = {
     homeassistant = {
-      version = "2025.11";
+      version = "2025.12";
       port = 8123;
     };
     zigbee2mqtt = {
@@ -83,16 +83,19 @@ in
         "9001:9001"
       ];
     };
+    
+    esphome = {
+      environment.TZ = "Europe/Madrid";
+      image = "ghcr.io/esphome/esphome";
+      extraOptions = [
+        "--network=host"
+      ];
+    };
   };
 
   # Glances for homeassistant monitoring of the server
   services.glances = {
     enable = true;
-  };
-
-  # EspHome 
-  services.esphome = {
-    enable = false;
   };
 
   # DB for historic data
@@ -150,18 +153,4 @@ in
       "/var/lib/home-assistant/zigbee2mqtt-trastero"
     ];
   };
-
-  # services.wyoming.faster-whisper.servers.homeassistant = {
-  #   enable = true;
-  #   device = "cuda";
-  #   uri = "tcp://0.0.0.0:10300";
-  #   model = "medium";
-  #   language = "es";
-  # };
-  # services.wyoming.piper.servers.homeassistant = {
-  #   enable = true;
-  #   voice = "es_ES-mls_10246-low";
-  #   uri = "tcp://0.0.0.0:10200";
-  # };
-
 }

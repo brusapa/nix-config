@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 {
 
   # Import the needed secrets
@@ -23,33 +23,21 @@
 
   services.postfix = {
     enable = true;
-    setSendmail = false;
+    setSendmail = true;
     settings.main = {
-      relayHost = [
-        "smtp.eu.mailgun.org:587"
+      relayhost = [
+        "[smtp.eu.mailgun.org]:587"
       ];
       smtp_use_tls = "yes";
-      smtp_sasl_auth_enable = "yes";
+      smtp_tls_security_level = "encrypt";
       smtp_sasl_security_options = "";
+      smtp_sasl_auth_enable = "yes";
       smtp_sasl_password_maps = "texthash:${config.sops.secrets."postfix/sasl_passwd".path}";
     };
     aliasFiles.aliases = lib.mkForce config.sops.templates."postfix-aliases".path;
   };
 
-  programs.msmtp = {
-    enable = true;
-    setSendmail = true;
-    defaults = {
-      aliases = config.sops.templates."postfix-aliases".path;
-      port = 25;
-      tls = false;
-    };
-    accounts = {
-      default = {
-        auth = false;
-        host = "127.0.0.1";
-        from = "sun@brusapa.com";
-      };
-    };
-  };
+  environment.systemPackages = [
+    pkgs.mailutils
+  ];
 }
