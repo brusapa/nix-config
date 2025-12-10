@@ -22,7 +22,6 @@
     ];
   };
 
-  services.caddy.virtualHosts."sonarr.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.sonarr.settings.server.port}
-  '';
+  myservices.reverseProxy.hosts.sonarr.httpPort = config.services.sonarr.settings.server.port;
+
 }

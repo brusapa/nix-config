@@ -28,8 +28,4 @@ in {
       # PGID = toString config.users.groups.configarr.gid;
     };
   };
-
-  services.caddy.virtualHosts."jackett.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString vars.port}
-  '';
 }

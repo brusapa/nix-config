@@ -42,5 +42,9 @@
       system = "aarch64-linux";
       users = [ "bruno" ];
     };
+
+    whale = {
+      users = [ "bruno" ];
+    };
   };
 }

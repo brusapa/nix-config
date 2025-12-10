@@ -23,9 +23,7 @@
 
     environment = {
       TZ = "Europe/Madrid";
-
       LIBVA_DRIVER_NAME = "iHD";
-
       # Silence vainfo's X warning (not required for ffmpeg, just cleaner logs)
       XDG_RUNTIME_DIR = "/tmp";
     };
@@ -51,13 +49,7 @@
     "d /var/cache/frigate 0750 root root -"
   ];
 
-  services.caddy.virtualHosts."frigate.brusapa.com".extraConfig = ''
-    reverse_proxy https://127.0.0.1:8971 {
-      transport http {
-        tls_insecure_skip_verify
-      }
-    }
-  '';
+  myservices.reverseProxy.hosts.frigate.httpsPort = 8971;
 
   # Allow webrtc access through firewall
   networking.firewall = {

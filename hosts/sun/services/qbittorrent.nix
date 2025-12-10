@@ -49,7 +49,6 @@
 
   networking.firewall.allowedTCPPorts = [ config.services.qbittorrent.torrentingPort ];
 
-  services.caddy.virtualHosts."qbittorrent.brusapa.com".extraConfig = ''
-    reverse_proxy http://192.168.15.1:${toString config.services.qbittorrent.webuiPort}
-  '';
+  myservices.reverseProxy.hosts.qbittorrent.httpPort = config.services.qbittorrent.webuiPort;
+  myservices.reverseProxy.hosts.torrent.httpPort = config.services.qbittorrent.webuiPort;
 }

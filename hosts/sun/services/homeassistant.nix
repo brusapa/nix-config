@@ -125,26 +125,14 @@ in
     };
   };
 
-  services.caddy.virtualHosts."influxdb.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:8086
-  '';
-
-  services.caddy.virtualHosts."glances.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString config.services.glances.port}
-  '';
-  services.caddy.virtualHosts."casa.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:8123
-  '';
-  services.caddy.virtualHosts."zigbee2mqtt.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString vars.zigbee2mqtt.port}
-  '';
-  services.caddy.virtualHosts."zigbee2mqtt-trastero.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString vars.zigbee2mqtt.trastero-port}
-  '';
-
-  services.caddy.virtualHosts."esphome.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString config.services.esphome.port}
-  '';
+  myservices.reverseProxy.hosts = {
+    influxdb.httpPort = 8086;
+    glances.httpPort = config.services.glances.port;
+    casa.httpPort = 8123;
+    zigbee2mqtt.httpPort = vars.zigbee2mqtt.port;
+    zigbee2mqtt-trastero.httpPort = vars.zigbee2mqtt.trastero-port;
+    esphome.httpPort = config.services.esphome.port;
+  };
 
   backup-offsite-landabarri.job.home-assistant = {
     paths = [

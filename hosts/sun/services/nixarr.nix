@@ -90,36 +90,7 @@
   # Add jellyfin user to render group
   users.users.jellyfin.extraGroups = [ "render" ];
 
-  services.caddy.virtualHosts = {
-    "jellyfin.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:8096
-    '';
-    "torrent.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.nixarr.transmission.uiPort}
-    '';
-    # "usenet.brusapa.com".extraConfig = ''
-    #   reverse_proxy http://localhost:${toString config.nixarr.sabnzbd.guiPort}
-    # '';
-    # "radarr.brusapa.com".extraConfig = ''
-    #   reverse_proxy http://localhost:${toString config.nixarr.radarr.port}
-    # '';
-    # "sonarr.brusapa.com".extraConfig = ''
-    #   reverse_proxy http://localhost:8989
-    # '';
-    # "bazarr.brusapa.com".extraConfig = ''
-    #   reverse_proxy http://localhost:${toString config.nixarr.bazarr.port}
-    # '';
-    # "lidarr.brusapa.com".extraConfig = ''
-    #   reverse_proxy http://localhost:${toString config.nixarr.lidarr.port}
-    # '';
-    # "prowlarr.brusapa.com".extraConfig = ''
-    #   reverse_proxy http://localhost:${toString config.nixarr.prowlarr.port}
-    # '';
-    "jellyserr.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.nixarr.jellyseerr.port}
-    '';
-    # "jackett.brusapa.com".extraConfig = ''
-    #   reverse_proxy http://192.168.15.1:${toString config.services.jackett.port}
-    # '';
-  };
+  myservices.reverseProxy.hosts.jellyfin.httpPort = 8096;
+  myservices.reverseProxy.hosts.jellyserr.httpPort = config.nixarr.jellyseerr.port;
+
 }

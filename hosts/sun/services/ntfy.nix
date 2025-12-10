@@ -9,8 +9,6 @@
     };
   };
 
-  # Reverse proxy
-  services.caddy.virtualHosts."ntfy.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:34567
-  '';
+  myservices.reverseProxy.hosts.ntfy.httpPort = 34567;
+
 }

@@ -42,10 +42,10 @@ in
     ];
   };
 
-  # Reverse proxy
-  services.caddy.virtualHosts."fotos.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.immich.port}
-  '';
+  myservices.reverseProxy.hosts.fotos = {
+    ip = "localhost";
+    httpPort = config.services.immich.port;
+  };
 
   # Backup Immich database
   systemd.tmpfiles.rules = [

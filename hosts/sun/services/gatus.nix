@@ -117,9 +117,6 @@
       };
     };
 
-    # Reverse proxy
-    services.caddy.virtualHosts."gatus.brusapa.com".extraConfig = ''
-      reverse_proxy http://localhost:${toString config.services.gatus.settings.web.port}
-    '';
+    myservices.reverseProxy.hosts.gatus.httpPort = config.services.gatus.settings.web.port;
   };
 }

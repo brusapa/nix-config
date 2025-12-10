@@ -8,7 +8,5 @@
     ];
   };
 
-  services.caddy.virtualHosts."jellyserr.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.jellyserr.port}
-  '';
+  myservices.reverseProxy.hosts.jellyserr.httpPort = config.services.jellyserr.port;
 }

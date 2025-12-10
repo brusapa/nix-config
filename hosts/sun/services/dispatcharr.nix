@@ -43,10 +43,6 @@ in
 
   };
 
-  services.caddy.virtualHosts."dispatcharr.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString dispatcharr-port}
-  '';
-  services.caddy.virtualHosts."epg.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString epg-port}
-  '';
+  myservices.reverseProxy.hosts.dispatcharr.httpPort = dispatcharr-port;
+  myservices.reverseProxy.hosts.epg.httpPort = epg-port;
 }

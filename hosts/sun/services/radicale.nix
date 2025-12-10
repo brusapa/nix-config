@@ -20,7 +20,5 @@
     };
   };
 
-  services.caddy.virtualHosts."radicale.brusapa.com".extraConfig = ''
-      reverse_proxy http://127.0.0.1:5232
-  '';
+  myservices.reverseProxy.hosts.radicale.httpPort = 5232;
 }

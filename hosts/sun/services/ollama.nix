@@ -20,10 +20,7 @@
       OLLAMA_API_BASE = "http://localhost:${toString config.services.ollama.port}";
     };
   };
-  services.caddy.virtualHosts."ollama.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.ollama.port}
-  '';
-  services.caddy.virtualHosts."ai.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.open-webui.port}
-  '';
+
+  myservices.reverseProxy.hosts.ollama.httpPort = config.services.ollama.port;
+  myservices.reverseProxy.hosts.ai.httpPort = config.services.open-webui.port;
 }
