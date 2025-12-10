@@ -9,6 +9,6 @@
     };
   };
 
-  myservices.reverseProxy.hosts.ntfy.httpPort = 34567;
+  reverseProxy.hosts.ntfy.httpPort = 34567;
 
 }

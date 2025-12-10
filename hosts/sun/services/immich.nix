@@ -42,7 +42,7 @@ in
     ];
   };
 
-  myservices.reverseProxy.hosts.fotos = {
+  reverseProxy.hosts.fotos = {
     ip = "localhost";
     httpPort = config.services.immich.port;
   };

@@ -49,7 +49,7 @@
     "d /var/cache/frigate 0750 root root -"
   ];
 
-  myservices.reverseProxy.hosts.frigate.httpsPort = 8971;
+  reverseProxy.hosts.frigate.httpsPort = 8971;
 
   # Allow webrtc access through firewall
   networking.firewall = {

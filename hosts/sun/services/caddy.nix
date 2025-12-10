@@ -23,7 +23,7 @@
     };
   };
 
-  myservices.reverseProxy = {
+  reverseProxy = {
     enable = true;
     baseDomain = "brusapa.com";
     environmentFile = config.sops.templates."caddy-secrets.env".path;

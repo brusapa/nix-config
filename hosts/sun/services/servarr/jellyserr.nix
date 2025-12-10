@@ -8,5 +8,5 @@
     ];
   };
 
-  myservices.reverseProxy.hosts.jellyserr.httpPort = config.services.jellyserr.port;
+  reverseProxy.hosts.jellyserr.httpPort = config.services.jellyserr.port;
 }

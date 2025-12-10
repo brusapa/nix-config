@@ -25,6 +25,6 @@
     environmentFile = config.sops.templates."karakeep-secrets.env".path;
   };
 
-  myservices.reverseProxy.hosts.karakeep.httpPort = 3000;
+  reverseProxy.hosts.karakeep.httpPort = 3000;
 
 }

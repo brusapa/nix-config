@@ -57,7 +57,7 @@ in
     };
   };
 
-  myservices.reverseProxy.hosts.documentos.httpPort = config.services.paperless.port;
+  reverseProxy.hosts.documentos.httpPort = config.services.paperless.port;
 
   backup-offsite-landabarri.job.paperless = {
     paths = [

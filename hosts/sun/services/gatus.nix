@@ -117,6 +117,6 @@
       };
     };
 
-    myservices.reverseProxy.hosts.gatus.httpPort = config.services.gatus.settings.web.port;
+    reverseProxy.hosts.gatus.httpPort = config.services.gatus.settings.web.port;
   };
 }

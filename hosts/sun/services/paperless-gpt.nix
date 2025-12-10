@@ -71,6 +71,6 @@
     };
   };
 
-  myservices.reverseProxy.hosts."paperless-gpt".httpPort = 11297;
+  reverseProxy.hosts."paperless-gpt".httpPort = 11297;
 
 }

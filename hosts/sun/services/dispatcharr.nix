@@ -43,6 +43,6 @@ in
 
   };
 
-  myservices.reverseProxy.hosts.dispatcharr.httpPort = dispatcharr-port;
-  myservices.reverseProxy.hosts.epg.httpPort = epg-port;
+  reverseProxy.hosts.dispatcharr.httpPort = dispatcharr-port;
+  reverseProxy.hosts.epg.httpPort = epg-port;
 }

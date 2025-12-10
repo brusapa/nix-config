@@ -49,6 +49,6 @@
 
   networking.firewall.allowedTCPPorts = [ config.services.qbittorrent.torrentingPort ];
 
-  myservices.reverseProxy.hosts.qbittorrent.httpPort = config.services.qbittorrent.webuiPort;
-  myservices.reverseProxy.hosts.torrent.httpPort = config.services.qbittorrent.webuiPort;
+  reverseProxy.hosts.qbittorrent.httpPort = config.services.qbittorrent.webuiPort;
+  reverseProxy.hosts.torrent.httpPort = config.services.qbittorrent.webuiPort;
 }

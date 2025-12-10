@@ -22,6 +22,6 @@
     ];
   };
 
-  myservices.reverseProxy.hosts.sonarr.httpPort = config.services.sonarr.settings.server.port;
+  reverseProxy.hosts.sonarr.httpPort = config.services.sonarr.settings.server.port;
 
 }

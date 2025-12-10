@@ -74,7 +74,7 @@ in
       ];
     };
 
-    myservices.reverseProxy.hosts.${cfg.name}.httpsPort = cfg.port;
+    reverseProxy.hosts.${cfg.name}.httpsPort = cfg.port;
 
     # Allow webrtc access through firewall
     networking.firewall = {

@@ -22,6 +22,6 @@
     ];
   };
 
-  myservices.reverseProxy.hosts.radarr.httpPort = config.services.radarr.settings.server.port;
+  reverseProxy.hosts.radarr.httpPort = config.services.radarr.settings.server.port;
 
 }

@@ -43,7 +43,7 @@
     environmentFile = config.sops.templates."webdav-secrets.env".path;
   };
 
-  myservices.reverseProxy.hosts.webdav.httpPort = config.services.webdav.settings.port;
+  reverseProxy.hosts.webdav.httpPort = config.services.webdav.settings.port;
 
   backup-offsite-landabarri.job.webdav = {
     paths = [

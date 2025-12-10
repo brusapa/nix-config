@@ -90,7 +90,7 @@
   # Add jellyfin user to render group
   users.users.jellyfin.extraGroups = [ "render" ];
 
-  myservices.reverseProxy.hosts.jellyfin.httpPort = 8096;
-  myservices.reverseProxy.hosts.jellyserr.httpPort = config.nixarr.jellyseerr.port;
+  reverseProxy.hosts.jellyfin.httpPort = 8096;
+  reverseProxy.hosts.jellyserr.httpPort = config.nixarr.jellyseerr.port;
 
 }

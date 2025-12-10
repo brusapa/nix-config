@@ -17,5 +17,5 @@ in {
     };
   };
 
-  myservices.reverseProxy.hosts.cosas.httpPort = port;
+  reverseProxy.hosts.cosas.httpPort = port;
 }

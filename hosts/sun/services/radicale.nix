@@ -20,5 +20,5 @@
     };
   };
 
-  myservices.reverseProxy.hosts.radicale.httpPort = 5232;
+  reverseProxy.hosts.radicale.httpPort = 5232;
 }

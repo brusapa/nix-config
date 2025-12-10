@@ -14,7 +14,7 @@
     ];
   };
 
-  myservices.reverseProxy.hosts.musica.httpPort = 8095;
+  reverseProxy.hosts.musica.httpPort = 8095;
 
   networking.firewall.allowedTCPPorts = [ 8097 ];
 

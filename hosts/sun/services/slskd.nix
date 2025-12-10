@@ -50,6 +50,6 @@
     };
   };
 
-  myservices.reverseProxy.hosts.slskd.httpPort = config.services.slskd.settings.web.port;
+  reverseProxy.hosts.slskd.httpPort = config.services.slskd.settings.web.port;
 
 }

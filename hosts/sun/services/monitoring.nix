@@ -89,6 +89,6 @@
   };
 
 
-  myservices.reverseProxy.hosts.grafana.httpPort = config.services.grafana.settings.server.http_port;
+  reverseProxy.hosts.grafana.httpPort = config.services.grafana.settings.server.http_port;
 
 }

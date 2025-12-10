@@ -37,7 +37,7 @@ in
       ];
     };
 
-    myservices.reverseProxy.hosts.${cfg.name}.httpPort = cfg.port;
+    reverseProxy.hosts.${cfg.name}.httpPort = cfg.port;
 
   };
 }

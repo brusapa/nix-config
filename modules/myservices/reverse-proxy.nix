@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 let
   inherit (lib) mkIf mkOption  mkEnableOption types filterAttrs mapAttrs' nameValuePair;
-  cfg = config.myservices.reverseProxy;
+  cfg = config.reverseProxy;
 
    # Only hosts that have at least one port defined
   enabledHosts =
@@ -24,7 +24,7 @@ let
       '';
 in
 {
-  options.myservices.reverseProxy = {
+  options.reverseProxy = {
     enable = mkEnableOption "Enable reverseProxy";
 
     httpPort = mkOption {
@@ -76,7 +76,7 @@ in
         Per-host reverse proxy definitions.
 
         Example:
-          myservices.reverseProxy.hosts.frigate.httpPort = 8971;
+          reverseProxy.hosts.frigate.httpPort = 8971;
       '';
     };
   };

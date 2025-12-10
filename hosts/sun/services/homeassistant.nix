@@ -125,7 +125,7 @@ in
     };
   };
 
-  myservices.reverseProxy.hosts = {
+  reverseProxy.hosts = {
     influxdb.httpPort = 8086;
     glances.httpPort = config.services.glances.port;
     casa.httpPort = 8123;

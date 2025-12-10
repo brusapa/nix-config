@@ -21,6 +21,6 @@
     };
   };
 
-  myservices.reverseProxy.hosts.ollama.httpPort = config.services.ollama.port;
-  myservices.reverseProxy.hosts.ai.httpPort = config.services.open-webui.port;
+  reverseProxy.hosts.ollama.httpPort = config.services.ollama.port;
+  reverseProxy.hosts.ai.httpPort = config.services.open-webui.port;
 }

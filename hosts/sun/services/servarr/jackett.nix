@@ -42,6 +42,6 @@ in {
     };
   };
 
-  myservices.reverseProxy.hosts.jackett.httpPort = vars.port;
+  reverseProxy.hosts.jackett.httpPort = vars.port;
 
 }
