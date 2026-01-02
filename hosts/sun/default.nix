@@ -12,6 +12,7 @@
     ../../modules/hardware/intel-gpu-hw-acceleration.nix
     ../../modules/containers.nix
     #../../modules/hardware/nvidia-gpu.nix
+    ./services
     ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
@@ -44,6 +45,7 @@
 
   environment.systemPackages = [
     pkgs.restic
+    pkgs.mailutils
   ];
 
   # Bootloader
@@ -71,11 +73,12 @@
     interval = "Mon *-*-* 22:00:00";
   };
   services.zfs.zed = {
+    enableMail = true;
     settings = {
       ZED_DEBUG_LOG = "/tmp/zed.debug.log";
       ZED_EMAIL_ADDR = [ "root" ];
-      ZED_EMAIL_PROG = "mail";
-      ZED_EMAIL_OPTS = "-s '@SUBJECT@' @ADDRESS@";
+      ZED_EMAIL_PROG = "${pkgs.mailutils}/bin/mail";
+      ZED_EMAIL_OPTS = "-s '@SUBJECT@' -a 'From: sun@brusapa.com' @ADDRESS@";
 
       ZED_NOTIFY_INTERVAL_SECS = 3600;
       ZED_NOTIFY_VERBOSE = true;
@@ -129,6 +132,25 @@
     hostId = "696795a0";
   };
   systemd.network.wait-online.enable = true;
+
+  systemd.network.links = {
+    "10-lan1s1g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:66";
+      linkConfig.Name = "lan1s1g";
+    };
+    "10-lan2s1g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:67";
+      linkConfig.Name = "lan2s1g";
+    };
+    "10-lan3s10g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:68";
+      linkConfig.Name = "lan3s10g";
+    };
+    "10-lan4s10g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:69";
+      linkConfig.Name = "lan4s10g";
+    };
+  };
 
   services.tailscale.useRoutingFeatures = "server";
 
