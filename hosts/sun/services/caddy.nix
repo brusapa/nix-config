@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 {
   imports = [
     ../../../modules/myservices/reverse-proxy.nix
@@ -19,7 +19,7 @@
         CF_EMAIL="${config.sops.placeholder.cloudflare-email}"
         CF_API_TOKEN="${config.sops.placeholder.cloudflare-api-token}"
       '';
-      owner = "caddy";
+      owner = config.reverseProxy.user;
     };
   };
 
