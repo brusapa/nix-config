@@ -48,6 +48,19 @@ in
       description = "Secrets environment file";
     };
 
+    user = mkOption {
+      type = types.str;
+      default = "caddy";
+      description = "User account under which the reverse proxy runs.";
+    };
+
+    group = mkOption {
+      type = types.str;
+      default = "caddy";
+      description = "Group under which the reverse proxy runs.";
+    };
+
+
     hosts = mkOption {
       type = types.attrsOf (types.submodule ({ name, ... }: {
         options = {
@@ -87,6 +100,8 @@ in
 
     services.caddy = {
       enable = true;
+      user = cfg.user;
+      group = cfg.group;
       package = pkgs.caddy.withPlugins {
         plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
         hash = "sha256-ea8PC/+SlPRdEVVF/I3c1CBprlVp1nrumKM5cMwJJ3U=";
