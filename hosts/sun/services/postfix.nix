@@ -28,6 +28,7 @@
       relayhost = [
         "[smtp.eu.mailgun.org]:587"
       ];
+      myhostname = "sun.brusapa.com";
       smtp_use_tls = "yes";
       smtp_tls_security_level = "encrypt";
       smtp_sasl_security_options = "";
