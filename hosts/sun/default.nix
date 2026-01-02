@@ -11,7 +11,8 @@
     ../../modules/secure-boot.nix
     ../../modules/hardware/intel-gpu-hw-acceleration.nix
     ../../modules/containers.nix
-    #../../modules/hardware/nvidia-gpu.nix
+    ../../modules/zfs.nix
+    ../../modules/server.nix
     ./services
     ./services/samba.nix
     ./services/postfix.nix
@@ -45,7 +46,6 @@
 
   environment.systemPackages = [
     pkgs.restic
-    pkgs.mailutils
   ];
 
   # Bootloader
@@ -64,37 +64,7 @@
   zramSwap.enable = true;
 
   # ZFS related options
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.devNodes = "/dev/disk/by-id";
-  boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "zstorage" ];
-  services.zfs.autoScrub = {
-    enable = true;
-    interval = "Mon *-*-* 22:00:00";
-  };
-  services.zfs.zed = {
-    enableMail = true;
-    settings = {
-      ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-      ZED_EMAIL_ADDR = [ "root" ];
-      ZED_EMAIL_PROG = "${pkgs.mailutils}/bin/mail";
-      ZED_EMAIL_OPTS = "-s '@SUBJECT@' -a 'From: sun@brusapa.com' @ADDRESS@";
-
-      ZED_NOTIFY_INTERVAL_SECS = 3600;
-      ZED_NOTIFY_VERBOSE = true;
-
-      ZED_USE_ENCLOSURE_LEDS = true;
-      ZED_SCRUB_AFTER_RESILVER = true;
-    };
-  };
-
-  # SMART checks
-  services.smartd = {
-    enable = true;
-    notifications = {
-      mail.enable = true;
-    };
-  };
 
   # Backup userdata
   backup-offsite-landabarri.job.userdata.paths = [
@@ -109,26 +79,12 @@
   fileSystems."/mnt/internalBackup".device = "/dev/mapper/cryptbackup";
   fileSystems."/mnt/satassd".device = "/dev/mapper/cryptsatassd";
 
-  # Power management
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "powersave";
-    powertop.enable = true;
-  };
-
-  # Prevent suspension/hybernation
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
-
   # Networking
   networking = {
     useDHCP = true;
     useNetworkd = true;
     hostName = "sun";
+    domain = "brusapa.com";
     hostId = "696795a0";
   };
   systemd.network.wait-online.enable = true;
@@ -153,9 +109,6 @@
   };
 
   services.tailscale.useRoutingFeatures = "server";
-
-  # Allow VsCode SSH remote connections
-  programs.nix-ld.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
