@@ -42,7 +42,6 @@ in {
     };
   };
 
-  services.caddy.virtualHosts."jackett.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString vars.port}
-  '';
+  reverseProxy.hosts.jackett.httpPort = vars.port;
+
 }

@@ -25,7 +25,6 @@
     environmentFile = config.sops.templates."karakeep-secrets.env".path;
   };
 
-  services.caddy.virtualHosts."karakeep.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:3000
-  '';
+  reverseProxy.hosts.karakeep.httpPort = 3000;
+
 }

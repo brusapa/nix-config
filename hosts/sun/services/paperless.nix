@@ -57,9 +57,7 @@ in
     };
   };
 
-  services.caddy.virtualHosts."documentos.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString config.services.paperless.port}
-  '';
+  reverseProxy.hosts.documentos.httpPort = config.services.paperless.port;
 
   backup-offsite-landabarri.job.paperless = {
     paths = [

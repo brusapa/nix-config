@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix # Include the results of the hardware scan.
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-    ./fancontrol.nix
     ./disko-config.nix
     ../../modules/secure-boot.nix
     ../../modules/hardware/yubikey.nix
@@ -38,12 +37,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel available
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking = {
     hostName = "mercury";
     hostId = "46b34875";
   };
+
+  # Use fan control
+  hardware.fw-fanctrl.enable = true;
 
   # Wireless
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

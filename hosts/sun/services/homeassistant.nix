@@ -2,7 +2,7 @@
 let
   vars = {
     homeassistant = {
-      version = "2025.11";
+      version = "2025.12";
       port = 8123;
     };
     zigbee2mqtt = {
@@ -83,16 +83,19 @@ in
         "9001:9001"
       ];
     };
+    
+    esphome = {
+      environment.TZ = "Europe/Madrid";
+      image = "ghcr.io/esphome/esphome";
+      extraOptions = [
+        "--network=host"
+      ];
+    };
   };
 
   # Glances for homeassistant monitoring of the server
   services.glances = {
     enable = true;
-  };
-
-  # EspHome 
-  services.esphome = {
-    enable = false;
   };
 
   # DB for historic data
@@ -122,26 +125,14 @@ in
     };
   };
 
-  services.caddy.virtualHosts."influxdb.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:8086
-  '';
-
-  services.caddy.virtualHosts."glances.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString config.services.glances.port}
-  '';
-  services.caddy.virtualHosts."casa.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:8123
-  '';
-  services.caddy.virtualHosts."zigbee2mqtt.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString vars.zigbee2mqtt.port}
-  '';
-  services.caddy.virtualHosts."zigbee2mqtt-trastero.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString vars.zigbee2mqtt.trastero-port}
-  '';
-
-  services.caddy.virtualHosts."esphome.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString config.services.esphome.port}
-  '';
+  reverseProxy.hosts = {
+    influxdb.httpPort = 8086;
+    glances.httpPort = config.services.glances.port;
+    casa.httpPort = 8123;
+    zigbee2mqtt.httpPort = vars.zigbee2mqtt.port;
+    zigbee2mqtt-trastero.httpPort = vars.zigbee2mqtt.trastero-port;
+    esphome.httpPort = config.services.esphome.port;
+  };
 
   backup-offsite-landabarri.job.home-assistant = {
     paths = [
@@ -150,18 +141,4 @@ in
       "/var/lib/home-assistant/zigbee2mqtt-trastero"
     ];
   };
-
-  # services.wyoming.faster-whisper.servers.homeassistant = {
-  #   enable = true;
-  #   device = "cuda";
-  #   uri = "tcp://0.0.0.0:10300";
-  #   model = "medium";
-  #   language = "es";
-  # };
-  # services.wyoming.piper.servers.homeassistant = {
-  #   enable = true;
-  #   voice = "es_ES-mls_10246-low";
-  #   uri = "tcp://0.0.0.0:10200";
-  # };
-
 }

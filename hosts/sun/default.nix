@@ -11,7 +11,9 @@
     ../../modules/secure-boot.nix
     ../../modules/hardware/intel-gpu-hw-acceleration.nix
     ../../modules/containers.nix
-    #../../modules/hardware/nvidia-gpu.nix
+    ../../modules/zfs.nix
+    ../../modules/server.nix
+    ./services
     ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
@@ -62,34 +64,7 @@
   zramSwap.enable = true;
 
   # ZFS related options
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.devNodes = "/dev/disk/by-id";
-  boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "zstorage" ];
-  services.zfs.autoScrub = {
-    enable = true;
-    interval = "Mon *-*-* 22:00:00";
-  };
-  services.zfs.zed.settings = {
-    ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-    ZED_EMAIL_ADDR = [ "root" ];
-    ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
-    ZED_EMAIL_OPTS = "@ADDRESS@";
-
-    ZED_NOTIFY_INTERVAL_SECS = 3600;
-    ZED_NOTIFY_VERBOSE = true;
-
-    ZED_USE_ENCLOSURE_LEDS = true;
-    ZED_SCRUB_AFTER_RESILVER = true;
-  };
-
-  # SMART checks
-  services.smartd = {
-    enable = true;
-    notifications = {
-      mail.enable = true;
-    };
-  };
 
   # Backup userdata
   backup-offsite-landabarri.job.userdata.paths = [
@@ -104,31 +79,36 @@
   fileSystems."/mnt/internalBackup".device = "/dev/mapper/cryptbackup";
   fileSystems."/mnt/satassd".device = "/dev/mapper/cryptsatassd";
 
-  # Power management
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "powersave";
-    powertop.enable = true;
-  };
-
-  # Prevent suspension/hybernation
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
-
   # Networking
   networking = {
+    useDHCP = true;
+    useNetworkd = true;
     hostName = "sun";
+    domain = "brusapa.com";
     hostId = "696795a0";
+  };
+  systemd.network.wait-online.enable = true;
+
+  systemd.network.links = {
+    "10-lan1s1g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:66";
+      linkConfig.Name = "lan1s1g";
+    };
+    "10-lan2s1g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:67";
+      linkConfig.Name = "lan2s1g";
+    };
+    "10-lan3s10g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:68";
+      linkConfig.Name = "lan3s10g";
+    };
+    "10-lan4s10g" = {
+      matchConfig.MACAddress = "9c:6b:00:45:80:69";
+      linkConfig.Name = "lan4s10g";
+    };
   };
 
   services.tailscale.useRoutingFeatures = "server";
-
-  # Allow VsCode SSH remote connections
-  programs.nix-ld.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

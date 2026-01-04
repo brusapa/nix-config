@@ -58,6 +58,14 @@
     e2fsprogs # Tools for creating and checking ext2/ext3/ext4 filesystems
   ];
 
+  # SMART checks
+  services.smartd = {
+    enable = true;
+    notifications = {
+      mail.enable = true;
+    };
+  };
+
   # Whether to generate the manual page index caches. This allows searching for a page or keyword using utilities like apropos(1) and the -k option of man(1).
   # Fish enables it by default, but takes a really long timetime.
   documentation.man.generateCaches = false;

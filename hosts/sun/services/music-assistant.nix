@@ -14,10 +14,8 @@
     ];
   };
 
-  services.caddy.virtualHosts."musica.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:8095
-  '';
-  networking.firewall.allowedTCPPorts = [ 8097 ];
+  reverseProxy.hosts.musica.httpPort = 8095;
 
+  networking.firewall.allowedTCPPorts = [ 8097 ];
 
 }

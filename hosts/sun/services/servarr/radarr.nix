@@ -22,7 +22,6 @@
     ];
   };
 
-  services.caddy.virtualHosts."radarr.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.radarr.settings.server.port}
-  '';
+  reverseProxy.hosts.radarr.httpPort = config.services.radarr.settings.server.port;
+
 }

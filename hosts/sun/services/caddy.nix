@@ -1,5 +1,9 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 {
+  imports = [
+    ../../../modules/myservices/reverse-proxy.nix
+  ];
+
   # Import the needed secrets
   sops = {
     secrets = {
@@ -15,35 +19,23 @@
         CF_EMAIL="${config.sops.placeholder.cloudflare-email}"
         CF_API_TOKEN="${config.sops.placeholder.cloudflare-api-token}"
       '';
-      owner = "caddy";
+      owner = config.reverseProxy.user;
     };
   };
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates."caddy-secrets.env".path;
-
-  services.caddy = {
+  reverseProxy = {
     enable = true;
-    package = pkgs.caddy.withPlugins {
-      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
-      hash = "sha256-ea8PC/+SlPRdEVVF/I3c1CBprlVp1nrumKM5cMwJJ3U=";
+    baseDomain = "brusapa.com";
+    environmentFile = config.sops.templates."caddy-secrets.env".path;
+    hosts = {
+      router = {
+        ip = "10.80.0.1";
+        httpsPort = 443;
+      };
+      "router.trastero" = {
+        ip = "10.80.9.1";
+        httpsPort = 443;
+      };
     };
-    globalConfig = 
-    ''
-      email {env.CF_EMAIL}
-      acme_dns cloudflare {env.CF_API_TOKEN}
-    '';
-    virtualHosts."router.brusapa.com".extraConfig = ''
-      reverse_proxy 10.80.0.1:443 {
-        transport http {
-          tls
-          tls_insecure_skip_verify
-        }
-      }
-    '';
-    virtualHosts."ender.brusapa.com".extraConfig = ''
-      reverse_proxy http://10.80.0.3
-    '';
   };
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

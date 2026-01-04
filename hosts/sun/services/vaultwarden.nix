@@ -35,10 +35,8 @@
     backupDir = "/zstorage/internal-backups/vaultwarden";
   };
 
-  services.caddy.virtualHosts."bitwarden.brusapa.com".extraConfig = ''
-    reverse_proxy /notifications/hub http://127.0.0.1:3012
-    reverse_proxy http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}
-  '';
+
+  reverseProxy.hosts.bitwarden.httpPort = config.services.vaultwarden.config.ROCKET_PORT;
 
   backup-offsite-landabarri.job.vaultwarden = {
     paths = [

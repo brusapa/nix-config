@@ -50,7 +50,6 @@
     };
   };
 
-  services.caddy.virtualHosts."slskd.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.slskd.settings.web.port}
-  '';
+  reverseProxy.hosts.slskd.httpPort = config.services.slskd.settings.web.port;
+
 }

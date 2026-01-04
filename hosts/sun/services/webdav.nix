@@ -43,9 +43,7 @@
     environmentFile = config.sops.templates."webdav-secrets.env".path;
   };
 
-  services.caddy.virtualHosts."webdav.brusapa.com".extraConfig = ''
-    reverse_proxy http://127.0.0.1:${toString config.services.webdav.settings.port}
-  '';
+  reverseProxy.hosts.webdav.httpPort = config.services.webdav.settings.port;
 
   backup-offsite-landabarri.job.webdav = {
     paths = [

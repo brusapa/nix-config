@@ -44,11 +44,6 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  
-    fw-fanctrl = {
-      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     sops-nix.url = "github:Mic92/sops-nix";
 
@@ -71,79 +66,20 @@
     ];
   };
 
-  outputs = inputs@{
-    self,
-    nixpkgs,
-    flake-parts,
-    disko,
-    lanzaboote,
-    nixos-hardware,
-    home-manager,
-    plasma-manager,
-    firefox-addons,
-    nixpkgs-unstable,
-    nixos-wsl,
-    fw-fanctrl,
-    sops-nix,
-    autofirma-nix,
-    nixarr,
-    nix-flatpak,
-    ...
-  }:
-  flake-parts.lib.mkFlake { inherit inputs; } ({
-    # define the systems for which we want to compute things
-    systems = [ "x86_64-linux" "aarch64-linux" ];
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" "aarch64-linux" ];
 
-    # flake-parts passes { self, inputs, lib, ... } here
-    perSystem = { system, pkgs, ... }: {
-      # You can put perSystem packages, devShells, checks, etc. here later.
-      # Example:
-      # packages.hello = pkgs.hello;
-    };
+      imports = [
+        ./flake/hosts.nix
+        ./flake/nixos-configs.nix
+        ./flake/nixos-overlays.nix
+      ];
 
-    flake = let
-      makeNixosConfig = { hostname, users, system ? "x86_64-linux" }:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/${hostname}
-            (import ./modules/home-manager-config.nix {
-              inherit hostname users;
-            })
-          ];
-        };
-    in {
-      overlays = import ./overlays { inherit inputs; };
-
-      # NixOS configurations
-      nixosConfigurations = {
-        sun = makeNixosConfig {
-          hostname = "sun";
-          users = [ "bruno" ];
-        };
-
-        mars = makeNixosConfig {
-          hostname = "mars";
-          users = [ "bruno" "gurenda" ];
-        };
-
-        mercury = makeNixosConfig {
-          hostname = "mercury";
-          users = [ "bruno" "gurenda" ];
-        };
-
-        wsl = makeNixosConfig {
-          hostname = "wsl";
-          users = [ "bruno" ];
-        };
-
-        rpi-landabarri = makeNixosConfig {
-          system = "aarch64-linux";
-          hostname = "rpi-landabarri";
-          users = [ "bruno" ];
-        };
+      perSystem = { system, pkgs, ... }: {
+        # You can put perSystem packages, devShells, checks, etc. here later.
+        # Example:
+        # packages.hello = pkgs.hello;
       };
     };
-  });
 }

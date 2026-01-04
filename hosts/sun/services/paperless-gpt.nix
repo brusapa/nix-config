@@ -71,7 +71,6 @@
     };
   };
 
-  services.caddy.virtualHosts."paperless-gpt.brusapa.com".extraConfig = ''
-    reverse_proxy http://localhost:11297
-  '';
+  reverseProxy.hosts."paperless-gpt".httpPort = 11297;
+
 }
