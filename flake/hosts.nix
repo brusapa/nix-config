@@ -34,6 +34,10 @@
       users = [ "bruno" "gurenda" ];
     };
 
+    pluto = {
+      users = [ "bruno" ];
+    };
+
     wsl = {
       users = [ "bruno" ];
     };
