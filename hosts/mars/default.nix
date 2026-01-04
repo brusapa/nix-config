@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
 
 {
   imports = [
@@ -9,7 +9,7 @@
     # inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    ../../modules/hardware/amd-gpu.nix
     #./disko-config.nix
     ../../modules/secure-boot.nix
     ../../modules/hardware/logitech.nix
@@ -41,29 +41,26 @@
   ];
   zramSwap.enable = true;
 
-  # ZFS related options
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.devNodes = "/dev/disk/by-id";
-  boot.zfs.forceImportRoot = false;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Add EC sensors for asus motherboards
+  boot.extraModulePackages = with config.boot.kernelPackages; [ asus-ec-sensors ];
   environment.systemPackages = with pkgs; [
     lm_sensors
+    furmark
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel available
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-
   networking = {
     hostName = "mars";
     hostId = "c66a2250";
   };
 
-  # # Enable Wake On Lan
-  # networking.interfaces.enp5s0.wakeOnLan.enable = true;
+  # Enable Wake On Lan
+  networking.interfaces.eno1.wakeOnLan.enable = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
