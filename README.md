@@ -1,5 +1,42 @@
 # NixOS configuration files
 
+## Execute a remote install
+
+1. Generate the keys for the new host
+
+    ``` bash
+    mkdir -p /tmp/<hostname>/etc/ssh
+    ssh-keygen -t ed25519 -C <hostname> -f /etc/ssh/ssh_host_ed25519_key
+    nix-shell -p ssh-to-age --run 'cat /tmp/<hostname>/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
+    ```
+
+2. Register the age key into sops-nix and update any related secrets file
+
+    ``` bash
+    nix-shell -p sops --run "sops updatekeys hosts/common/secrets.yaml"
+    ```
+
+3. Set the encryption key for the boot disk
+    
+    ``` bash
+    echo "yoursecretkey" > /tmp/cryptroot.key
+    ```
+
+4. Uncomment the secure boot from installation.
+
+5. Perform the installation over SSH
+
+    ``` bash
+    nix run github:nix-community/nixos-anywhere -- \
+        --extra-files /tmp/<hostname> \
+        --disk-encryption-keys /tmp/cryptroot.key /tmp/cryptroot.key \
+        --flake '.#<hostname>' \
+        --target-host nixos@<yourip>
+    ```
+
+6. Follow the post-installation steps
+
+
 ## Execute a fresh install
 
 1. Choose the passphrase for the storage
@@ -31,16 +68,18 @@
 2. Create secure boot the keys
 
     ``` bash
-    # sbctl create-keys
+    nix-shell -p sbctl --run "sudo sbctl create-keys"
     ```
 
 3. Enroll the keys
 
     ``` bash
-    # sbctl enroll-keys -- --microsoft
+    nix-shell -p sbctl --run "sudo sbctl enroll-keys --microsoft"
     ```
 
-4. Reboot and verify
+4. Perform a nixos rebuild
+
+5. Reboot and verify
 
     ``` bash
     $ bootctl status
@@ -53,19 +92,11 @@
       Boot into FW: supported
     ```
 
-5. Store the keys on the TPM module (you may have to change the last parameter to point to your encrypted root partition):
+6. Store the keys on the TPM module (you may have to change the last parameter to point to your encrypted root partition):
 
     ``` bash
     # systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+2+7+12 --wipe-slot=tpm2 /dev/nvme0n1p2
     ```
-
-### Import SSH resident key
-
-``` bash
-$ cd ~/.ssh
-$ ssh-keygen -K
-$ mv id_ed25519_sk_* id_ed25519_sk
-```
 
 ### Enable Tailscale
 
