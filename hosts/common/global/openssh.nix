@@ -11,7 +11,6 @@
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
-      AllowUsers = [ "bruno" ];
       AllowGroups = [ "ssh-login" ];
       AllowTcpForwarding = true;
       AllowAgentForwarding = true;
@@ -38,7 +37,6 @@
       };
     };
     services = {
-      sshd.unixAuth = lib.mkForce true; # Specific users password login
       sudo.rssh = true; # Sudo over ssh
     };
   };
