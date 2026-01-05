@@ -32,6 +32,10 @@
   ];
   zramSwap.enable = true;
 
+  # ZFS related options
+  boot.zfs.extraPools = [ "zbackup" ];
+
+
   # Networking
   networking = {
     useDHCP = true;
