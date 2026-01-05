@@ -46,6 +46,8 @@
 
   environment.systemPackages = [
     pkgs.restic
+    pkgs.lzop
+    pkgs.mbuffer
   ];
 
   # Bootloader
