@@ -35,6 +35,16 @@ in {
     interval = "hourly";
     sshKey = config.sops.secrets.sun-zfspuller-private-key.path;
     commonArgs = syncoidCommonArgs;
+    localTargetAllow = [
+      "change-key"
+      "compression"
+      "create"
+      "destroy"
+      "mount"
+      "mountpoint"
+      "receive"
+      "rollback"
+    ];
 
     commands = lib.listToAttrs (map (dataset: {
       name = "backup-sun-${dataset}";

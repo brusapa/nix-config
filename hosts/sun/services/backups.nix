@@ -88,6 +88,16 @@ in {
     enable = true;
     interval = "hourly";
     commonArgs = syncoidCommonArgs;
+    localTargetAllow = [
+      "change-key"
+      "compression"
+      "create"
+      "destroy"
+      "mount"
+      "mountpoint"
+      "receive"
+      "rollback"
+    ];
 
     commands = lib.listToAttrs (map (dataset: {
       name = "backup-${dataset}-to-daily";
