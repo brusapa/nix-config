@@ -28,6 +28,7 @@ in {
       "scanner"
       "ssh-login"
       "vboxusers"
+      "whale-frigate-sync"
       "wheel"
     ];
     openssh.authorizedKeys.keyFiles = [

@@ -42,6 +42,13 @@
         "guest ok" = "no";
         "valid users" = "bruno";
       };
+      whale-frigate = {
+        path = "/mnt/satassd/whale-frigate-sync";
+        browseable = "yes";
+        "read only" = "yes";
+        "guest ok" = "no";
+        "valid users" = "bruno";
+      };
     };
   };
 
