@@ -9,6 +9,7 @@
     ../../modules/containers.nix
     ../../modules/zfs.nix
     ../../modules/server.nix
+    ./services
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];

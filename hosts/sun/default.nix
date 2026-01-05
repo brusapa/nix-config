@@ -66,6 +66,20 @@
   # ZFS related options
   boot.zfs.extraPools = [ "zstorage" ];
 
+  # User for ZFS remote backup
+  users.groups.zfspuller = {};
+  users.users.zfspuller = {
+    group = "zfspuller";
+    extraGroups = [
+      "ssh-login"
+    ];
+    isSystemUser = true;
+    shell = pkgs.bashInteractive;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOaO0c4HI5UOaCYPBH4MGgvWWN3kAZf7Q/owsQsGPcT syncoid-pluto"
+    ];
+  };
+
   # Backup userdata
   backup-offsite-landabarri.job.userdata.paths = [
     "/zstorage/users"
