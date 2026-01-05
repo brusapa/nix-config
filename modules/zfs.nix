@@ -10,7 +10,6 @@
     zfs = {
       devNodes = "/dev/disk/by-id";
       forceImportRoot = false;
-      extraPools = [ "zstorage" ];
     };
   };
   services.zfs = {

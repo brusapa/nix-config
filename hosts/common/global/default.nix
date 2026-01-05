@@ -40,6 +40,9 @@
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
+  # Allow appimage-run
+  programs.appimage.enable = true;
+
   # Basic packages
   programs.fish.enable = true;
 
