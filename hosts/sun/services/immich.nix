@@ -11,6 +11,12 @@ in
       backup-password = {
         sopsFile = ../secrets.yaml;
       };
+      "immich/pocketid-client-id" = {
+        sopsFile = ../secrets.yaml;
+      };
+      "immich/pocketid-client-secret" = {
+        sopsFile = ../secrets.yaml;
+      };
     };
   };
 
@@ -35,6 +41,13 @@ in
             port = 25;
           };
         };
+      };
+      oauth = {
+        enabled = true;
+        buttonText = "Login with PocketID";
+        clientId._secret = config.sops.secrets."immich/pocketid-client-id".path;
+        clientSecret._secret = config.sops.secrets."immich/pocketid-client-secret".path;
+        issuerUrl = "https://pocketid.brusapa.com";
       };
     };
     accelerationDevices = [

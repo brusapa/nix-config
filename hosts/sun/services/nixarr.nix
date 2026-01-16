@@ -37,7 +37,7 @@
     };
 
     sabnzbd = {
-      enable = false;
+      enable = true;
       vpn.enable = true;
       openFirewall = false;
       whitelistHostnames = [
@@ -52,7 +52,7 @@
       openFirewall = false;
     };
     prowlarr = {
-      enable = false;
+      enable = true;
       openFirewall = false;
     };
     radarr = {
@@ -73,24 +73,18 @@
     };
   };
 
-  # services.jackett = {
-  #   enable = true;
-  # };
-  # vpnNamespaces.wg = {
-  #   portMappings = [{
-  #     from = 9117;
-  #     to = 9117;
-  #   }];
-  # };
-  # systemd.services.jackett.vpnconfinement = {
-  #   enable = true;
-  #   vpnnamespace = "wg";
-  # };
 
   # Add jellyfin user to render group
   users.users.jellyfin.extraGroups = [ "render" ];
 
   reverseProxy.hosts.jellyfin.httpPort = 8096;
   reverseProxy.hosts.jellyserr.httpPort = config.nixarr.jellyseerr.port;
+
+  reverseProxy.hosts.prowlarr.httpPort = config.nixarr.prowlarr.port;
+
+  reverseProxy.hosts.usenet = {
+    httpPort = config.nixarr.sabnzbd.guiPort;
+    ip = "192.168.15.1";
+  };
 
 }

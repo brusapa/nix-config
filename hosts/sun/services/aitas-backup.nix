@@ -49,6 +49,7 @@ in {
 
       services.openssh = {
         enable = true;
+        startWhenNeeded = false;
         openFirewall = true;
         ports = [ 2222 ];
         settings = {
@@ -77,4 +78,6 @@ in {
       };
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 2222 ];
 }

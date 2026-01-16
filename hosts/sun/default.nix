@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -44,6 +44,13 @@
     ./services/whale-frigate-sync.nix
   ];
 
+  # Import the needed secrets
+  sops.secrets = {
+    "ntfy/sun-zfs-token" = {
+      sopsFile = ./secrets.yaml;
+    };
+  };
+
   environment.systemPackages = [
     pkgs.restic
     pkgs.lzop
@@ -66,6 +73,14 @@
   zramSwap.enable = true;
 
   # ZFS related options
+  zfs = {
+    enable = true;
+    ntfy = {
+      enable = true;
+      topic = "sun";
+      tokenFile = config.sops.secrets."ntfy/sun-zfs-token".path;
+    };
+  };
   boot.zfs.extraPools = [ "zstorage" ];
 
   # User for ZFS remote backup

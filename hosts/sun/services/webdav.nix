@@ -30,13 +30,13 @@
           username = "obsidian-personal";
           password = "{env}OBSIDIAN_PERSONAL_PASSWORD";
           permissions = "CRUD";
-          directory = "/var/lib/webdav/obsidian-personal";
+          directory = "/zstorage/users/bruno/obsidian/obsidian-personal";
         }
         {
           username = "obsidian-work";
           password = "{env}OBSIDIAN_WORK_PASSWORD";
           permissions = "CRUD";
-          directory = "/var/lib/webdav/obsidian-work";
+          directory = "/zstorage/users/bruno/obsidian/obsidian-work";
         }
       ];
     };

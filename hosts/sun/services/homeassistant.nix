@@ -2,7 +2,7 @@
 let
   vars = {
     homeassistant = {
-      version = "2025.12";
+      version = "2026.1";
       port = 8123;
     };
     zigbee2mqtt = {

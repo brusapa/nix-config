@@ -72,9 +72,10 @@ in {
       standard = {
         autosnap = true;
         autoprune = true;
-        hourly = 8;        # Keep 8 hourly snapshots
-        daily = 7;         # Keep 7 daily snapshots
-        weekly = 4;        # Keep 4 weekly snapshots
+        daily = 14;
+        weekly = 4;
+        monthly = 2;
+        yearly = 1;
       };
     };
 

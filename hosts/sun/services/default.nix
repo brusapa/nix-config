@@ -2,6 +2,7 @@
 {
   imports = [
     ../../../modules/myservices/wallaos.nix
+    ./pocket-id.nix
   ];
 
   wallaos = {
