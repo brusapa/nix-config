@@ -34,6 +34,10 @@
       users = [ "bruno" "gurenda" ];
     };
 
+    jupiter = {
+      users = [ "bruno" ];
+    };
+
     pluto = {
       users = [ "bruno" ];
     };

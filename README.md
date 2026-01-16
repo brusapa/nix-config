@@ -6,7 +6,7 @@
 
     ``` bash
     mkdir -p /tmp/<hostname>/etc/ssh
-    ssh-keygen -t ed25519 -C <hostname> -f /etc/ssh/ssh_host_ed25519_key
+    ssh-keygen -t ed25519 -C <hostname> -f /tmp/<hostname>/etc/ssh/ssh_host_ed25519_key
     nix-shell -p ssh-to-age --run 'cat /tmp/<hostname>/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
     ```
 
@@ -22,7 +22,7 @@
     echo "yoursecretkey" > /tmp/cryptroot.key
     ```
 
-4. Uncomment the secure boot from installation.
+4. Comment the secure boot from installation.
 
 5. Perform the installation over SSH
 
