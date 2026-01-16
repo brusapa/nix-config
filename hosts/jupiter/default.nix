@@ -5,7 +5,7 @@
     ./disko-config.nix
     ../common/global
     ../common/users/bruno
-    #../../modules/secure-boot.nix
+    ../../modules/secure-boot.nix
     ../../modules/containers.nix
     ../../modules/zfs.nix
     ../../modules/server.nix
