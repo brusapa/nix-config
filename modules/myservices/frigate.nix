@@ -1,13 +1,13 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf mkOption  mkEnableOption types;
-  cfg = config.myservices.frigate;
+  cfg = config.frigate;
 in
 {
-  options.myservices.frigate = {
+  options.frigate = {
     enable = mkEnableOption "Enable frigate";
 
-    name = mkOption {
+    subdomain = mkOption {
       type = types.str;
       default = "frigate";
     };
@@ -22,9 +22,15 @@ in
       default = 8971;
     };
 
-    mediaPath = mkOption {
+    hwaccel-driver = mkOption {
+      type = types.str;
+      default = "iHD";
+      description = "iHD for intel. radeonsi for AMD";
+    };
+
+    media-path = mkOption {
       type = types.path;
-      default = "/var/lib/frigate/${cfg.name}/media";
+      default = "/var/lib/frigate/media";
       description = "Path to store recordings and exports";
     };
   };
@@ -33,24 +39,24 @@ in
 
     # Ensure directories exist with sane permissions
     systemd.tmpfiles.rules = [
-      "d /var/lib/frigate/${cfg.name}/config 0750 root root -"
-      "d ${cfg.mediaPath} 0750 root root -"
+      "d /var/lib/frigate/config 0775 root root -"
+      "d ${cfg.media-path} 0775 root root -"
     ];
 
-    virtualisation.oci-containers.containers.${cfg.name} = {
+    virtualisation.oci-containers.containers.frigate = {
       volumes = [
-        "/var/lib/frigate/${cfg.name}/config:/config"
-        "${cfg.mediaPath}:/media/frigate"
+        "/var/lib/frigate/config:/config"
+        "${cfg.media-path}:/media/frigate"
       ];
       
       environment = {
         TZ = "Europe/Madrid";
-        LIBVA_DRIVER_NAME = "iHD";
+        LIBVA_DRIVER_NAME = cfg.hwaccel-driver;
         # Silence vainfo's X warning (not required for ffmpeg, just cleaner logs)
         XDG_RUNTIME_DIR = "/tmp";
       };
 
-      image = "ghcr.io/koenkk/frigate:${cfg.version}";
+      image = "ghcr.io/blakeblackshear/frigate:${cfg.version}";
 
       ports = [
         "${toString cfg.port}:8971/tcp"
@@ -70,11 +76,10 @@ in
       extraOptions = [
         "--shm-size=256m" # increase shared memory for ffmpeg
         "--security-opt=seccomp=unconfined" # Allow iGPU usage access
-        "--mount type=tmpfs,tmpfs-size=1024M,destination=/tmp/cache" # Optional: 1GB of memory, reduces SSD/SD Card wear
       ];
     };
 
-    reverseProxy.hosts.${cfg.name}.httpsPort = cfg.port;
+    reverseProxy.hosts.frigate.httpsPort = cfg.port;
 
     # Allow webrtc access through firewall
     networking.firewall = {
