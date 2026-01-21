@@ -9,6 +9,7 @@
     ../../modules/containers.nix
     ../../modules/zfs.nix
     ../../modules/server.nix
+    ./services
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
@@ -30,6 +31,12 @@
     }
   ];
   zramSwap.enable = true;
+
+  # ZFS related options
+  zfs = {
+    enable = true;
+  };
+  boot.zfs.extraPools = [ "znvme" ];
 
   # Networking
   networking = {
