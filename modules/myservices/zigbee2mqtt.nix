@@ -1,49 +1,69 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf mkOption  mkEnableOption types;
-  cfg = config.myservices.zigbee2mqtt;
+  cfg = config.zigbee2mqtt;
 in
 {
-  options.myservices.zigbee2mqtt = {
-    enable = mkEnableOption "Enable zigbee2mqtt";
+  options.zigbee2mqtt = mkOption {
+    type = types.attrsOf (types.submodule ({ name, ...}: {
+      options = {
+        enable = mkEnableOption "Enable zigbee2mqtt";
 
-    name = mkOption {
-      type = types.str;
-      default = "zigbee2mqtt";
-    };
+        version = mkOption {
+          type = types.str;
+          default = "latest";
+        };
 
-    version = mkOption {
-      type = types.str;
-      default = "latest";
-    };
+        port = mkOption {
+          type = types.port;
+          default = 8080;
+        };
 
-    port = mkOption {
-      type = types.port;
-      default = 8080;
-    };
+        subdomain = mkOption {
+          type = types.str;
+          default = "zigbee2mqtt";
+          description = "Domain for zigbee2mqtt";
+        };
+      };
+    }));
 
-    domain = mkOption {
-      type = types.str;
-      default = "zigbee2mqtt.brusapa.com";
-      description = "Domain for zigbee2mqtt";
-    };
+    default = {};
+    description = "Zigbee2MQTT instances";
   };
 
-  config = mkIf cfg.enable {
+  config = {
+    virtualisation.oci-containers.containers =
+      lib.mapAttrs'
+        (name: inst:
+          lib.nameValuePair name {
+            image = "ghcr.io/koenkk/zigbee2mqtt:${inst.version}";
 
-    virtualisation.oci-containers.containers.${cfg.name} = {
-      volumes = [
-        "${cfg.name}-config:/config"
-      ];
-      environment.TZ = "Europe/Madrid";
-      image = "ghcr.io/koenkk/zigbee2mqtt:${cfg.version}";
+            volumes = [
+              "${name}-data:/app/data"
+            ];
 
-      ports = [ 
-        "${toString cfg.port}:8080/tcp"
-      ];
-    };
+            environment = {
+              TZ = "Europe/Madrid";
+            };
 
-    reverseProxy.hosts.${cfg.name}.httpPort = cfg.port;
+            ports = [
+              "${toString inst.port}:8080/tcp"
+            ];
+          }
+        )
+        (lib.filterAttrs (_: inst: inst.enable) cfg);
 
+    reverseProxy.hosts =
+      lib.mkMerge (
+        lib.mapAttrsToList
+          (_name: inst:
+            lib.mkIf inst.enable {
+              ${inst.subdomain} = {
+                httpPort = inst.port;
+              };
+            }
+          )
+          cfg
+      );
   };
 }
