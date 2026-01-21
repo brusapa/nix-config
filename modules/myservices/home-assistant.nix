@@ -1,86 +1,56 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkOption  mkEnableOption types;
+  inherit (lib) mkOption  mkEnableOption types mkIf;
+  cfg = config.home-assistant;
 in
 {
-  options.myservices.homeAssistant = mkOption {
-    type = types.attrsOf (types.submodule ({ name, ... }: {
-      options = {
-        enable = mkEnableOption "Enable this Home Assistant instance";
+  options.home-assistant = {
+    enable = mkEnableOption "Enable Home Assistant";
 
-        version = mkOption {
-          type = types.str;
-          default = "latest";
-        };
+    version = mkOption {
+      type = types.str;
+      default = "latest";
+    };
 
-        port = mkOption {
-          type = types.port;
-          default = 8123;
-        };
+    port = mkOption {
+      type = types.int;
+      default = 8123;
+    };
 
-        domain = mkOption {
-          type = types.str;
-          example = "casa.brusapa.com";
-          description = "Domain for this Home Assistant instance";
-        };
+    subdomain = mkOption {
+      type = types.str;
+      example = "casa";
+      description = "Subdomain for this Home Assistant instance";
+    };
 
-        backupPath = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-          description = "Host path for backups (null disables backups)";
-        };
-
-        enableShellyCoIoT = mkOption {
-          type = types.bool;
-          default = false;
-          description = "Expose UDP 5683 for Shelly CoIoT and open it in the firewall.";
-        };
-      };
-    }));
-
-    default = { };
-    description = "Multiple Home Assistant service instances";
+    backupPath = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = "Host path for backups (null disables backups)";
+    };
   };
 
-  config = let
-    instances =
-      lib.filterAttrs (_: v: v.enable) config.myservices.homeAssistant;
-  in {
-    virtualisation.oci-containers.containers =
-      lib.mapAttrs'
-        (name: cfg: {
-          name = name;
-          value = {
-            volumes =
-              [ "${name}-config:/config" ]
-              ++ lib.optional (cfg.backupPath != null)
-                "${toString cfg.backupPath}:/config/backups";
+  config = mkIf cfg.enable {
 
-            environment.TZ = "Europe/Madrid";
-            image = "ghcr.io/home-assistant/home-assistant:${cfg.version}";
+    virtualisation.oci-containers.containers.home-assistant = {
+      volumes =
+        [ "home-assistant-config:/config" ]
+        ++ lib.optional (cfg.backupPath != null)
+          "${toString cfg.backupPath}:/config/backups";
 
-            ports =
-              [ "${toString cfg.port}:8123/tcp" ]
-              ++ lib.optional cfg.enableShellyCoIoT "5683:5683/udp";
-          };
-        })
-        instances;
+      environment.TZ = "Europe/Madrid";
+      image = "ghcr.io/home-assistant/home-assistant:${cfg.version}";
 
-    networking.firewall.allowedUDPPorts =
-      lib.flatten (
-        lib.mapAttrsToList (_: cfg:
-          lib.optional cfg.enableShellyCoIoT 5683
-        ) instances
-      );
+      capabilities = {
+        NET_ADMIN = true;
+        NET_RAW = true;
+      };
 
-    services.caddy.virtualHosts =
-      lib.mapAttrs'
-        (_: cfg: {
-          name = cfg.domain;
-          value.extraConfig = ''
-            reverse_proxy http://localhost:${toString cfg.port}
-          '';
-        })
-        instances;
+      ports = [
+        "${toString cfg.port}:8123/tcp"
+      ];
+    };
+
+    reverseProxy.hosts.${cfg.subdomain}.httpPort = cfg.port;
   };
 }
