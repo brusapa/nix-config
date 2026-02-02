@@ -56,14 +56,6 @@
     };
   };
 
-  # SMART checks
-  services.smartd = {
-    enable = true;
-    notifications = {
-      mail.enable = true;
-    };
-  };
-
   # Power management
   powerManagement = {
     enable = true;

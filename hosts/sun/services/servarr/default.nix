@@ -5,5 +5,6 @@
     ./radarr.nix
     ./jackett.nix
     ./vpn.nix
+    ./profilarr.nix
   ];
 }

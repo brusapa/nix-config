@@ -3,7 +3,7 @@ let
   vars = {
     config-path = "/var/lib/jackett/.config";
     port = 9117;
-    version = "0.24.372";
+    version = "0.24.932";
   };
 in {
 

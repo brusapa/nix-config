@@ -30,6 +30,9 @@
           CategorySavePathChanged = false;
           DefaultSavePathChanged = false;
         };
+        MaxActiveDownloads=10;
+        MaxActiveUploads=10;
+        MaxActiveTorrents=20;
       };
       Network.PortForwardingEnabled = false;
     };
