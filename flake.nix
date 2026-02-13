@@ -13,7 +13,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
+      url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -55,6 +55,8 @@
     nixarr.url = "github:rasmus-kirk/nixarr";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    jellarr.url = "github:venkyr77/jellarr";
   };
 
   nixConfig = {
