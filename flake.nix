@@ -48,7 +48,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     autofirma-nix = {
-      url = "github:nix-community/autofirma-nix/release-25.05";
+      url = "github:nix-community/autofirma-nix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
