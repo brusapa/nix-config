@@ -13,7 +13,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
+      url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -48,13 +48,15 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     autofirma-nix = {
-      url = "github:nix-community/autofirma-nix/release-25.05";
+      url = "github:nix-community/autofirma-nix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixarr.url = "github:rasmus-kirk/nixarr";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    jellarr.url = "github:venkyr77/jellarr";
   };
 
   nixConfig = {

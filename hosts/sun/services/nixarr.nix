@@ -31,10 +31,10 @@
       wgConf = config.sops.secrets.torrent-wireguard-config.path;
     };
 
-    jellyfin = {
-      enable = true;
-      openFirewall = true;
-    };
+    #jellyfin = {
+    #  enable = true;
+    #  openFirewall = true;
+    #};
 
     sabnzbd = {
       enable = true;
@@ -75,9 +75,9 @@
 
 
   # Add jellyfin user to render group
-  users.users.jellyfin.extraGroups = [ "render" ];
+  #users.users.jellyfin.extraGroups = [ "render" ];
 
-  reverseProxy.hosts.jellyfin.httpPort = 8096;
+  #reverseProxy.hosts.jellyfin.httpPort = 8096;
   reverseProxy.hosts.jellyserr.httpPort = config.nixarr.jellyseerr.port;
 
   reverseProxy.hosts.prowlarr.httpPort = config.nixarr.prowlarr.port;

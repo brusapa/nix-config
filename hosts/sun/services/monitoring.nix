@@ -53,12 +53,7 @@
         enabledCollectors = [ "systemd" ];
       };
       apcupsd.enable = true;
-      zfs.enable = true;
-      smartctl.enable = true;
       postgres.enable = true;
-      postfix.enable = true;
-      #nvidia-gpu.enable = true;
-      #mqtt.enable = true;
     };
     scrapeConfigs = [
       {
@@ -71,18 +66,6 @@
         job_name = "apcupsd";
         static_configs = [{
           targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.apcupsd.port}" ];
-        }];
-      }
-      {
-        job_name = "zfs";
-        static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}" ];
-        }];
-      }
-      {
-        job_name = "smartctl";
-        static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}" ];
         }];
       }
     ];

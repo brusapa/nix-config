@@ -2,11 +2,11 @@
 let
   vars = {
     homeassistant = {
-      version = "2026.1";
+      version = "2026.2";
       port = 8123;
     };
     zigbee2mqtt = {
-      version = "2.6.3";
+      version = "2.8.0";
       port = 8081;
       trastero-port = 8082;
     };
