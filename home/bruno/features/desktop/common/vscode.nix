@@ -50,6 +50,8 @@
         "remote.SSH.useLocalServer" = false; # Fix SSH connection issues
         "remote.SSH.remotePlatform" = {
           "sun" = "linux";
+          "mars" = "linux";
+          "jupiter" = "linux";
         };
       };
     };
