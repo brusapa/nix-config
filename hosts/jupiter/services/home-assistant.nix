@@ -17,7 +17,7 @@
 
   home-assistant = {
     enable = true;
-    version = "2026.1";
+    version = "2026.3";
     subdomain = "casa";
   };
 

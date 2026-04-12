@@ -103,8 +103,8 @@ in
       user = cfg.user;
       group = cfg.group;
       package = pkgs.caddy.withPlugins {
-        plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
-        hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
+        plugins = [ "github.com/caddy-dns/cloudflare@v0.2.3" ];
+        hash = "sha256-bL1cpMvDogD/pdVxGA8CAMEXazWpFDBiGBxG83SmXLA=";
       };
       globalConfig = 
       ''

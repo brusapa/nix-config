@@ -5,6 +5,7 @@
     ./disko-config.nix
     ../common/global
     ../common/users/bruno
+    ../common/users/ramon
     ../../modules/secure-boot.nix
     ../../modules/containers.nix
     ../../modules/zfs.nix
@@ -36,7 +37,7 @@
   zfs = {
     enable = true;
   };
-  boot.zfs.extraPools = [ "znvme" ];
+  boot.zfs.extraPools = [ "znvme" "zsynology" ];
 
   # Networking
   networking = {
@@ -62,6 +63,7 @@
       MINUTES 5  
     '';
   };
+  networking.firewall.allowedTCPPorts = [ 3551 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
