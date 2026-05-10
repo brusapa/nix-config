@@ -36,7 +36,6 @@
     ./services/rustdesk-server.nix
     ./services/frigate-container.nix
     ./services/music-assistant.nix
-    ./services/unpackerr.nix
     ./services/qbittorrent.nix
     ./services/dispatcharr.nix
     ./services/backups-offsite.nix

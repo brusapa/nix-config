@@ -68,7 +68,7 @@
       openFirewall = false;
     };
     jellyseerr = {
-      enable = true;
+      enable = false;
       openFirewall = false;
     };
   };

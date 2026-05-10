@@ -6,7 +6,8 @@
       UPSTYPE usb
       NISIP 0.0.0.0
       BATTERYLEVEL 15
-      MINUTES 5  
+      MINUTES 5
+      KILLDELAY 60
     '';
   };
 }

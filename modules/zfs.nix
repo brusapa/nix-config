@@ -91,6 +91,9 @@ in
     # Enable monitoring if prometheus is enabled on the system
     services.prometheus.exporters.zfs = lib.mkIf config.services.prometheus.enable {
       enable = true;
+      extraFlags = [
+        "--collector.dataset-snapshot"
+      ];
     };
     services.prometheus.scrapeConfigs = lib.mkIf config.services.prometheus.enable [
       {

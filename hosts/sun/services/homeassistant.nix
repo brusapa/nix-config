@@ -86,6 +86,9 @@ in
     
     esphome = {
       environment.TZ = "Europe/Madrid";
+      volumes = [
+        "/var/lib/esphome:/config"
+      ];
       image = "ghcr.io/esphome/esphome";
       extraOptions = [
         "--network=host"
