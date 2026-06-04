@@ -20,7 +20,7 @@
   home.packages = with pkgs; [
     spotify
     jetbrains-mono
-    bitwarden-desktop
+    # bitwarden-desktop # Temporary disabled until electron 39 not used
     veracrypt
     obsidian
     orca-slicer

@@ -20,6 +20,7 @@
     ../../modules/libvirtd.nix
     ../../modules/flatpak.nix
     ../../modules/gaming.nix
+    ../../modules/quiet-boot.nix
   ];
 
   # Create a swap file for hibernation.
