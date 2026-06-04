@@ -38,9 +38,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel available
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-
   networking = {
     hostName = "mercury";
     hostId = "46b34875";
