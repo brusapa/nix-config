@@ -106,8 +106,14 @@
     cryptbackup /dev/disk/by-id/nvme-CT4000P3SSD8_2336E8744EB7-part1 /root/internalBackup.key
     cryptsatassd /dev/disk/by-id/ata-SanDisk_SDSSDH3_2T00_23212E800066 /root/satassd.key
   '';
-  fileSystems."/mnt/internalBackup".device = "/dev/mapper/cryptbackup";
-  fileSystems."/mnt/satassd".device = "/dev/mapper/cryptsatassd";
+  fileSystems."/mnt/internalBackup" = {
+    device = "/dev/mapper/cryptbackup";
+    fsType = "ext4";
+  };
+  fileSystems."/mnt/satassd" = {
+    device = "/dev/mapper/cryptsatassd";
+    fsType = "ext4";
+  };
 
   # Networking
   networking = {

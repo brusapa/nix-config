@@ -101,10 +101,9 @@ in
   services.matter-server = {
     enable = true;
     openFirewall = true;
-    extraArgs = [
-      "--primary-interface"
-      "iotVlan"
-    ];
+    extraArgs = {
+      "primary-interface" = "iotVlan";
+    };
   };
 
   # Glances for homeassistant monitoring of the server

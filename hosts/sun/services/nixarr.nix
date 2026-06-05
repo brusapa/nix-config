@@ -67,7 +67,7 @@
       enable = false;
       openFirewall = false;
     };
-    jellyseerr = {
+    seerr = {
       enable = false;
       openFirewall = false;
     };
@@ -78,7 +78,7 @@
   #users.users.jellyfin.extraGroups = [ "render" ];
 
   #reverseProxy.hosts.jellyfin.httpPort = 8096;
-  reverseProxy.hosts.jellyserr.httpPort = config.nixarr.jellyseerr.port;
+  reverseProxy.hosts.jellyserr.httpPort = config.nixarr.seerr.port;
 
   reverseProxy.hosts.prowlarr.httpPort = config.nixarr.prowlarr.port;
 
