@@ -36,7 +36,6 @@
     ./services/rustdesk-server.nix
     ./services/frigate-container.nix
     ./services/music-assistant.nix
-    ./services/unpackerr.nix
     ./services/qbittorrent.nix
     ./services/dispatcharr.nix
     ./services/backups-offsite.nix
@@ -107,36 +106,123 @@
     cryptbackup /dev/disk/by-id/nvme-CT4000P3SSD8_2336E8744EB7-part1 /root/internalBackup.key
     cryptsatassd /dev/disk/by-id/ata-SanDisk_SDSSDH3_2T00_23212E800066 /root/satassd.key
   '';
-  fileSystems."/mnt/internalBackup".device = "/dev/mapper/cryptbackup";
-  fileSystems."/mnt/satassd".device = "/dev/mapper/cryptsatassd";
+  fileSystems."/mnt/internalBackup" = {
+    device = "/dev/mapper/cryptbackup";
+    fsType = "ext4";
+  };
+  fileSystems."/mnt/satassd" = {
+    device = "/dev/mapper/cryptsatassd";
+    fsType = "ext4";
+  };
 
   # Networking
   networking = {
-    useDHCP = true;
+    useDHCP = false;
     useNetworkd = true;
     hostName = "sun";
     domain = "brusapa.com";
     hostId = "696795a0";
+    enableIPv6 = true;
   };
-  systemd.network.wait-online.enable = true;
 
-  systemd.network.links = {
-    "10-lan1s1g" = {
-      matchConfig.MACAddress = "9c:6b:00:45:80:66";
-      linkConfig.Name = "lan1s1g";
+  systemd.network = {
+    wait-online = {
+      enable = true;
+      anyInterface = true;
     };
-    "10-lan2s1g" = {
-      matchConfig.MACAddress = "9c:6b:00:45:80:67";
-      linkConfig.Name = "lan2s1g";
+    config = {
+      networkConfig = {
+        IPv4Forwarding = true;
+        IPv6Forwarding = true;
+      };
     };
-    "10-lan3s10g" = {
-      matchConfig.MACAddress = "9c:6b:00:45:80:68";
-      linkConfig.Name = "lan3s10g";
+    links = {
+      "10-lan1s1g" = {
+        matchConfig.MACAddress = "9c:6b:00:45:80:66";
+        linkConfig.Name = "lan1s1g";
+      };
+      "10-lan2s1g" = {
+        matchConfig.MACAddress = "9c:6b:00:45:80:67";
+        linkConfig.Name = "lan2s1g";
+      };
+      "10-lan3s10g" = {
+        matchConfig.MACAddress = "9c:6b:00:45:80:68";
+        linkConfig.Name = "lan3s10g";
+      };
+      "10-lan4s10g" = {
+        matchConfig.MACAddress = "9c:6b:00:45:80:69";
+        linkConfig.Name = "lan4s10g";
+      };
     };
-    "10-lan4s10g" = {
-      matchConfig.MACAddress = "9c:6b:00:45:80:69";
-      linkConfig.Name = "lan4s10g";
+
+    netdevs = {
+      "20-iotVlan" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "iotVlan";
+          MACAddress = "02:11:22:33:44:55";
+        };
+        vlanConfig = {
+          Id = 2;
+        };
+      };
+      "21-cctvVlan" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "cctvVlan";
+          MACAddress = "02:11:22:33:44:56";
+        };
+        vlanConfig = {
+          Id = 3;
+        };
+      };
     };
+
+    networks = {
+      "10-lan2s1g" = {
+        matchConfig.Name = "lan2s1g";
+        networkConfig = {
+          DHCP = "yes";
+          IPv6AcceptRA = true;
+          VLAN = [ "iotVlan" "cctvVlan" ]; 
+        };
+      };
+
+      "15-lan-others" = {
+        matchConfig.Name = "lan*";
+        networkConfig = {
+          DHCP = "yes";
+          IPv6AcceptRA = true;
+        };
+      };
+
+      "20-iotVlan-net" = {
+        matchConfig.Name = "iotVlan";
+        networkConfig = {
+          DHCP = "yes";
+          IPv6AcceptRA = true;
+        };
+      };
+
+      "21-cctvVlan-net" = {
+        matchConfig.Name = "cctvVlan";
+        networkConfig = {
+          DHCP = "yes";
+          IPv6AcceptRA = true;
+        };
+      };
+    };
+  };
+
+  networking.firewall = {
+    enable = false;
+    allowPing = true;
+    
+    # Permite todo el tráfico entrante desde la subred de la VLAN IoT
+    extraCommands = ''
+      iptables -A INPUT 1 -s 10.80.1.0/24 -j ACCEPT
+      ip6tables -A INPUT 1 -s fe80::/10 -j ACCEPT
+    '';
   };
 
   services.tailscale.useRoutingFeatures = "server";

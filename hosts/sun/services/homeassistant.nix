@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   vars = {
     homeassistant = {
-      version = "2026.2";
+      version = "2026.5.4";
       port = 8123;
     };
     zigbee2mqtt = {
@@ -44,6 +44,8 @@ in
       image = "ghcr.io/home-assistant/home-assistant:${vars.homeassistant.version}";
       extraOptions = [
         "--network=host"
+        "--cap-add=net_admin"
+        "--cap-add=net_raw"
       ];
     };
 
@@ -86,10 +88,21 @@ in
     
     esphome = {
       environment.TZ = "Europe/Madrid";
+      volumes = [
+        "/var/lib/esphome:/config"
+      ];
       image = "ghcr.io/esphome/esphome";
       extraOptions = [
         "--network=host"
       ];
+    };
+  };
+
+  services.matter-server = {
+    enable = true;
+    openFirewall = true;
+    extraArgs = {
+      "primary-interface" = "iotVlan";
     };
   };
 

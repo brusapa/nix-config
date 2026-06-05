@@ -6,13 +6,13 @@ in {
   sops = {
     secrets = {
       "unpackerr/sonarr-api-key" = {
-        sopsFile = ../secrets.yaml;
+        sopsFile = ../../secrets.yaml;
       };
       "unpackerr/radarr-api-key" = {
-        sopsFile = ../secrets.yaml;
+        sopsFile = ../../secrets.yaml;
       };
       "unpackerr/lidarr-api-key" = {
-        sopsFile = ../secrets.yaml;
+        sopsFile = ../../secrets.yaml;
       };
     };
     templates."unpackerr-secrets.env" = {

@@ -20,6 +20,7 @@
     ../../modules/libvirtd.nix
     ../../modules/flatpak.nix
     ../../modules/gaming.nix
+    ../../modules/quiet-boot.nix
   ];
 
   # Create a swap file for hibernation.
@@ -36,9 +37,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel available
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking = {
     hostName = "mercury";

@@ -49,6 +49,13 @@
         "guest ok" = "no";
         "valid users" = "bruno";
       };
+      romm = {
+        path = "/var/lib/romm/library";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "valid users" = "bruno";
+      };
     };
   };
 

@@ -57,6 +57,7 @@
   # TUI File manager
   programs.yazi = {
     enable = true;
+    shellWrapperName = "y";
   };
 
   # General purpose fuzzy finder (Yazi optional dependency)

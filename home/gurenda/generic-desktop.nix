@@ -10,7 +10,7 @@
   home = {
     packages = with pkgs; [
       spotify
-      bitwarden-desktop
+      # bitwarden-desktop # Temporary disabled until electron 39 not used
       google-chrome
     ];
 

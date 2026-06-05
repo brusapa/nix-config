@@ -2,6 +2,10 @@
 {
 
   sops.secrets = {
+    "grafana/secret-key" = {
+      sopsFile = ../secrets.yaml;
+      owner = "grafana";
+    };
     "grafana/admin-email" = {
       sopsFile = ../secrets.yaml;
       owner = "grafana";
@@ -24,6 +28,7 @@
         admin_user = "bruno";
         admin_email = "$__file{${config.sops.secrets."grafana/admin-email".path}}";
         admin_password = "$__file{${config.sops.secrets."grafana/admin-password".path}}";
+        secret_key = "$__file{${config.sops.secrets."grafana/secret-key".path}}";
       };
       smtp.enabled = true;
     };

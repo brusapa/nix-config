@@ -25,6 +25,7 @@ in {
       "multimedia"
       "networkmanager"
       "podman"
+      "romm"
       "scanner"
       "ssh-login"
       "vboxusers"

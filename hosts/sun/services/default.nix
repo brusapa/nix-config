@@ -8,6 +8,7 @@
     ./homarr.nix
     ./miniflux.nix
     ./donetick.nix
+    ./brother-scanner.nix
   ];
 
   wallaos = {

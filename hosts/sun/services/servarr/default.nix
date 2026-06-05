@@ -7,5 +7,7 @@
     ./jellyfin.nix
     ./vpn.nix
     ./profilarr.nix
+    ./serr.nix
+    ./unpackerr.nix
   ];
 }

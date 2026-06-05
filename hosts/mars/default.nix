@@ -41,8 +41,6 @@
   ];
   zramSwap.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   # Add EC sensors for asus motherboards
   boot.extraModulePackages = with config.boot.kernelPackages; [ asus-ec-sensors ];
   environment.systemPackages = with pkgs; [
