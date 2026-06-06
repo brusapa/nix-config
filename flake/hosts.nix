@@ -30,6 +30,10 @@
       users = [ "bruno" "gurenda" ];
     };
 
+    venus = {
+      users = [ "bruno" "gurenda" ];
+    };
+
     mercury = {
       users = [ "bruno" "gurenda" ];
     };
