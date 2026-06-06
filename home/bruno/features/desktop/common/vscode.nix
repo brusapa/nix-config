@@ -23,7 +23,6 @@
         # C#
         ms-dotnettools.csdevkit
         ms-dotnettools.csharp
-        ms-dotnettools.vscodeintellicode-csharp
         # Nix
         jnoortheen.nix-ide
         # PlantUML
