@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     devenv
     # Nix related packages
-    nixfmt-rfc-style
+    nixfmt
     nixd
     alejandra
   ];
