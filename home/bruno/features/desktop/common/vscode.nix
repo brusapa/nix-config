@@ -40,7 +40,7 @@
         ms-vscode-remote.remote-containers
       ];
       userSettings = {
-        "workbench.colorTheme" = "Default Light Modern";
+        "workbench.colorTheme" = "Light 2026";
         "workbench.startupEditor" = "none";
         "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Droid Sans Mono', 'monospace'";
         "editor.renderWhitespace" = "all";
@@ -53,6 +53,7 @@
           "mars" = "linux";
           "jupiter" = "linux";
         };
+        "git.confirmSync" = false;
       };
     };
   };
