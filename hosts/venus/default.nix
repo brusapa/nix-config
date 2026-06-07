@@ -24,7 +24,6 @@
     ../../modules/gaming.nix
     ../../modules/quiet-boot.nix
     ../../modules/localsend.nix
-    ../../modules/flatpak.nix
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];

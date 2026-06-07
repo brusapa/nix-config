@@ -1,8 +1,7 @@
-{ inputs, pkgs, config, ... }:
+{ inputs, pkgs, config, lib, ... }:
 
 {
   imports = [
-    ./hardware-configuration.nix # Include the results of the hardware scan.
     inputs.nixos-hardware.nixosModules.common-hidpi
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -29,8 +28,24 @@
     ../../modules/sunshine.nix
     ../../modules/quiet-boot.nix
     ../../modules/localsend.nix
-    ../../modules/flatpak.nix
   ];
+
+  # Hardware configuration section
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
+  boot.kernelModules = [ "kvm-amd" ];
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  # TODO: Replace the following with the disko config
+  fileSystems."/" =
+  { device = "/dev/disk/by-uuid/7ab38f8e-d1e3-48be-9e34-89ba94380a2d";
+    fsType = "ext4";
+  };
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/cdba122e-11e0-4d6a-8bd6-3c7a0bd47b3a";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/AB24-BEBF";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
   # Create a swap file for hibernation.
   swapDevices = [

@@ -18,7 +18,6 @@
     ../../modules/kde.nix
     ../../modules/containers.nix
     ../../modules/libvirtd.nix
-    ../../modules/flatpak.nix
     ../../modules/gaming.nix
     ../../modules/quiet-boot.nix
   ];

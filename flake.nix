@@ -54,8 +54,6 @@
 
     nixarr.url = "github:rasmus-kirk/nixarr";
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     jellarr.url = "github:venkyr77/jellarr";
   };
 
