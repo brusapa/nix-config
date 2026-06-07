@@ -70,3 +70,7 @@ creation_rules:
         - *bruno
         age:
         - *venus
+  - path_regex: hosts/saturn/secrets.ya?ml$
+    key_groups:
+      - pgp:
+        - *bruno

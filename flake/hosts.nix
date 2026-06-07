@@ -42,6 +42,10 @@
       users = [ "bruno" "ramon" ];
     };
 
+    saturn = {
+      users = [ "bruno" ];
+    };
+
     pluto = {
       users = [ "bruno" ];
     };
@@ -52,10 +56,6 @@
 
     rpi-landabarri = {
       system = "aarch64-linux";
-      users = [ "bruno" ];
-    };
-
-    whale = {
       users = [ "bruno" ];
     };
   };
