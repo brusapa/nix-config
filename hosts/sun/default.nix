@@ -217,7 +217,7 @@
   };
 
   networking.firewall = {
-    enable = false;
+    enable = true;
     allowPing = true;
   };
 
