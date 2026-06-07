@@ -12,7 +12,6 @@
     ./default-applications.nix
     ./changeResolutionDesktopEntries.nix
     ./development
-    #./kicad.nix # Long build time
     ./obs-studio.nix
   ];
 
@@ -29,5 +28,7 @@
     ente-auth
     freecad-wayland
     scrcpy
+    bambu-studio
+    kicad-small
   ];
 }
