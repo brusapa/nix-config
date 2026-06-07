@@ -17,19 +17,26 @@
 
   home-assistant = {
     enable = true;
-    version = "2026.3";
+    version = "2026.3"; # TODO: Match to the old version
     subdomain = "casa";
   };
 
   mqtt = {
     enable = true;
-    domain = "mqtt.leioa.brusapa.com";
+    domain = "mqtt.sonabia.brusapa.com";
     hashedPasswordFile = config.sops.secrets."home-assistant/mqtt-password".path;
   };
 
-  zigbee2mqtt.zigbee2mqtt = {
+  zigbee2mqtt = {
+    zigbeecasa = {
       enable = true;
-    version = "2.7.2";
-    subdomain = "zigbee2mqtt";
+      version = "2.7.2"; # TODO: Match to the old version
+      subdomain = "zigbeecasa";
     };
+    zigbeegaraje = {
+      enable = true;
+      version = "2.7.2";  # TODO: Match to the old version
+      subdomain = "zigbeegaraje";
+    };
+  };
 }
