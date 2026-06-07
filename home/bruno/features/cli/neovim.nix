@@ -49,7 +49,7 @@
           nix.enable = true;
           python.enable = true;
           rust.enable = true;
-          ts.enable = true;
+          typescript.enable = true;
         };
       };
     };

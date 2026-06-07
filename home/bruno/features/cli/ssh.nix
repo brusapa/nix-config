@@ -1,56 +1,21 @@
-{...}: {
+{ lib, ... }:
+let
+  myHosts = [ "sun" "pluto" "mars" "jupiter" ];
+in 
+{
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks  = {
-      "sun" = {
-        hostname = "sun.brusapa.com";
-        user = "bruno";
-        forwardAgent = true;
-        remoteForwards = [
-          {
-            bind.address = ''/run/user/1000/gnupg/S.gpg-agent'';
-            host.address = ''/run/user/1000/gnupg/S.gpg-agent.extra'';
-          }
-        ];
-        extraOptions.StreamLocalBindUnlink = "yes";
+
+    settings = lib.genAttrs myHosts (host: {
+      HostName = "${host}.brusapa.com";
+      User = "bruno";
+      ForwardAgent = "yes";
+      RemoteForward = {
+        bind.address = ''/run/user/1000/gnupg/S.gpg-agent'';
+        host.address = ''/run/user/1000/gnupg/S.gpg-agent.extra'';
       };
-      "pluto" = {
-        hostname = "pluto.brusapa.com";
-        user = "bruno";
-        forwardAgent = true;
-        remoteForwards = [
-          {
-            bind.address = ''/run/user/1000/gnupg/S.gpg-agent'';
-            host.address = ''/run/user/1000/gnupg/S.gpg-agent.extra'';
-          }
-        ];
-        extraOptions.StreamLocalBindUnlink = "yes";
-      };
-      "mars" = {
-        hostname = "mars.brusapa.com";
-        user = "bruno";
-        forwardAgent = true;
-        remoteForwards = [
-          {
-            bind.address = ''/run/user/1000/gnupg/S.gpg-agent'';
-            host.address = ''/run/user/1000/gnupg/S.gpg-agent.extra'';
-          }
-        ];
-        extraOptions.StreamLocalBindUnlink = "yes";
-      };
-      "jupiter" = {
-        hostname = "jupiter.brusapa.com";
-        user = "bruno";
-        forwardAgent = true;
-        remoteForwards = [
-          {
-            bind.address = ''/run/user/1000/gnupg/S.gpg-agent'';
-            host.address = ''/run/user/1000/gnupg/S.gpg-agent.extra'';
-          }
-        ];
-        extraOptions.StreamLocalBindUnlink = "yes";
-      };
-    };
+      StreamLocalBindUnlink = "yes";
+    });
   };
 }

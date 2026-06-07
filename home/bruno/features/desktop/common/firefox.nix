@@ -4,6 +4,7 @@
 
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     profiles.default = {
       id = 0;
       search = {
@@ -13,7 +14,7 @@
         order = ["google"];
       };
       bookmarks = {};
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
+      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
         ublock-origin
         bitwarden
       ];

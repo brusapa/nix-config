@@ -8,6 +8,7 @@ keys:
     - &wsl age1aa2wdywz3tw89jfu8xscyfryauq62pt85829ge8qptcey2u2tf0qrc574w
     - &pluto age1e558626r86ckk0uw38ap6xcntna3ekptr456v0hvmd5kzd706slquwdzqs
     - &jupiter age1vjg7cvggccrfeymmh70s6nqlfumfyw8sf577t44muqxy8wpkv4zq5xcwar
+    - &venus age183mu9f6kweta6dq8wuwpjz7wug8jj20uy4224rjwc78z8xe5afuslttjpy
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
@@ -20,6 +21,7 @@ creation_rules:
         - *wsl
         - *pluto
         - *jupiter
+        - *venus
   - path_regex: hosts/sun/secrets.ya?ml$
     key_groups:
       - pgp:
@@ -62,3 +64,9 @@ creation_rules:
         - *bruno
         age:
         - *jupiter
+  - path_regex: hosts/venus/secrets.ya?ml$
+    key_groups:
+      - pgp:
+        - *bruno
+        age:
+        - *venus

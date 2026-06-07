@@ -9,6 +9,9 @@
 in {
   sops.secrets."${username}-hashed-password".neededForUsers = true;
 
+
+  users.groups.${username} = { };
+
   users.users.${username} = {
     isNormalUser = true;
     description = "Ramon";
@@ -16,6 +19,7 @@ in {
     uid = 1002;
     home = "/home/${username}";
     createHome = true;
+    group = username;
     extraGroups = ifGroupExist [
       "users"
       "ssh-login"
