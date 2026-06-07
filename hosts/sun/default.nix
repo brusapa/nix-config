@@ -202,6 +202,7 @@
           DHCP = "yes";
           IPv6AcceptRA = true;
         };
+        dhcpV4Config.UseRoutes = false; # Do not use this interfaces for internet access
       };
 
       "21-cctvVlan-net" = {
@@ -210,6 +211,7 @@
           DHCP = "yes";
           IPv6AcceptRA = true;
         };
+        dhcpV4Config.UseRoutes = false; # Do not use this interfaces for internet access
       };
     };
   };
@@ -217,12 +219,6 @@
   networking.firewall = {
     enable = false;
     allowPing = true;
-    
-    # Permite todo el tráfico entrante desde la subred de la VLAN IoT
-    extraCommands = ''
-      iptables -A INPUT 1 -s 10.80.1.0/24 -j ACCEPT
-      ip6tables -A INPUT 1 -s fe80::/10 -j ACCEPT
-    '';
   };
 
   services.tailscale.useRoutingFeatures = "server";
