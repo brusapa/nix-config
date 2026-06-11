@@ -67,6 +67,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # NETWORK
   networking = {
     hostName = "mars";
     hostId = "c66a2250";
@@ -78,6 +79,36 @@
   # Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  # GPU
+
+  # Control GPU fans and undervolt
+  hardware.amdgpu.overdrive.enable = true;
+  services.lact = {
+    enable = true;
+    settings = {
+      version = 5;
+      daemon = {
+        log_level = "info";
+        admin_group = "wheel";
+        disable_clocks_cleanup = false;
+      };
+      apply_settings_timer = 5;
+      gpus = {
+        "1002:747E-1DA2:D475-0000:03:00.0" = {
+          fan_control_enabled = false;
+          pmfw_options = {
+            zero_rpm = true;
+          };
+          performance_level = "auto";
+          voltage_offset = -75;
+        };
+      };
+      current_profile = null;
+      auto_switch_profiles = false;
+    };
+  };
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
