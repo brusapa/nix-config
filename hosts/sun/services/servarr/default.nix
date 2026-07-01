@@ -9,5 +9,6 @@
     ./profilarr.nix
     ./serr.nix
     ./unpackerr.nix
+    ./qbittorrent.nix
   ];
 }
