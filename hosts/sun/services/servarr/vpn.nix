@@ -2,35 +2,19 @@
 let
   vars = {
     config-path = "/var/lib/gluetun";
-    version = "v3.40.3";
+    version = "v3.41.1";
   };
 in {
   # Import the needed secrets
   sops = {
     secrets = {
-      "servarr-gluetun/vpn-service-provider" = {
-        sopsFile = ../../secrets.yaml;
-      };
-      "servarr-gluetun/vpn-type" = {
-        sopsFile = ../../secrets.yaml;
-      };
       "servarr-gluetun/wireguard-private-key" = {
-        sopsFile = ../../secrets.yaml;
-      };
-      "servarr-gluetun/wireguard-preshared-key" = {
-        sopsFile = ../../secrets.yaml;
-      };
-      "servarr-gluetun/wireguard-addresses" = {
         sopsFile = ../../secrets.yaml;
       };
     };
     templates."servarr-vpn-secrets.env" = {
       content = ''
-        VPN_SERVICE_PROVIDER=${config.sops.placeholder."servarr-gluetun/vpn-service-provider"}
-        VPN_TYPE=${config.sops.placeholder."servarr-gluetun/vpn-type"}
         WIREGUARD_PRIVATE_KEY=${config.sops.placeholder."servarr-gluetun/wireguard-private-key"}
-        WIREGUARD_PRESHARED_KEY=${config.sops.placeholder."servarr-gluetun/wireguard-preshared-key"}
-        WIREGUARD_ADDRESSES=${config.sops.placeholder."servarr-gluetun/wireguard-addresses"}
       '';
     };
   };
@@ -56,6 +40,10 @@ in {
 
     environment = {
       TZ = "Europe/Madrid";
+      VPN_SERVICE_PROVIDER = "protonvpn";
+      VPN_TYPE = "wireguard";
+      PORT_FORWARD_ONLY = "on";
+      VPN_PORT_FORWARDING = "on";
     };
 
     environmentFiles = [
