@@ -11,4 +11,13 @@
     ./unpackerr.nix
     ./qbittorrent.nix
   ];
+
+  users.groups.media = {
+    gid = 169;
+    members = [ "bruno" ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /zstorage/media 2775 root media - -"
+  ];
 }

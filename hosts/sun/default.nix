@@ -17,7 +17,6 @@
     ./services/samba.nix
     ./services/postfix.nix
     ./services/caddy.nix
-    ./services/nixarr.nix
     ./services/servarr
     ./services/vaultwarden.nix
     ./services/karakeep.nix

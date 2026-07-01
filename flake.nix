@@ -52,8 +52,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixarr.url = "github:rasmus-kirk/nixarr";
-
     jellarr.url = "github:venkyr77/jellarr";
   };
 
