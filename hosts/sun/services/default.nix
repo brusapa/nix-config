@@ -14,6 +14,6 @@
 
   wallaos = {
     enable = true;
-    version = "4.5.0";
+    version = "4.9.6";
   };
 }

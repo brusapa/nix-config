@@ -1,7 +1,7 @@
 { ... }:
 {
   virtualisation.oci-containers.containers.frigate = {
-    image = "ghcr.io/blakeblackshear/frigate:0.16.1";
+    image = "ghcr.io/blakeblackshear/frigate:0.17.2";
 
     # Web UI on :5000, RTSP on :8554, WebRTC on :8555 (tcp+udp)
     ports = [

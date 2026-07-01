@@ -2,7 +2,7 @@
 let
   vars = {
     homeassistant = {
-      version = "2026.5.4";
+      version = "2026.6";
       port = 8123;
     };
     zigbee2mqtt = {
@@ -10,9 +10,8 @@ let
       port = 8081;
       trastero-port = 8082;
     };
-    mosquitto = {
-      version = "2.0.22";
-    };
+    mosquitto.version = "2.0.22";
+    esphome.version = "2026.6";
   };
 in
 {
@@ -91,7 +90,7 @@ in
       volumes = [
         "/var/lib/esphome:/config"
       ];
-      image = "ghcr.io/esphome/esphome";
+      image = "ghcr.io/esphome/esphome:${vars.esphome.version}";
       extraOptions = [
         "--network=host"
       ];
