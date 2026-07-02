@@ -63,7 +63,7 @@ in
         interval = "Mon *-*-* 22:00:00";
       };
       zed = {
-        enableMail = true;
+        enableMail = config.services.mail.sendmailSetuidWrapper != null;
         settings = lib.mkMerge [
           {
             ZED_DEBUG_LOG = "/tmp/zed.debug.log";
