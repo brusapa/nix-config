@@ -60,6 +60,12 @@
   };
   networking.firewall.allowedTCPPorts = [ 3551 ];
 
+  environment.systemPackages = [
+    pkgs.restic
+    pkgs.lzop
+    pkgs.mbuffer
+  ];
+
   # User for ZFS remote backup
   users.groups.zfspuller = {};
   users.users.zfspuller = {
