@@ -10,6 +10,7 @@
     ./donetick.nix
     ./brother-scanner.nix
     ./mealie.nix
+    ./jupiter-backup.nix
   ];
 
   wallaos = {

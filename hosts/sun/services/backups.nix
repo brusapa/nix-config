@@ -56,6 +56,18 @@ let
   '';
 in {
 
+  # Import the needed secrets
+  sops = {
+    secrets = {
+      sun-zfspuller-private-key = {
+        sopsFile = ../secrets.yaml;
+        owner = config.services.syncoid.user;
+        group = config.services.syncoid.group;
+        mode = "0600";
+      };
+    };
+  };
+
   # Mount daily backup at boot if present
   fileSystems."/${dailyTargetPool}" = {
     device = dailyTargetPool;
@@ -88,6 +100,7 @@ in {
   services.syncoid = {
     enable = true;
     interval = "hourly";
+    sshKey = config.sops.secrets.sun-zfspuller-private-key.path;
     commonArgs = syncoidCommonArgs;
     localTargetAllow = [
       "change-key"

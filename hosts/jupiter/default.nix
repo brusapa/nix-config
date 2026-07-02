@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -59,6 +59,20 @@
     '';
   };
   networking.firewall.allowedTCPPorts = [ 3551 ];
+
+  # User for ZFS remote backup
+  users.groups.zfspuller = {};
+  users.users.zfspuller = {
+    group = "zfspuller";
+    extraGroups = [
+      "ssh-login"
+    ];
+    isSystemUser = true;
+    shell = pkgs.bashInteractive;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINuHKh5dLEYV+tREc4y9+S+YwgwCZJnJv366eyNTY/B4 sun-zfs-puller"
+    ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
