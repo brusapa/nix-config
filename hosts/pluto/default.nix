@@ -9,6 +9,7 @@
     ../../modules/containers.nix
     ../../modules/zfs.nix
     ../../modules/server.nix
+    ../../modules/tailscale-server.nix
     ./services
   ];
 
@@ -46,12 +47,6 @@
     hostId = "d2a8542a";
   };
   systemd.network.wait-online.enable = true;
-
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-    useRoutingFeatures = "server";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

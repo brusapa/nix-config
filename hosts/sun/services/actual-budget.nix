@@ -1,57 +1,40 @@
 { config, ... }:
-let 
-  version = "26.1.0";
-  port = 5006;
-  dataPath = "/var/lib/actual-budget";
-in 
 {
-
-  systemd.tmpfiles.rules = [
-    "d ${dataPath} 0775 root root -"
-  ];
+  users.groups.actual = { };
+  users.users.actual = {
+    group = "actual";
+    isSystemUser = true;
+  };
 
   # Import the needed secrets
   sops = {
     secrets = {
       "actual-budget/pocketid-client-id" = {
         sopsFile = ../secrets.yaml;
+        owner = "actual";
       };
       "actual-budget/pocketid-client-secret" = {
         sopsFile = ../secrets.yaml;
+        owner = "actual";
       };
     };
-    templates."actual-budget-secrets.env" = {
-      content = ''
-        ACTUAL_OPENID_CLIENT_ID=${config.sops.placeholder."actual-budget/pocketid-client-id"}
-        ACTUAL_OPENID_CLIENT_SECRET=${config.sops.placeholder."actual-budget/pocketid-client-secret"}
-      '';
+  };
+
+  services.actual = {
+    enable = true;
+    user = "actual";
+    group = "actual";
+    settings = {
+      port = 5006;
+      openId = {
+        discoveryURL = "https://pocketid.brusapa.com";
+        client_id._secret = config.sops.secrets."actual-budget/pocketid-client-id".path;
+        client_secret._secret = config.sops.secrets."actual-budget/pocketid-client-secret".path;
+        server_hostname = "https://actual.brusapa.com";
+        authMethod = "openid";
+      };
     };
   };
 
-  virtualisation.oci-containers.containers.actual-budget = {
-    image = "docker.io/actualbudget/actual-server:${version}";
-
-    ports = [
-      "${toString port}:${toString port}"
-    ];
-
-    volumes = [
-      "${dataPath}:/data"
-    ];
-
-    environment = {
-      ACTUAL_PORT = toString port;
-      ACTUAL_LOGIN_METHOD = "openid";
-      ACTUAL_ALLOWED_LOGIN_METHODS = "openid";
-      ACTUAL_OPENID_DISCOVERY_URL = "https://pocketid.brusapa.com";
-      ACTUAL_OPENID_SERVER_HOSTNAME = "https://actual.brusapa.com";
-    };
-
-    environmentFiles = [
-      config.sops.templates."actual-budget-secrets.env".path
-    ];
-  };
-
-
-  reverseProxy.hosts.actual.httpPort = port;
+  reverseProxy.hosts.actual.httpPort = config.services.actual.settings.port;
 }

@@ -44,4 +44,10 @@ in {
 
   reverseProxy.hosts.jackett.httpPort = vars.port;
 
+  services.flaresolverr = {
+    enable = true;
+  };
+
+  reverseProxy.hosts.flaresolverr.httpPort = config.services.flaresolverr.port;
+
 }

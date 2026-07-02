@@ -7,7 +7,7 @@
     ../common/global
     ../common/users/bruno
     ../common/users/gurenda
-    ../../modules/tailscale.nix
+    ../../modules/tailscale-server.nix
     ../../modules/secure-boot.nix
     ../../modules/hardware/intel-gpu-hw-acceleration.nix
     ../../modules/containers.nix
@@ -218,8 +218,6 @@
     enable = true;
     allowPing = true;
   };
-
-  services.tailscale.useRoutingFeatures = "server";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -48,7 +48,7 @@ in
     dataDir = "/zstorage/paperless";
     settings = {
       PAPERLESS_ADMIN_USER = "bruno";
-      PAPERLESS_OCR_LANGUAGE = "spa+eus+eng";
+      # PAPERLESS_OCR_LANGUAGE = "spa+eus+eng"; # Removed due to long building times
       PAPERLESS_URL = "https://documentos.brusapa.com";
       PAPERLESS_APPS = "allauth.socialaccount.providers.openid_connect";
     };

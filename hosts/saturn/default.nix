@@ -9,6 +9,7 @@
     ../../modules/containers.nix
     ../../modules/zfs.nix
     ../../modules/server.nix
+    ../../modules/tailscale-server.nix
     ./services
   ];
 
@@ -41,12 +42,6 @@
     hostId = "51a04533";
   };
   systemd.network.wait-online.enable = true;
-
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-    useRoutingFeatures = "server";
-  };
 
   services.apcupsd = {
     enable = true;

@@ -53,10 +53,5 @@
     wsl = {
       users = [ "bruno" ];
     };
-
-    rpi-landabarri = {
-      system = "aarch64-linux";
-      users = [ "bruno" ];
-    };
   };
 }

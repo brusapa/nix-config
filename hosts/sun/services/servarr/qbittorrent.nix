@@ -4,14 +4,19 @@ let
   config-path = "/var/lib/${service-name}";
   version = "5.2.2";
   webui-port = 18080;
+  downloadPath = "/zstorage/media/torrents";
+  temporalDownloadPath = "/mnt/internalBackup/downloads/torrent";
 in {
   users.users.${service-name} = {
     group = "media";
     isSystemUser = true;
+    uid = 976;
   };
 
   systemd.tmpfiles.rules = [
-    "d ${config-path} 0750 ${service-name} ${service-name} -"
+    "d ${config-path} 0750 ${service-name} media -"
+    "d ${downloadPath} 0755 ${service-name} media"
+    "d ${temporalDownloadPath} 0755 ${service-name} media"
   ];
 
   virtualisation.oci-containers.containers = {
@@ -32,8 +37,8 @@ in {
 
       volumes = [
         "${config-path}:/config"
-        "/zstorage/media/torrents:/downloads"
-        "/mnt/internalBackup/downloads/torrent:/incoming"
+        "${downloadPath}:/downloads"
+        "${temporalDownloadPath}:/incoming"
       ];
 
       environment = {
