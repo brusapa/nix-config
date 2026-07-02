@@ -38,7 +38,7 @@
   zfs = {
     enable = true;
   };
-  boot.zfs.extraPools = [ "znvme" "zsynology" "zleioa"];
+  boot.zfs.extraPools = [ "znvme" "zleioa"];
 
   # Networking
   networking = {

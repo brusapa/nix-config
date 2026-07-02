@@ -1,8 +1,8 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 let
   # Source variables
-  sourcePool = "zsynology";
-  datasets = [ "ramon" ];
+  sourcePool = "zleioa";
+  datasets = [ "users" "immich" ];
 
   syncoidCommonArgs = [
     # Tell syncoid not to create its own snapshots; rely on sanoid
