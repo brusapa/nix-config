@@ -34,6 +34,7 @@
   zramSwap.enable = true;
 
   # ZFS related options
+  zfs.enable = true;
   boot.zfs = {
     extraPools = [ "zbackup" ];
     requestEncryptionCredentials = false;
