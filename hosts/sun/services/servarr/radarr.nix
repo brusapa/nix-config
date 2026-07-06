@@ -9,7 +9,7 @@
     };
     templates."radarr-secrets.env" = {
       content = ''
-        READARR__AUTH__APIKEY=${config.sops.placeholder."servarr/radarr/apikey"}
+        RADARR__AUTH__APIKEY=${config.sops.placeholder."servarr/radarr/apikey"}
       '';
     };
   };
