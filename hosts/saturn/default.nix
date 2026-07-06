@@ -17,7 +17,7 @@
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Bootloader
   boot.loader = {
@@ -38,7 +38,7 @@
   networking = {
     useDHCP = true;
     useNetworkd = true;
-    hostName = "jupiter";
+    hostName = "saturn";
     hostId = "51a04533";
   };
   systemd.network.wait-online.enable = true;
