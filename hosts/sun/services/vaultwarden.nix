@@ -38,9 +38,4 @@
 
   reverseProxy.hosts.bitwarden.httpPort = config.services.vaultwarden.config.ROCKET_PORT;
 
-  backup-offsite-landabarri.job.vaultwarden = {
-    paths = [
-      "/zstorage/internal-backups/vaultwarden"
-    ];
-  };
 }

@@ -45,10 +45,11 @@
 
   reverseProxy.hosts.webdav.httpPort = config.services.webdav.settings.port;
 
-  backup-offsite-landabarri.job.webdav = {
-    paths = [
-      "/var/lib/webdav/obsidian-personal"
-      "/var/lib/webdav/obsidian-work"
-    ];
-  };
+  # TODO: Alternativa backup
+  # backup-offsite-landabarri.job.webdav = {
+  #   paths = [
+  #     "/var/lib/webdav/obsidian-personal"
+  #     "/var/lib/webdav/obsidian-work"
+  #   ];
+  # };
 }

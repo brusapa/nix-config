@@ -9,7 +9,6 @@
 in {
   sops.secrets."${username}-hashed-password".neededForUsers = true;
 
-
   users.groups.${username} = { };
 
   users.users.${username} = {
@@ -22,10 +21,6 @@ in {
     group = username;
     extraGroups = ifGroupExist [
       "users"
-      "ssh-login"
-    ];
-    openssh.authorizedKeys.keyFiles = [
-      ./ssh-key.pub
     ];
   };
 

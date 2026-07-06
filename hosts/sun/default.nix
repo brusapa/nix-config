@@ -36,7 +36,6 @@
     ./services/frigate-container.nix
     ./services/music-assistant.nix
     ./services/dispatcharr.nix
-    ./services/backups-offsite.nix
     ./services/radicale.nix
     ./services/whale-frigate-sync.nix
   ];
@@ -72,13 +71,13 @@
   # ZFS related options
   zfs = {
     enable = true;
+    extraPools = [ "zstorage" ];
     ntfy = {
       enable = true;
       topic = "sun";
       tokenFile = config.sops.secrets."ntfy/sun-zfs-token".path;
     };
   };
-  boot.zfs.extraPools = [ "zstorage" ];
 
   # User for ZFS remote backup
   users.groups.zfspuller = {};
@@ -93,11 +92,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOaO0c4HI5UOaCYPBH4MGgvWWN3kAZf7Q/owsQsGPcT syncoid-pluto"
     ];
   };
-
-  # Backup userdata
-  backup-offsite-landabarri.job.userdata.paths = [
-    "/zstorage/users"
-  ];
 
   # Mount internal backup and sata ssd disks
   environment.etc."crypttab".text = ''

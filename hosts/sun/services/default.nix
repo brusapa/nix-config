@@ -11,6 +11,7 @@
     ./brother-scanner.nix
     ./mealie.nix
     ./jupiter-backup.nix
+    ./claude-code-container.nix
   ];
 
   wallaos = {

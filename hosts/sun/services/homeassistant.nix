@@ -2,7 +2,7 @@
 let
   vars = {
     homeassistant = {
-      version = "2026.6";
+      version = "2026.7";
       port = 8123;
     };
     zigbee2mqtt = {
@@ -159,11 +159,12 @@ in
     esphome.httpPort = config.services.esphome.port;
   };
 
-  backup-offsite-landabarri.job.home-assistant = {
-    paths = [
-      "/zstorage/backups/home-assistant"
-      "/var/lib/home-assistant/zigbee2mqtt"
-      "/var/lib/home-assistant/zigbee2mqtt-trastero"
-    ];
-  };
+  # TODO: Preparar alternativa a backup
+  # backup-offsite-landabarri.job.home-assistant = {
+  #   paths = [
+  #     "/zstorage/backups/home-assistant"
+  #     "/var/lib/home-assistant/zigbee2mqtt"
+  #     "/var/lib/home-assistant/zigbee2mqtt-trastero"
+  #   ];
+  # };
 }

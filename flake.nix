@@ -53,6 +53,8 @@
     };
 
     jellarr.url = "github:venkyr77/jellarr";
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   nixConfig = {

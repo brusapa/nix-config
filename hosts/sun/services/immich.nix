@@ -82,20 +82,4 @@ in
       Unit = "immich-db-backup.service";
     };
   };
-
-  backup-offsite-landabarri.job.immich = {
-    paths = [
-      "/zstorage/photos"
-      vars.backup-directory
-    ];
-    exclude = [
-      "/zstorage/photos/backups"
-      "/zstorage/photos/encoded-video"
-    ];
-    backupPrepareCommand = ''
-      systemctl stop immich-server.service immich-machine-learning.service
-      systemctl start immich-db-backup.service
-      systemctl start immich-server.service immich-machine-learning.service
-    '';
-  };
 }

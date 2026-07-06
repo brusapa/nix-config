@@ -7,6 +7,11 @@ in
   options.zfs = {
     enable = lib.mkEnableOption "Enable zfs support";
 
+    extraPools = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      description = "Name or GUID of extra ZFS pools that you wish to import during boot.";
+    };
+
     environmentFile = lib.mkOption {
       type = lib.types.path;
       description = "Secrets environment file";
@@ -52,8 +57,10 @@ in
     boot = {
       supportedFilesystems = [ "zfs" ];
       zfs = {
+        extraPools = config.zfs.extraPools;
         devNodes = "/dev/disk/by-id";
         forceImportRoot = false;
+        passwordTimeout = 60; # 1 minute
       };
     };
 
