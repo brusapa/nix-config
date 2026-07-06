@@ -35,7 +35,7 @@ in {
   ];
 
   virtualisation.oci-containers.containers.pocket-id = {
-    image = "ghcr.io/pocket-id/pocket-id:v2";
+    image = "ghcr.io/pocket-id/pocket-id:v2.9.0";
 
     ports = [
       "1411:1411"
