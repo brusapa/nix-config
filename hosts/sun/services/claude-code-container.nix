@@ -33,7 +33,7 @@ in
       };
     };
 
-    config = { pkgs, ... }: {
+    config = { pkgs, lib, ... }: {
       # Pull claude-code (and friends) straight from the llm-agents.nix flake's
       # binary cache — no local build required.
       environment.systemPackages = with inputs.llm-agents.packages.${system}; [
@@ -89,6 +89,11 @@ in
 
         # Container gets outbound network via the host's NAT (set up below) give it a resolver
         nameservers = [ "1.1.1.1" "1.0.0.1" ];
+      };
+      networking.useHostResolvConf = lib.mkForce false;
+      services.resolved = {
+        enable = true;
+        settings.Resolve.FallbackDNS = [ "1.1.1.1" "1.0.0.1" ];
       };
 
       system.stateVersion = "26.05";
