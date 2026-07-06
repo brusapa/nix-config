@@ -18,8 +18,8 @@ in {
     };
     templates."pocket-id-secrets.env" = {
       content = ''
-        ENCRYPTION_KEY=${config.sops.placeholder."pocket-id/maxmind-license-key"}
-        MAXMIND_LICENSE_KEY=${config.sops.placeholder."gatus/from-email"}
+        ENCRYPTION_KEY=${config.sops.placeholder."pocket-id/encryption-key"}
+        MAXMIND_LICENSE_KEY=${config.sops.placeholder."pocket-id/maxmind-license-key"}
       '';
     };
   };
