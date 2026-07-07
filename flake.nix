@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -73,13 +72,6 @@
       imports = [
         ./flake/hosts.nix
         ./flake/nixos-configs.nix
-        ./flake/nixos-overlays.nix
       ];
-
-      perSystem = { system, pkgs, ... }: {
-        # You can put perSystem packages, devShells, checks, etc. here later.
-        # Example:
-        # packages.hello = pkgs.hello;
-      };
     };
 }
