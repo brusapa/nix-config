@@ -21,6 +21,7 @@
       den.aspects.mail-server
       den.aspects.wallaos
       den.aspects.pocket-id
+      den.aspects.immich
 
       # Hardware
       den.aspects.intel-cpu
@@ -62,6 +63,9 @@
       systemd.tmpfiles.rules = [
         "d /zstorage/media 2775 root media - -"
       ];
+
+      # Immich configuration
+      services.immich.mediaLocation = "/zstorage/photos";
 
       environment.systemPackages = [
         pkgs.restic
