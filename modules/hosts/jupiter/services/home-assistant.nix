@@ -5,16 +5,20 @@
       den.aspects.mqtt
       den.aspects.zigbee2mqtt
       den.aspects.home-assistant
+      den.aspects.frigate
     ];
 
     nixos = 
+      { config, ... }:
       {
 
-        # Home assistant
-        mqtt.domain = "mqtt.leioa.brusapa.com";
+        mqtt.domain = "mqtt.${config.reverseProxy.baseDomain}";
         zigbee2mqtt = {};
         home-assistant.subdomain = "casa";
-
+        frigate = {
+          hwaccel-driver = "radeonsi";
+          media-path = "/znvme/frigate";
+        };
       };
   };
 }
