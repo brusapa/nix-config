@@ -79,26 +79,6 @@
         ];
       };
 
-      services.sanoid = {
-        enable = true;
-        interval = "hourly";
-        templates = {
-          standard = {
-            autosnap = true;
-            autoprune = true;
-            daily = 14;
-            weekly = 4;
-            monthly = 2;
-            yearly = 1;
-          };
-        };
-
-        datasets = lib.listToAttrs (map (dataset: {
-          name = "${sourcePool}/${dataset}";
-          value.useTemplate = [ "standard" ];
-        }) datasets);
-      };
-
       services.syncoid = {
         enable = true;
         interval = "hourly";

@@ -32,8 +32,16 @@
       {
         # ZFS related options
         zfs = {
-          enable = true;
           extraPools = [ "znvme" "zleioa" ];
+          autoSnapshots = [
+            {
+              pool = "zleioa";
+              datasets = [
+                "users"
+                "immich"
+              ];
+            }
+          ];
         };
         # Unique host identifier used for ZFS
         networking.hostId = "e5501645";

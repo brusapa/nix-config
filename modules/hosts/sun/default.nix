@@ -47,8 +47,18 @@
 
       # ZFS related options
       zfs = {
-        enable = true;
         extraPools = [ "zstorage" ];
+        autoSnapshots = [
+          {
+            pool = "zstorage";
+            datasets = [
+              "users"
+              "paperless"
+              "photos"
+              "internal-backups"
+            ];
+          }
+        ];
       };
       # Unique host identifier used for ZFS
       networking.hostId = "696795a0";

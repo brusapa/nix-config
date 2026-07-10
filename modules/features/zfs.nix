@@ -1,21 +1,39 @@
+# TODO: Incluir automáticamente mail-server
 {
   den.aspects.zfs.nixos = { lib, config, pkgs, ... }:
-  let
-    zedRc = "/etc/zfs/zed.d/zed.rc";
-  in
   {
     options.zfs = {
-      enable = lib.mkEnableOption "Enable zfs support";
-
       extraPools = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         description = "Name or GUID of extra ZFS pools that you wish to import during boot.";
       };
 
+      autoSnapshots = lib.mkOption {
+        type = lib.types.listOf (lib.types.submodule {
+          options = {
+            pool = lib.mkOption {
+              type = lib.types.str;
+              description = "Name of the source ZFS pool";
+            };
+
+            datasets = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = "Which datasets to create snapshots for";
+            };
+          };
+        });
+        default = [ ];
+        description = "ZFS pool to create snapshots for";
+      };
+
     };
 
-    config = lib.mkIf config.zfs.enable {
-
+    config = 
+    let
+      allDatasetPaths = lib.concatMap
+        (sp: map (dataset: "${sp.pool}/${dataset}") sp.datasets) config.zfs.autoSnapshots;
+    in {
       environment.systemPackages = [
         pkgs.mailutils
       ];
@@ -51,6 +69,27 @@
             }
           ];
         };
+      };
+
+      # Snapshot management
+      services.sanoid = {
+        enable = true;
+        interval = "hourly";
+        templates = {
+          standard = {
+            autosnap = true;
+            autoprune = true;
+            daily = 14;
+            weekly = 4;
+            monthly = 2;
+            yearly = 1;
+          };
+        };
+
+        datasets = lib.listToAttrs (map (path: {
+          name = path;
+          value.useTemplate = [ "standard" ];
+        }) allDatasetPaths);
       };
 
       # Enable monitoring if prometheus is enabled on the system

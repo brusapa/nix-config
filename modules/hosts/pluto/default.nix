@@ -21,11 +21,8 @@
 
     nixos = {
       # ZFS related options
-      zfs.enable = true;
-      boot.zfs = {
-        extraPools = [ "zbackup" ];
-        requestEncryptionCredentials = false;
-      };
+      zfs.extraPools = [ "zbackup" ];
+      boot.zfs.requestEncryptionCredentials = false;
       # Unique host identifier used for ZFS
       networking.hostId = "d2a8542a";
 
