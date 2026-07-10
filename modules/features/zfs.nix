@@ -113,7 +113,7 @@
         ];
         isSystemUser = true;
         shell = pkgs.bashInteractive;
-        openssh.authorizedKeys.keysFiles = config.zfs.pullerAuthorizedSshKeys;
+        openssh.authorizedKeys.keyFiles = config.zfs.pullerAuthorizedSshKeys;
       };
 
       # Enable monitoring if prometheus is enabled on the system
