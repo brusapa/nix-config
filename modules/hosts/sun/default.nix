@@ -24,6 +24,7 @@
       den.aspects.immich
       den.aspects.acme
       den.aspects.dawarich
+      den.aspects.karakeep
 
       # Hardware
       den.aspects.intel-cpu
