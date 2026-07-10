@@ -59,6 +59,9 @@
             ];
           }
         ];
+        pullerAuthorizedSshKeys = [
+          ../pluto/zfspuller-key.pub
+        ];
       };
       # Unique host identifier used for ZFS
       networking.hostId = "696795a0";
@@ -76,26 +79,6 @@
 
       # Immich configuration
       services.immich.mediaLocation = "/zstorage/photos";
-
-      environment.systemPackages = [
-        pkgs.restic
-        pkgs.lzop
-        pkgs.mbuffer
-      ];
-
-      # User for ZFS remote backup
-      users.groups.zfspuller = {};
-      users.users.zfspuller = {
-        group = "zfspuller";
-        extraGroups = [
-          "ssh-login"
-        ];
-        isSystemUser = true;
-        shell = pkgs.bashInteractive;
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOaO0c4HI5UOaCYPBH4MGgvWWN3kAZf7Q/owsQsGPcT syncoid-pluto"
-        ];
-      };
 
       reverseProxy = {
         baseDomain = "brusapa.com";

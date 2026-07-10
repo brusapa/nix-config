@@ -27,6 +27,15 @@
         description = "ZFS pool to create snapshots for";
       };
 
+      pullerAuthorizedSshKeys = lib.mkOption {
+        type = lib.types.listOf lib.types.path;
+        default = [ ];
+        description = ''
+          A list of files each containing one OpenSSH public key that should be
+          added to the ZFS puller authorized keys.
+        '';
+      };
+
     };
 
     config = 
@@ -36,6 +45,9 @@
     in {
       environment.systemPackages = [
         pkgs.mailutils
+        pkgs.restic
+        pkgs.lzop
+        pkgs.mbuffer
       ];
 
       boot = {
@@ -90,6 +102,18 @@
           name = path;
           value.useTemplate = [ "standard" ];
         }) allDatasetPaths);
+      };
+
+      # Syncoid puller user configuration      
+      users.groups.zfspuller = {};
+      users.users.zfspuller = {
+        group = "zfspuller";
+        extraGroups = [
+          "ssh-login"
+        ];
+        isSystemUser = true;
+        shell = pkgs.bashInteractive;
+        openssh.authorizedKeys.keysFiles = config.zfs.pullerAuthorizedSshKeys;
       };
 
       # Enable monitoring if prometheus is enabled on the system
