@@ -1,5 +1,0 @@
-{...}: {
-  imports = [
-    ../generic-desktop.nix
-  ];
-}

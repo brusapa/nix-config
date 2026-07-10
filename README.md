@@ -13,7 +13,7 @@
 2. Register the age key into sops-nix and update any related secrets file
 
     ``` bash
-    nix-shell -p sops --run "sops updatekeys hosts/common/secrets.yaml"
+    nix-shell -p sops --run "sops updatekeys modules/users/secrets.yaml modules/hosts/<hostname>/secrets.yaml"
     ```
 
 3. Set the encryption key for the boot disk
@@ -103,10 +103,3 @@
 ``` bash
 # tailscale up
 ```
-
-### Cooler control
-
-``` bash
-# sensors-detect --auto
-```
-

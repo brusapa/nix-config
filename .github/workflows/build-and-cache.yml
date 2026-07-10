@@ -1,0 +1,40 @@
+name: Build and cache
+
+# Deliberately triggered on `push` to the bot's own branch, not on
+# `pull_request`: this repo is public, and a pull_request trigger would run
+# arbitrary fork-PR code on the self-hosted runner. A push-triggered run still
+# shows up as a check on the flake-update PR since it shares the same commit.
+on:
+  push:
+    branches:
+      - flake-update
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      hosts: ${{ steps.list.outputs.hosts }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          echo "hosts=$(ls modules/hosts | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: discover
+    runs-on: [self-hosted, nix-config]
+    strategy:
+      fail-fast: false
+      matrix:
+        host: ${{ fromJson(needs.discover.outputs.hosts) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build ${{ matrix.host }}
+        run: |
+          nix build ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel" \
+            --no-link --print-out-paths | tee result-path
+
+      - name: Push to attic
+        run: attic push nix-config "$(cat result-path)"

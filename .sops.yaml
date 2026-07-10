@@ -10,7 +10,7 @@ keys:
     - &jupiter age1vjg7cvggccrfeymmh70s6nqlfumfyw8sf577t44muqxy8wpkv4zq5xcwar
     - &venus age183mu9f6kweta6dq8wuwpjz7wug8jj20uy4224rjwc78z8xe5afuslttjpy
 creation_rules:
-  - path_regex: hosts/common/secrets.ya?ml$
+  - path_regex: modules/users/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
@@ -22,55 +22,55 @@ creation_rules:
         - *pluto
         - *jupiter
         - *venus
-  - path_regex: hosts/sun/secrets.ya?ml$
+  - path_regex: modules/hosts/sun/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *sun
-  - path_regex: hosts/sun/secrets/.*\.sops$
+  - path_regex: modules/hosts/sun/secrets/.*\.sops$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *sun
-  - path_regex: hosts/mars/secrets.ya?ml$
+  - path_regex: modules/hosts/mars/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *mars
-  - path_regex: hosts/mercury/secrets.ya?ml$
+  - path_regex: modules/hosts/mercury/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *mercury
-  - path_regex: hosts/wsl/secrets.ya?ml$
+  - path_regex: modules/hosts/wsl/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *wsl
-  - path_regex: hosts/pluto/secrets.ya?ml$
+  - path_regex: modules/hosts/pluto/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *pluto
-  - path_regex: hosts/jupiter/secrets.ya?ml$
+  - path_regex: modules/hosts/jupiter/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *jupiter
-  - path_regex: hosts/venus/secrets.ya?ml$
+  - path_regex: modules/hosts/venus/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno
         age:
         - *venus
-  - path_regex: hosts/saturn/secrets.ya?ml$
+  - path_regex: modules/hosts/saturn/secrets.yaml$
     key_groups:
       - pgp:
         - *bruno

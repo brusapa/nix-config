@@ -1,6 +1,0 @@
-{ ... }:
-{
-  imports = [
-    ./sun-backup.nix
-  ];
-}

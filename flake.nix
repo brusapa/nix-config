@@ -3,8 +3,9 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:denful/import-tree";
+    den.url = "github:denful/den";
+    flake-file.url = "github:denful/flake-file";
 
     disko = {
       url = "github:nix-community/disko";
@@ -46,32 +47,16 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
 
-    autofirma-nix = {
-      url = "github:nix-community/autofirma-nix/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     jellarr.url = "github:venkyr77/jellarr";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
-  nixConfig = {
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
-
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-linux" ];
-
-      imports = [
-        ./flake/hosts.nix
-        ./flake/nixos-configs.nix
-      ];
-    };
+  outputs = inputs:
+   (inputs.nixpkgs.lib.evalModules {
+     modules = [ (inputs.import-tree ./modules) ];
+     specialArgs.inputs = inputs;
+   }).config.flake;
 }
