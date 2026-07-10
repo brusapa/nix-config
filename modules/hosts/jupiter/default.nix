@@ -19,6 +19,7 @@
       den.aspects.zfs
       den.aspects.containers
       den.aspects.reverse-proxy
+      den.aspects.pocket-id
 
       # Hardware
       den.aspects.amd-cpu
