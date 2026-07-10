@@ -7,7 +7,6 @@
       sops = {
         secrets = {
           "postfix/sasl_passwd" = {
-            sopsFile = ../secrets.yaml;
             owner = config.services.postfix.user;
           };
         };
