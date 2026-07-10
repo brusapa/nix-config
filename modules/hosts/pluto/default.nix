@@ -13,6 +13,7 @@
 
       # Other features
       den.aspects.zfs
+      den.aspects.mail-server
       den.aspects.tailscale-server
 
       # Hardware
