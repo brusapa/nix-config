@@ -26,13 +26,6 @@
             "fruit:wipe_intentionally_left_blank_rfork" = "yes";
             "fruit:delete_empty_adfiles" = "yes";
           };
-          ramon = {
-            path = "/zleioa/users/ramon";
-            browseable = "yes";
-            "read only" = "no";
-            "guest ok" = "no";
-            "valid users" = "bruno, ramon";
-          };
         };
       };
 
