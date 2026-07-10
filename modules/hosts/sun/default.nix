@@ -22,6 +22,7 @@
       den.aspects.wallaos
       den.aspects.pocket-id
       den.aspects.immich
+      den.aspects.acme
 
       # Hardware
       den.aspects.intel-cpu
