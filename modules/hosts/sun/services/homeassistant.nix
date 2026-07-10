@@ -6,6 +6,7 @@
       den.aspects.matter-server
       den.aspects.influxdb
       den.aspects.glances
+      den.aspects.music-assistant
     ];
 
     nixos = 
