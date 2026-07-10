@@ -1,6 +1,6 @@
 {
-  den.aspects.jupiter.nixos = 
-    { lib, config, pkgs, ... }:
+  den.aspects.mail-server.nixos = 
+    { config, pkgs, ... }:
     {
 
       # Import the needed secrets
@@ -10,34 +10,24 @@
             sopsFile = ../secrets.yaml;
             owner = config.services.postfix.user;
           };
-          root-email-alias = {
-            sopsFile = ../secrets.yaml;
-          };
-        };
-        templates."postfix-aliases" = {
-          content = ''
-            postmaster: root
-            root: ${config.sops.placeholder.root-email-alias}
-          '';
-          mode = "0444";
         };
       };
 
       services.postfix = {
         enable = true;
         setSendmail = true;
+        rootAlias = "brusapa@brusapa.com";
         settings.main = {
           relayhost = [
             "[smtp.eu.mailgun.org]:587"
           ];
-          myhostname = "jupiter.brusapa.com";
+          myhostname = "${config.networking.hostName}.${config.networking.domain}";
           smtp_use_tls = "yes";
           smtp_tls_security_level = "encrypt";
           smtp_sasl_security_options = "";
           smtp_sasl_auth_enable = "yes";
           smtp_sasl_password_maps = "texthash:${config.sops.secrets."postfix/sasl_passwd".path}";
         };
-        aliasFiles.aliases = lib.mkForce config.sops.templates."postfix-aliases".path;
       };
 
       environment.systemPackages = [
