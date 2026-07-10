@@ -19,6 +19,7 @@
       den.aspects.containers
       den.aspects.reverse-proxy
       den.aspects.wallaos
+      den.aspects.pocket-id
 
       # Hardware
       den.aspects.intel-cpu

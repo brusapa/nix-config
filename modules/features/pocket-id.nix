@@ -28,6 +28,9 @@
             ANALYTICS_DISABLED = true;
             TRUST_PROXY = true;
             APP_URL = "https://pocketid.${config.reverseProxy.baseDomain}";
+            SMTP_HOST = "127.0.0.1";
+            SMTP_PORT = "25";
+            SMTP_FROM = "pocketid@brusapa.com";
           };
         };
 
