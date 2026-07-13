@@ -41,7 +41,6 @@
         zigbeecasa.port = 8080;
         zigbeegaraje.port = 8081;
       };
-      home-assistant.subdomain = "casa";
 
       # Frigate
       frigate = {

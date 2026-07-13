@@ -2,6 +2,7 @@
 {
   den.aspects.sun = {
     includes = [
+      den.aspects.home-assistant
       den.aspects.mqtt
       den.aspects.matter-server
       den.aspects.influxdb
@@ -15,10 +16,6 @@
       { config, ... }:
       let
         vars = {
-          homeassistant = {
-            version = "2026.7";
-            port = 8123;
-          };
           zigbee2mqtt = {
             version = "2.8.0";
             port = 8081;
@@ -37,20 +34,6 @@
         };
 
         virtualisation.oci-containers.containers = {
-          homeassistant = {
-            volumes = [ 
-              "homeassistant:/config" 
-              "/zstorage/internal-backups/home-assistant:/config/backups"
-            ];
-            environment.TZ = "Europe/Madrid";
-            image = "ghcr.io/home-assistant/home-assistant:${vars.homeassistant.version}";
-            extraOptions = [
-              "--network=host"
-              "--cap-add=net_admin"
-              "--cap-add=net_raw"
-            ];
-          };
-
           zigbee2mqtt = {
             volumes = [
               "/var/lib/home-assistant/zigbee2mqtt:/app/data"
@@ -74,6 +57,8 @@
             ];
           };
         };
+
+        home-assistant.backupPath = "/zstorage/internal-backups/home-assistant";
 
         frigate = {
           hwaccel-driver = "iHD";
