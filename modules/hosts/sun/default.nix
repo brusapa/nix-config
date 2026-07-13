@@ -27,6 +27,7 @@
       den.aspects.karakeep
       den.aspects.mealie
       den.aspects.pangolin-client
+      den.aspects.actual-budget
 
       # Hardware
       den.aspects.intel-cpu
