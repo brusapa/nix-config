@@ -2,12 +2,12 @@
   den.aspects.bruno.homeManager = { pkgs, ... }: {
     home.packages = with pkgs; [
       (writeShellScriptBin "fixgpg" ''
-      #!/bin/sh
-      gpgconf --kill gpg-agent
-      echo "GPG agent restarted. Please, re-establish the SSH connection."
+        #!/bin/sh
+        gpgconf --kill gpg-agent
+        echo "GPG agent restarted. Please, re-establish the SSH connection."
       '')
     ];
-  
+
     programs.gpg = {
       enable = true;
 

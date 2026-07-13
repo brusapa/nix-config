@@ -1,4 +1,4 @@
-{ den, ...}:
+{ den, ... }:
 {
   den.aspects.jupiter = {
     includes = [
@@ -8,12 +8,12 @@
       den.aspects.frigate
     ];
 
-    nixos = 
+    nixos =
       { config, ... }:
       {
 
         mqtt.domain = "mqtt.${config.reverseProxy.baseDomain}";
-        zigbee2mqtt = {};
+        zigbee2mqtt = { };
         home-assistant.subdomain = "casa";
         frigate = {
           hwaccel-driver = "radeonsi";
@@ -22,5 +22,3 @@
       };
   };
 }
-
-

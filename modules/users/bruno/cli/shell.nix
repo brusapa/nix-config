@@ -1,5 +1,5 @@
 {
-  den.aspects.bruno.homeManager = {pkgs, ... }: {
+  den.aspects.bruno.homeManager = { pkgs, ... }: {
     programs.bash = {
       enable = true;
       shellAliases = {
@@ -41,7 +41,7 @@
     programs.ripgrep = {
       enable = true;
     };
-  
+
     # Better resource monitor
     programs.btop = {
       enable = true;

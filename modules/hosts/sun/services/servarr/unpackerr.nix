@@ -1,9 +1,10 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     let
       configurationDirectory = "/var/lib/unpackerr/.config";
-    in {
+    in
+    {
       # Import the needed secrets
       sops = {
         secrets = {
@@ -32,7 +33,7 @@
       ];
 
       virtualisation.oci-containers.containers.unpackerr = {
-        user = "${ toString config.users.users.qbittorrent.uid }:${ toString config.users.groups.media.gid }";
+        user = "${toString config.users.users.qbittorrent.uid}:${toString config.users.groups.media.gid}";
 
         image = "ghcr.io/unpackerr/unpackerr:0.15.2:0.15.2";
 

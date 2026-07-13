@@ -1,5 +1,5 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     {
       virtualisation.oci-containers.containers.brother-scanner = {

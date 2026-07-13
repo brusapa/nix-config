@@ -3,14 +3,14 @@
   den.hosts.x86_64-linux.venus = {
     role = "workstation";
     users = {
-      bruno = {};
-      gurenda = {};
+      bruno = { };
+      gurenda = { };
     };
     swapSizeGiB = 32;
   };
 
   den.aspects.venus = {
-    includes = [ 
+    includes = [
       # Role
       den.aspects.workstation
 
@@ -26,12 +26,19 @@
       den.aspects.brother-printer
     ];
 
-    nixos = { pkgs, lib, config, ...}: {
-      # Unique host identifier used for ZFS
-      networking.hostId = "d071c3fc";
+    nixos =
+      {
+        pkgs,
+        lib,
+        config,
+        ...
+      }:
+      {
+        # Unique host identifier used for ZFS
+        networking.hostId = "d071c3fc";
 
-      # Enable Wake On Lan
-      networking.interfaces.eno1.wakeOnLan.enable = true;
-    };
+        # Enable Wake On Lan
+        networking.interfaces.eno1.wakeOnLan.enable = true;
+      };
   };
 }

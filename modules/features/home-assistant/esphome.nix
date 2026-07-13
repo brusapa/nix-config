@@ -1,4 +1,4 @@
-{ den, ... }:{
+{ den, ... }: {
   den.aspects.esphome = {
     includes = [
       den.aspects.reverse-proxy

@@ -8,19 +8,20 @@
       ({ host, ... }: if host.role == "workstation" then den.aspects.gurenda.desktop else { })
     ];
 
-    user = { config, ... }:
-    let
-      ifGroupExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-    in 
-    {
-      uid = 1001;
-      extraGroups = ifGroupExist [
-        "users"
-        "lp"
-        "scanner"
-      ];
-      hashedPasswordFile = config.sops.secrets.gurenda-hashed-password.path;
-    };
+    user =
+      { config, ... }:
+      let
+        ifGroupExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+      in
+      {
+        uid = 1001;
+        extraGroups = ifGroupExist [
+          "users"
+          "lp"
+          "scanner"
+        ];
+        hashedPasswordFile = config.sops.secrets.gurenda-hashed-password.path;
+      };
 
     homeManager = { pkgs, ... }: {
       home = {
@@ -37,7 +38,7 @@
       };
     };
 
-    provides.to-hosts.nixos = { ... }: { 
+    provides.to-hosts.nixos = { ... }: {
       sops.secrets.gurenda-hashed-password = {
         neededForUsers = true;
         sopsFile = ../secrets.yaml;

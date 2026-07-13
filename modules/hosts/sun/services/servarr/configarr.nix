@@ -1,12 +1,13 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     let
       config-path = "/var/lib/configarr/config";
       version = "1.18";
-    in {
+    in
+    {
 
-      users.groups.configarr = {};
+      users.groups.configarr = { };
       users.users.configarr = {
         group = "configarr";
         isSystemUser = true;
@@ -25,7 +26,7 @@
         ];
 
         environment = {
-          TZ   = "Europe/Madrid";
+          TZ = "Europe/Madrid";
           # PUID = toString config.users.users.configarr.uid;
           # PGID = toString config.users.groups.configarr.gid;
         };

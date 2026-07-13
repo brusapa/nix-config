@@ -16,8 +16,8 @@
     };
     lfs.enable = true;
     signing = {
-       signByDefault = true;
-       key = "BD6743DAE6ABDF36";
+      signByDefault = true;
+      key = "BD6743DAE6ABDF36";
     };
   };
 }

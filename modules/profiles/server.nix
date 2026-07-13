@@ -14,8 +14,7 @@
       };
 
       # Prevent suspension/hybernation
-      systemd.sleep.settings.Sleep = 
-      { 
+      systemd.sleep.settings.Sleep = {
         AllowSuspend = "no";
         AllowHibernation = "no";
         AllowHybridSleep = "no";

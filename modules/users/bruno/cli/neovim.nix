@@ -1,4 +1,3 @@
-
 {
   den.aspects.bruno = {
     homeManager = {
@@ -7,8 +6,7 @@
         defaultEditor = true;
         viAlias = true;
         vimAlias = true;
-        extraConfig =
-        ''
+        extraConfig = ''
           " Turn off
           set nofoldenable " Turn off folding (unfold all lines)
           set nowrap " Turn off wrapping

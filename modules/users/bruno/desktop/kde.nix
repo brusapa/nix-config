@@ -1,4 +1,4 @@
-{ inputs, ... }: 
+{ inputs, ... }:
 {
   den.aspects.bruno.desktop = {
     nixos = {
@@ -58,10 +58,10 @@
         };
 
         input.keyboard = {
-          layouts = [ 
+          layouts = [
             {
               layout = "es";
-            }        
+            }
           ];
           numlockOnStartup = "on";
         };

@@ -3,7 +3,7 @@
   den.aspects.dawarich = {
     includes = [
       den.aspects.reverse-proxy
-    ]; 
+    ];
     nixos =
       { config, ... }:
       {

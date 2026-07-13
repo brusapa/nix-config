@@ -4,7 +4,7 @@
     includes = [
       den.aspects.samba-server
     ];
-  
+
     nixos.services.samba.settings = {
       bruno = {
         path = "/zstorage/users/bruno";

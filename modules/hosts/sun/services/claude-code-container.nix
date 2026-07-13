@@ -1,6 +1,6 @@
-{inputs, ... }:
+{ inputs, ... }:
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { pkgs, ... }:
 
     let
@@ -25,9 +25,15 @@
         # Tailscale needs to create/use /dev/net/tun and manage its own routes,
         # which nspawn locks down by default — grant just those two things.
         allowedDevices = [
-          { node = "/dev/net/tun"; modifier = "rw"; }
+          {
+            node = "/dev/net/tun";
+            modifier = "rw";
+          }
         ];
-        additionalCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+        additionalCapabilities = [
+          "CAP_NET_ADMIN"
+          "CAP_NET_RAW"
+        ];
 
         bindMounts = {
           "/home/bruno/workspace" = {
@@ -39,18 +45,24 @@
         config = { pkgs, lib, ... }: {
           # Pull claude-code (and friends) straight from the llm-agents.nix flake's
           # binary cache — no local build required.
-          environment.systemPackages = with inputs.llm-agents.packages.${system}; [
-            claude-code
-          ] ++ (with pkgs; [
-            git
-            vim
-            ripgrep
-            fd
-            htop
-          ]);
+          environment.systemPackages =
+            with inputs.llm-agents.packages.${system};
+            [
+              claude-code
+            ]
+            ++ (with pkgs; [
+              git
+              vim
+              ripgrep
+              fd
+              htop
+            ]);
 
           nix.settings = {
-            experimental-features = [ "nix-command" "flakes" ];
+            experimental-features = [
+              "nix-command"
+              "flakes"
+            ];
             extra-substituters = [ "https://cache.numtide.com" ];
             extra-trusted-public-keys = [
               "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
@@ -91,12 +103,18 @@
             firewall.trustedInterfaces = [ "tailscale0" ];
 
             # Container gets outbound network via the host's NAT (set up below) give it a resolver
-            nameservers = [ "1.1.1.1" "1.0.0.1" ];
+            nameservers = [
+              "1.1.1.1"
+              "1.0.0.1"
+            ];
           };
           networking.useHostResolvConf = lib.mkForce false;
           services.resolved = {
             enable = true;
-            settings.Resolve.FallbackDNS = [ "1.1.1.1" "1.0.0.1" ];
+            settings.Resolve.FallbackDNS = [
+              "1.1.1.1"
+              "1.0.0.1"
+            ];
           };
 
           system.stateVersion = "26.05";

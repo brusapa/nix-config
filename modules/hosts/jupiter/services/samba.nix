@@ -4,7 +4,7 @@
     includes = [
       den.aspects.samba-server
     ];
-  
+
     nixos.services.samba.settings = {
       ramon = {
         path = "/zleioa/users/ramon";

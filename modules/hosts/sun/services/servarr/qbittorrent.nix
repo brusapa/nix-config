@@ -1,5 +1,5 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { lib, config, ... }:
     let
       service-name = "qbittorrent";
@@ -8,7 +8,8 @@
       webui-port = 18080;
       downloadPath = "/zstorage/media/torrents";
       temporalDownloadPath = "/mnt/internalBackup/downloads/torrent";
-    in {
+    in
+    {
       users.users.${service-name} = {
         group = "media";
         isSystemUser = true;
@@ -44,7 +45,7 @@
           ];
 
           environment = {
-            TZ   = "Europe/Madrid";
+            TZ = "Europe/Madrid";
             PUID = toString config.users.users.${service-name}.uid;
             PGID = toString config.users.groups.media.gid;
             WEBUI_PORT = "${toString webui-port}";

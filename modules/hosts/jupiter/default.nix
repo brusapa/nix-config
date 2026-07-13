@@ -3,8 +3,8 @@
   den.hosts.x86_64-linux.jupiter = {
     role = "server";
     users = {
-      bruno = {};
-      ramon = {};
+      bruno = { };
+      ramon = { };
     };
     swapSizeGiB = 32;
   };
@@ -27,12 +27,15 @@
       den.aspects.apcupsd
     ];
 
-    nixos = 
+    nixos =
       { pkgs, ... }:
       {
         # ZFS related options
         zfs = {
-          extraPools = [ "znvme" "zleioa" ];
+          extraPools = [
+            "znvme"
+            "zleioa"
+          ];
           autoSnapshots = [
             {
               pool = "zleioa";

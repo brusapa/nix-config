@@ -1,12 +1,12 @@
 { den, ... }:
 {
   den.aspects.immich = {
-  
+
     includes = [
       den.aspects.reverse-proxy
     ];
 
-    nixos = 
+    nixos =
       { config, lib, ... }:
       {
         # Import the needed secrets
@@ -54,7 +54,10 @@
           accelerationDevices = null; # Give access to all devices
         };
 
-        users.users.${config.services.immich.user}.extraGroups = [ "video" "render" ];
+        users.users.${config.services.immich.user}.extraGroups = [
+          "video"
+          "render"
+        ];
 
         reverseProxy.hosts.fotos = {
           ip = "localhost";

@@ -53,7 +53,10 @@
           networkConfig = {
             DHCP = "yes";
             IPv6AcceptRA = true;
-            VLAN = [ "iotVlan" "cctvVlan" ]; 
+            VLAN = [
+              "iotVlan"
+              "cctvVlan"
+            ];
           };
         };
 

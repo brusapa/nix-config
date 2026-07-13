@@ -3,14 +3,14 @@
   den.hosts.x86_64-linux.mercury = {
     role = "workstation";
     users = {
-      bruno = {};
-      gurenda = {};
+      bruno = { };
+      gurenda = { };
     };
     swapSizeGiB = 32;
   };
 
   den.aspects.mercury = {
-    includes = [ 
+    includes = [
       # Role
       den.aspects.workstation
 
@@ -32,7 +32,7 @@
       ];
 
       # USB 4 support
-      boot.initrd.availableKernelModules = [ "thunderbolt"];
+      boot.initrd.availableKernelModules = [ "thunderbolt" ];
 
       # Unique host identifier used for ZFS
       networking.hostId = "46b34875";

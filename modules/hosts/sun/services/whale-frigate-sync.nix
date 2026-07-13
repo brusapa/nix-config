@@ -1,13 +1,19 @@
 {
-  den.aspects.sun.nixos = 
-    { config, pkgs, lib, ... }:
+  den.aspects.sun.nixos =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     let
       local-path = "/mnt/satassd/whale-frigate-sync";
       local-user = "whale-frigate-sync";
       remote-host = "sonabia.brusapa.com";
       remote-user = "sun-frigate-sync";
       remote-path = "/mnt/hdd1/frigate_storage/recordings";
-    in {
+    in
+    {
       # Import the needed secrets
       sops.secrets = {
         "whale-frigate-backup/ssh-private-key" = {
@@ -17,7 +23,7 @@
         };
       };
 
-      users.groups.${local-user} = {};
+      users.groups.${local-user} = { };
       users.users.${local-user} = {
         isSystemUser = true;
         group = local-user;
@@ -38,11 +44,16 @@
           Group = local-user;
         };
 
-        path = [ pkgs.rsync pkgs.openssh ];
+        path = [
+          pkgs.rsync
+          pkgs.openssh
+        ];
 
         script = ''
           rsync -az --delete --bwlimit=10000 \
-            -e "ssh -i ${config.sops.secrets."whale-frigate-backup/ssh-private-key".path} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+            -e "ssh -i ${
+              config.sops.secrets."whale-frigate-backup/ssh-private-key".path
+            } -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
             ${remote-user}@${remote-host}:${remote-path} \
             ${local-path}
         '';

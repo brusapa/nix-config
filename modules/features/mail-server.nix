@@ -1,5 +1,5 @@
 {
-  den.aspects.mail-server.nixos = 
+  den.aspects.mail-server.nixos =
     { config, pkgs, ... }:
     {
 

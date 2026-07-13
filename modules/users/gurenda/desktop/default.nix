@@ -34,7 +34,7 @@
               force = true;
               default = "google";
               privateDefault = "google";
-              order = ["google"];
+              order = [ "google" ];
             };
           };
         };
@@ -50,10 +50,10 @@
           enable = true;
 
           input.keyboard = {
-            layouts = [ 
+            layouts = [
               {
                 layout = "es";
-              }        
+              }
             ];
             numlockOnStartup = "on";
           };

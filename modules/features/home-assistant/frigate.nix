@@ -1,7 +1,8 @@
 {
-  den.aspects.frigate.nixos = { lib, config, ... }:
+  den.aspects.frigate.nixos =
+    { lib, config, ... }:
     let
-      inherit (lib) mkIf mkOption  types;
+      inherit (lib) mkIf mkOption types;
       cfg = config.frigate;
     in
     {
@@ -42,7 +43,7 @@
             "/var/lib/frigate/config:/config"
             "${cfg.media-path}:/media/frigate"
           ];
-          
+
           environment = {
             TZ = "Europe/Madrid";
             LIBVA_DRIVER_NAME = cfg.hwaccel-driver;

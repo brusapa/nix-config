@@ -1,5 +1,5 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     {
       # Import the needed secrets

@@ -49,9 +49,10 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
-  outputs = inputs:
-   (inputs.nixpkgs.lib.evalModules {
-     modules = [ (inputs.import-tree ./modules) ];
-     specialArgs.inputs = inputs;
-   }).config.flake;
+  outputs =
+    inputs:
+    (inputs.nixpkgs.lib.evalModules {
+      modules = [ (inputs.import-tree ./modules) ];
+      specialArgs.inputs = inputs;
+    }).config.flake;
 }

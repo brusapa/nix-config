@@ -1,5 +1,5 @@
 {
-  den.aspects.pangolin-client.nixos = 
+  den.aspects.pangolin-client.nixos =
     { config, ... }:
     {
       # Import the needed secrets

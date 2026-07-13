@@ -6,7 +6,7 @@
       den.aspects.reverse-proxy
     ];
 
-    nixos = 
+    nixos =
       { config, ... }:
       {
         # Import the needed secrets

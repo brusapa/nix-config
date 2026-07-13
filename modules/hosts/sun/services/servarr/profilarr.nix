@@ -6,9 +6,10 @@
         config-path = "/var/lib/profilarr";
         port = 6868;
       };
-    in {
+    in
+    {
 
-      users.groups.profilarr = {};
+      users.groups.profilarr = { };
       users.users.profilarr = {
         group = "profilarr";
         isSystemUser = true;

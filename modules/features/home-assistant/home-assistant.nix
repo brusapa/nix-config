@@ -1,11 +1,10 @@
-
 { den, ... }:
 {
   den.aspects.home-assistant = {
     includes = [
       den.aspects.reverse-proxy
     ];
-    nixos = 
+    nixos =
       { lib, config, ... }:
       let
         inherit (lib) mkOption types;
@@ -30,10 +29,10 @@
         config = {
 
           virtualisation.oci-containers.containers.home-assistant = {
-            volumes =
-              [ "home-assistant-config:/config" ]
-              ++ lib.optional (cfg.backupPath != null)
-                "${toString cfg.backupPath}:/config/backups";
+            volumes = [
+              "home-assistant-config:/config"
+            ]
+            ++ lib.optional (cfg.backupPath != null) "${toString cfg.backupPath}:/config/backups";
 
             environment.TZ = "Europe/Madrid";
             image = "ghcr.io/home-assistant/home-assistant:2026.7.1";
@@ -52,4 +51,3 @@
       };
   };
 }
-

@@ -2,7 +2,7 @@
 {
   den.hosts.x86_64-linux.saturn = {
     role = "server";
-    users.bruno = {};
+    users.bruno = { };
     swapSizeGiB = 32;
   };
 

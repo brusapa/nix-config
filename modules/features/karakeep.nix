@@ -5,18 +5,18 @@
       den.aspects.reverse-proxy
     ];
 
-    nixos = 
+    nixos =
       { config, ... }:
       let
         port = 3000;
-      in 
+      in
       {
         # Import the needed secrets
         sops = {
           secrets = {
-            "karakeep/openai-api-key" = {};
-            "karakeep/oauth-client-id" = {};
-            "karakeep/oauth-client-secret" = {};
+            "karakeep/openai-api-key" = { };
+            "karakeep/oauth-client-id" = { };
+            "karakeep/oauth-client-secret" = { };
           };
           templates."karakeep-secrets.env" = {
             content = ''

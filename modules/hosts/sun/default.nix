@@ -3,8 +3,8 @@
   den.hosts.x86_64-linux.sun = {
     role = "server";
     users = {
-      bruno = {};
-      gurenda = {};
+      bruno = { };
+      gurenda = { };
     };
     swapSizeGiB = 32;
   };

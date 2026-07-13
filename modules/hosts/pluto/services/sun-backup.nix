@@ -1,10 +1,17 @@
 {
-  den.aspects.pluto.nixos = { lib, config, ... }:
+  den.aspects.pluto.nixos =
+    { lib, config, ... }:
     let
       # Source variables
       sourcePool = "zfspuller@sun.brusapa.com:zstorage";
-      datasets = [ "users" "paperless" "photos" "internal-backups" ];
-    in {
+      datasets = [
+        "users"
+        "paperless"
+        "photos"
+        "internal-backups"
+      ];
+    in
+    {
 
       # Import the needed secrets
       sops = {
@@ -33,23 +40,25 @@
           "rollback"
         ];
 
-        commands = lib.listToAttrs (map (dataset: {
-          name = "backup-sun-${dataset}";
-          value = {
-            source = "${sourcePool}/${dataset}";
-            target = "zbackup/${dataset}";
-            sendOptions="w";
-            recvOptions="u";
-            extraArgs = [
-              # Tell syncoid not to create its own snapshots; rely on sanoid
-              "--no-sync-snap"
-              # This argument tells syncoid to create a zfs bookmark for the newest snapshot after it got replicated successfully.
-              "--create-bookmark"
-              # Prune old snapshots on the target that don't exist on the source
-              "--delete-target-snapshots"
-            ];
-          };
-        }) datasets);
+        commands = lib.listToAttrs (
+          map (dataset: {
+            name = "backup-sun-${dataset}";
+            value = {
+              source = "${sourcePool}/${dataset}";
+              target = "zbackup/${dataset}";
+              sendOptions = "w";
+              recvOptions = "u";
+              extraArgs = [
+                # Tell syncoid not to create its own snapshots; rely on sanoid
+                "--no-sync-snap"
+                # This argument tells syncoid to create a zfs bookmark for the newest snapshot after it got replicated successfully.
+                "--create-bookmark"
+                # Prune old snapshots on the target that don't exist on the source
+                "--delete-target-snapshots"
+              ];
+            };
+          }) datasets
+        );
       };
 
     };

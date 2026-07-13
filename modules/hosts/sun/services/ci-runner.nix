@@ -11,7 +11,9 @@
       # dir) and the container (which runs atticd as this fixed user, instead
       # of a DynamicUser whose uid would change every restart and couldn't own
       # a persistent bind mount).
-      users.groups.attic = { gid = 397; };
+      users.groups.attic = {
+        gid = 397;
+      };
       users.users.attic = {
         uid = 397;
         group = "attic";
@@ -59,14 +61,19 @@
           ];
 
           nix.settings = {
-            experimental-features = [ "nix-command" "flakes" ];
+            experimental-features = [
+              "nix-command"
+              "flakes"
+            ];
             extra-substituters = [ "https://cache.numtide.com" ];
             extra-trusted-public-keys = [
               "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
             ];
           };
 
-          users.groups.attic = { gid = 397; };
+          users.groups.attic = {
+            gid = 397;
+          };
           users.users.attic = {
             uid = 397;
             group = "attic";
@@ -90,7 +97,10 @@
             ephemeral = false;
             user = "runner";
             group = "runner";
-            extraLabels = [ "nix-config" "sun" ];
+            extraLabels = [
+              "nix-config"
+              "sun"
+            ];
             extraPackages = [ pkgs.attic-client ];
           };
 
@@ -107,12 +117,18 @@
 
           networking = {
             # Outbound via the host's NAT (set up below); gets a resolver too.
-            nameservers = [ "1.1.1.1" "1.0.0.1" ];
+            nameservers = [
+              "1.1.1.1"
+              "1.0.0.1"
+            ];
           };
           networking.useHostResolvConf = lib.mkForce false;
           services.resolved = {
             enable = true;
-            settings.Resolve.FallbackDNS = [ "1.1.1.1" "1.0.0.1" ];
+            settings.Resolve.FallbackDNS = [
+              "1.1.1.1"
+              "1.0.0.1"
+            ];
           };
 
           system.stateVersion = "26.05";

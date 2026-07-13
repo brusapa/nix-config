@@ -1,6 +1,5 @@
-{ 
-  den.aspects.containers.nixos = 
-  {
+{
+  den.aspects.containers.nixos = {
 
     virtualisation = {
       containers.enable = true;

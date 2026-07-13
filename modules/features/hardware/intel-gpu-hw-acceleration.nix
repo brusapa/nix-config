@@ -2,7 +2,9 @@
   den.aspects.intel-gpu-hw-acceleration.nixos = { pkgs, ... }: {
     # Enable HW acceleration for jellyfin
     systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD";
-    environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "iHD";
+    };
     hardware = {
       enableAllFirmware = true;
       intel-gpu-tools.enable = true;

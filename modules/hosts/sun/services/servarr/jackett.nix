@@ -7,7 +7,8 @@
         port = 9117;
         version = "0.24.2142";
       };
-    in {
+    in
+    {
 
       users.groups.jackett.gid = config.ids.gids.jackett;
       users.users.jackett = {
@@ -31,7 +32,7 @@
           ];
 
           environment = {
-            TZ   = "Europe/Madrid";
+            TZ = "Europe/Madrid";
             PUID = toString config.users.users.jackett.uid;
             PGID = toString config.users.groups.jackett.gid;
           };

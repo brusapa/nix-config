@@ -1,4 +1,4 @@
-{den, ... }:
+{ den, ... }:
 {
   den.aspects.actual-budget = {
     includes = [

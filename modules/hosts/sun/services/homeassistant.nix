@@ -12,7 +12,7 @@
       den.aspects.frigate
     ];
 
-    nixos = 
+    nixos =
       { config, ... }:
       let
         vars = {
@@ -41,7 +41,7 @@
             environment.TZ = "Europe/Madrid";
             # Note: The image will not be updated on rebuilds, unless the version label changes
             image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
-            ports = [ 
+            ports = [
               "${toString vars.zigbee2mqtt.port}:8080" # Zigbee2MQTT web interface
             ];
           };
@@ -65,7 +65,9 @@
           media-path = "/srv/frigate/media";
         };
 
-        services.matter-server.extraArgs = { "primary-interface" = "iotVlan"; };
+        services.matter-server.extraArgs = {
+          "primary-interface" = "iotVlan";
+        };
 
         # DB for historic data
         services.influxdb2.provision.organizations = {
@@ -76,7 +78,7 @@
               retention = 31536000; # 1 year
             };
             auths.homeassistant-token = {
-              writeBuckets = ["history"];
+              writeBuckets = [ "history" ];
               tokenFile = config.sops.secrets."influxdb/homeassistant-token".path;
             };
           };

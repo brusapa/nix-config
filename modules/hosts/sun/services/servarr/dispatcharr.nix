@@ -1,10 +1,10 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { ... }:
-    let 
+    let
       dispatcharr-port = 9191;
       epg-port = 9192;
-    in 
+    in
     {
 
       virtualisation.oci-containers.containers = {

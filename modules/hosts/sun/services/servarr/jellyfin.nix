@@ -1,6 +1,6 @@
-{inputs, ... }:
+{ inputs, ... }:
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     {
       imports = [

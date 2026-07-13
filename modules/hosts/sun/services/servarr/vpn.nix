@@ -1,12 +1,13 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     let
       vars = {
         config-path = "/var/lib/gluetun";
         version = "v3.41.1";
       };
-    in {
+    in
+    {
       # Import the needed secrets
       sops = {
         secrets = {
@@ -29,7 +30,7 @@
         image = "qmcgaw/gluetun:${vars.version}";
 
         extraOptions = [
-            "--cap-add=net_admin"
+          "--cap-add=net_admin"
         ];
 
         devices = [

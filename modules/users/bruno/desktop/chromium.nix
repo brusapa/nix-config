@@ -1,15 +1,15 @@
 {
   den.aspects.bruno.desktop.homeManager = {
     programs.chromium = {
-        enable = true;
-        extensions = [
+      enable = true;
+      extensions = [
         {
-            id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; # uBlock Origin
+          id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; # uBlock Origin
         }
         {
-            id = "nngceckbapebfimnlniiiahkandclblb"; # Bitwarden
+          id = "nngceckbapebfimnlniiiahkandclblb"; # Bitwarden
         }
-        ];
+      ];
     };
   };
 }

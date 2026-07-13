@@ -1,11 +1,12 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     let
       service-name = "serr";
       config-path = "/var/lib/${service-name}";
       port = 5055;
       version = "v3.0.1";
-    in {
+    in
+    {
 
       systemd.tmpfiles.rules = [
         "d ${config-path} 0750 1000 1000 -"

@@ -1,5 +1,5 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     {
       # Import the needed secrets
@@ -36,7 +36,6 @@
         environmentFile = config.sops.templates."vaultwarden-secrets.env".path;
         backupDir = "/zstorage/internal-backups/vaultwarden";
       };
-
 
       reverseProxy.hosts.bitwarden.httpPort = config.services.vaultwarden.config.ROCKET_PORT;
 

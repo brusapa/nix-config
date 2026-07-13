@@ -1,17 +1,30 @@
 {
-  den.aspects.reverse-proxy.nixos = 
-    { lib, config, pkgs, ... }:
+  den.aspects.reverse-proxy.nixos =
+    {
+      lib,
+      config,
+      pkgs,
+      ...
+    }:
     let
-      inherit (lib) mkIf mkOption  mkEnableOption types filterAttrs mapAttrs' nameValuePair;
+      inherit (lib)
+        mkIf
+        mkOption
+        mkEnableOption
+        types
+        filterAttrs
+        mapAttrs'
+        nameValuePair
+        ;
       cfg = config.reverseProxy;
 
       # Only hosts that have at least one port defined
-      enabledHosts =
-        filterAttrs (_: hostCfg:
-          hostCfg.httpPort != null || hostCfg.httpsPort != null
-        ) cfg.hosts;
+      enabledHosts = filterAttrs (
+        _: hostCfg: hostCfg.httpPort != null || hostCfg.httpsPort != null
+      ) cfg.hosts;
 
-      mkExtraConfig = hostCfg:
+      mkExtraConfig =
+        hostCfg:
         if hostCfg.httpsPort != null then
           ''
             reverse_proxy https://${hostCfg.ip}:${toString hostCfg.httpsPort} {
@@ -34,28 +47,32 @@
         };
 
         hosts = mkOption {
-          type = types.attrsOf (types.submodule ({ name, ... }: {
-            options = {
-              ip = mkOption {
-                type = types.str;
-                default = "127.0.0.1";
-                description = "Hostname or IP of the upstream for `${name}`.";
-              };
-              httpPort = mkOption {
-                type = types.nullOr types.port;
-                default = null;
-                description = "Insecure port to proxy for host `${name}`.";
-              };
-              httpsPort = mkOption {
-                type = types.nullOr types.port;
-                default = null;
-                description = ''
-                  Secure port to proxy for host `${name}`.
-                  If set, it takes precedence over `httpPort`.
-                '';
-              };
-            };
-          }));
+          type = types.attrsOf (
+            types.submodule (
+              { name, ... }: {
+                options = {
+                  ip = mkOption {
+                    type = types.str;
+                    default = "127.0.0.1";
+                    description = "Hostname or IP of the upstream for `${name}`.";
+                  };
+                  httpPort = mkOption {
+                    type = types.nullOr types.port;
+                    default = null;
+                    description = "Insecure port to proxy for host `${name}`.";
+                  };
+                  httpsPort = mkOption {
+                    type = types.nullOr types.port;
+                    default = null;
+                    description = ''
+                      Secure port to proxy for host `${name}`.
+                      If set, it takes precedence over `httpPort`.
+                    '';
+                  };
+                };
+              }
+            )
+          );
           default = { };
           description = ''
             Per-host reverse proxy definitions.
@@ -88,20 +105,24 @@
             plugins = [ "github.com/caddy-dns/cloudflare@v0.2.4" ];
             hash = "sha256-hEHgAG0F0ozHRAPuxEqLyTATBrE+pajeXDiSNwniorg=";
           };
-          globalConfig = 
-          ''
+          globalConfig = ''
             email {env.CF_EMAIL}
             acme_dns cloudflare {env.CF_API_TOKEN}
           '';
-          virtualHosts =
-            (mapAttrs' (name: hostCfg:
+          virtualHosts = (
+            mapAttrs' (
+              name: hostCfg:
               nameValuePair "${name}.${cfg.baseDomain}" {
                 extraConfig = mkExtraConfig hostCfg;
               }
-            ) enabledHosts);
+            ) enabledHosts
+          );
         };
 
-        networking.firewall.allowedTCPPorts = [ 80 443 ];
+        networking.firewall.allowedTCPPorts = [
+          80
+          443
+        ];
       };
     };
 }

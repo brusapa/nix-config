@@ -1,5 +1,5 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.sun.nixos =
     { config, ... }:
     {
 
@@ -38,16 +38,20 @@
           enable = true;
           datasources.settings = {
 
-            datasources = [{
-              name = "Prometheus";
-              type = "prometheus";
-              url = "http://localhost:9090";
-            }];
+            datasources = [
+              {
+                name = "Prometheus";
+                type = "prometheus";
+                url = "http://localhost:9090";
+              }
+            ];
 
-            deleteDatasources = [{
-              name = "Prometheus";
-              orgId = 1;
-            }];
+            deleteDatasources = [
+              {
+                name = "Prometheus";
+                orgId = 1;
+              }
+            ];
           };
         };
       };
@@ -65,19 +69,22 @@
         scrapeConfigs = [
           {
             job_name = "sun_statistics";
-            static_configs = [{
-              targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-            }];
+            static_configs = [
+              {
+                targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+              }
+            ];
           }
           {
             job_name = "apcupsd";
-            static_configs = [{
-              targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.apcupsd.port}" ];
-            }];
+            static_configs = [
+              {
+                targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.apcupsd.port}" ];
+              }
+            ];
           }
         ];
       };
-
 
       reverseProxy.hosts.grafana.httpPort = config.services.grafana.settings.server.http_port;
 

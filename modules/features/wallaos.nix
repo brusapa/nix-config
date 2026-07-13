@@ -1,5 +1,5 @@
 {
-  den.aspects.wallaos.nixos = 
+  den.aspects.wallaos.nixos =
     { lib, config, ... }:
     let
       inherit (lib) mkOption types;
@@ -29,7 +29,7 @@
           environment.TZ = "Europe/Madrid";
           image = "ghcr.io/ellite/wallos:4.9.6";
 
-          ports = [ 
+          ports = [
             "${toString cfg.port}:80/tcp"
           ];
         };
@@ -39,4 +39,3 @@
       };
     };
 }
-

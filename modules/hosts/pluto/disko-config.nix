@@ -4,13 +4,13 @@
     imports = [
       inputs.disko.nixosModules.disko
     ];
-    
+
     disko.devices = {
       disk = {
         main = {
           device = "/dev/disk/by-id/nvme-CT1000E100SSD8_2533EADB233D";
           type = "disk";
-            content = {
+          content = {
             type = "gpt";
             partitions = {
               ESP = {
@@ -35,23 +35,38 @@
                     subvolumes = {
                       "/root" = {
                         mountpoint = "/";
-                        mountOptions = [ "compress=zstd" "noatime" ];
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
                       };
                       "/home" = {
                         mountpoint = "/home";
-                        mountOptions = [ "compress=zstd" "noatime" ];
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
                       };
                       "/nix" = {
                         mountpoint = "/nix";
-                        mountOptions = [ "compress=zstd" "noatime" ];
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
                       };
                       "/persist" = {
                         mountpoint = "/persist";
-                        mountOptions = [ "compress=zstd" "noatime" ];
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
                       };
                       "/log" = {
                         mountpoint = "/var/log";
-                        mountOptions = [ "compress=zstd" "noatime" ];
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
                       };
                     };
                   };

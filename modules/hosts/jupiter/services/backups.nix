@@ -1,10 +1,13 @@
 {
-  den.aspects.jupiter.nixos = 
+  den.aspects.jupiter.nixos =
     { lib, ... }:
     let
       # Source variables
       sourcePool = "zleioa";
-      datasets = [ "users" "immich" ];
+      datasets = [
+        "users"
+        "immich"
+      ];
 
       # syncoidCommonArgs = [
       #   # Tell syncoid not to create its own snapshots; rely on sanoid
@@ -18,10 +21,11 @@
       #   # Use raw. End-to-end encrypted backups
       #   "--sendoptions=-w"
       # ];
-      
+
       # dailyTargetPool = "zsynobackup";
 
-    in {
+    in
+    {
 
       # # Mount daily backup at boot if present
       # fileSystems."/${dailyTargetPool}" = {

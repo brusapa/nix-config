@@ -4,7 +4,7 @@
     wsl.enable = true;
     hostname = "wsl";
     swapSizeGiB = 8;
-    users.bruno = {};
+    users.bruno = { };
   };
 
   den.aspects.wsl = {

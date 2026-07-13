@@ -1,10 +1,20 @@
 {
-  den.aspects.sun.nixos = 
-    { lib, pkgs, config, ... }:
+  den.aspects.sun.nixos =
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
     let
       # Source variables
       sourcePool = "zstorage";
-      datasets = [ "users" "paperless" "photos" "internal-backups" ];
+      datasets = [
+        "users"
+        "paperless"
+        "photos"
+        "internal-backups"
+      ];
 
       syncoidCommonArgs = [
         # Tell syncoid not to create its own snapshots; rely on sanoid
@@ -18,7 +28,7 @@
         # Use raw. End-to-end encrypted backups
         "--sendoptions=-w"
       ];
-      
+
       dailyTargetPool = "daily-backup";
 
       weeklyTargetPool = "weekly-backup";
@@ -56,7 +66,8 @@
         ${pkgs.zfs}/bin/zpool export "$TARGET_POOL" || true
         echo "[usb-zfs-sync] Backup finished for $TARGET_POOL"
       '';
-    in {
+    in
+    {
 
       # Import the needed secrets
       sops = {
@@ -95,19 +106,24 @@
           "rollback"
         ];
 
-        commands = lib.listToAttrs (map (dataset: {
-          name = "backup-${dataset}-to-daily";
-          value = {
-            source = "${sourcePool}/${dataset}";
-            target = "${dailyTargetPool}/${dataset}";
-          };
-        }) datasets);
+        commands = lib.listToAttrs (
+          map (dataset: {
+            name = "backup-${dataset}-to-daily";
+            value = {
+              source = "${sourcePool}/${dataset}";
+              target = "${dailyTargetPool}/${dataset}";
+            };
+          }) datasets
+        );
       };
 
       # ---- On-plug USB replication unit (triggered by udev) ----
       systemd.services."usb-zfs-sync@" = {
         description = "Replicate to USB ZFS pool %I on plug";
-        after = [ "zfs-import.target" "local-fs.target" ];
+        after = [
+          "zfs-import.target"
+          "local-fs.target"
+        ];
         wantedBy = [ ]; # udev will start it; don’t start automatically
         serviceConfig = {
           Type = "oneshot";
