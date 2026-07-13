@@ -1,5 +1,13 @@
 { inputs, ... }:
 {
+  flake-file.inputs = {
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+  };
+
   den.aspects.bruno.desktop = {
     nixos = {
       # Profile photo for plasma login

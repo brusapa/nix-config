@@ -5,7 +5,26 @@
   ...
 }:
 {
-  imports = [ inputs.den.flakeModule ];
+  imports = [
+    (inputs.flake-file.flakeModules.dendritic or { })
+    (inputs.den.flakeModules.dendritic or { })
+  ];
+
+  # Common flake modules
+  flake-file.inputs = {
+    nixpkgs.url = "nixpkgs/nixos-26.05";
+    flake-file.url = "github:denful/flake-file";
+    den.url = "github:denful/den";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+  };
 
   den.default = {
     includes = [

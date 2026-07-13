@@ -1,5 +1,9 @@
 { inputs, ... }:
 {
+  flake-file.inputs = {
+    jellarr.url = "github:venkyr77/jellarr";
+  };
+
   den.aspects.sun.nixos =
     { config, ... }:
     {

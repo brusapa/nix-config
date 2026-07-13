@@ -27,6 +27,11 @@
           };
         };
 
+        # TODO: Temporary fix until upstream solves the problem, must be removed
+        nixpkgs.config.permittedInsecurePackages = [
+          "pnpm-9.15.9" 
+        ];
+
         services.karakeep = {
           enable = true;
           extraEnvironment = {

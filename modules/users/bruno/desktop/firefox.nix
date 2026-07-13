@@ -1,5 +1,12 @@
 { inputs, ... }:
 {
+  flake-file.inputs = {
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
   den.aspects.bruno.desktop.homeManager =
     {
       config,
@@ -8,7 +15,6 @@
       ...
     }:
     {
-
       programs.firefox = {
         enable = true;
         configPath = "${config.xdg.configHome}/mozilla/firefox";

@@ -1,5 +1,12 @@
 { inputs, ... }:
 {
+  flake-file.inputs = {
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
   den.aspects.secure-boot.nixos = { pkgs, lib, ... }: {
     imports = [
       inputs.lanzaboote.nixosModules.lanzaboote
