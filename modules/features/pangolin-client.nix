@@ -1,19 +1,13 @@
 {
-  den.aspects.sun.nixos = 
+  den.aspects.pangolin-client.nixos = 
     { config, ... }:
     {
       # Import the needed secrets
       sops = {
         secrets = {
-          "pangolin-client/id" = {
-            sopsFile = ../secrets.yaml;
-          };
-          "pangolin-client/secret" = {
-            sopsFile = ../secrets.yaml;
-          };
-          "pangolin-client/endpoint" = {
-            sopsFile = ../secrets.yaml;
-          };
+          "pangolin-client/id" = { };
+          "pangolin-client/secret" = { };
+          "pangolin-client/endpoint" = { };
         };
         templates."pangolin-newt.env" = {
           content = ''

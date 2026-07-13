@@ -26,6 +26,7 @@
       den.aspects.dawarich
       den.aspects.karakeep
       den.aspects.mealie
+      den.aspects.pangolin-client
 
       # Hardware
       den.aspects.intel-cpu

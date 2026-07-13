@@ -8,6 +8,7 @@
       den.aspects.glances
       den.aspects.music-assistant
       den.aspects.esphome
+      den.aspects.frigate
     ];
 
     nixos = 
@@ -23,7 +24,6 @@
             port = 8081;
             trastero-port = 8082;
           };
-          esphome.version = "2026.6";
         };
       in
       {
@@ -75,6 +75,11 @@
           };
         };
 
+        frigate = {
+          hwaccel-driver = "iHD";
+          media-path = "/srv/frigate/media";
+        };
+
         services.matter-server.extraArgs = { "primary-interface" = "iotVlan"; };
 
         # DB for historic data
@@ -96,7 +101,6 @@
           casa.httpPort = 8123;
           zigbee2mqtt.httpPort = vars.zigbee2mqtt.port;
           zigbee2mqtt-trastero.httpPort = vars.zigbee2mqtt.trastero-port;
-          esphome.httpPort = config.services.esphome.port;
         };
 
         # TODO: Preparar alternativa a backup
