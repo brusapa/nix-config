@@ -7,6 +7,7 @@
       den.aspects.influxdb
       den.aspects.glances
       den.aspects.music-assistant
+      den.aspects.esphome
     ];
 
     nixos = 
@@ -70,17 +71,6 @@
             image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
             ports = [
               "${toString vars.zigbee2mqtt.trastero-port}:8080"
-            ];
-          };
-
-          esphome = {
-            environment.TZ = "Europe/Madrid";
-            volumes = [
-              "/var/lib/esphome:/config"
-            ];
-            image = "ghcr.io/esphome/esphome:${vars.esphome.version}";
-            extraOptions = [
-              "--network=host"
             ];
           };
         };
