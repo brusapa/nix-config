@@ -1,50 +1,31 @@
-{inputs, lib, ...}:
+
 {
   den.aspects.bruno = {
     homeManager = {
-      imports = [
-        inputs.nvf.homeManagerModules.default
-      ];
-      programs.nvf = {
+      programs.neovim = {
         enable = true;
-        settings = {
-          vim = {
-            theme = {
-              enable = true;
-              name = "catppuccin";
-              style = "latte";
-            };
+        defaultEditor = true;
+        viAlias = true;
+        vimAlias = true;
+        extraConfig =
+        ''
+          " Turn off
+          set nofoldenable " Turn off folding (unfold all lines)
+          set nowrap " Turn off wrapping
+          set nohlsearch " Turn off search highlighting
 
-            options = {
-              shiftwidth = 2;
-              expandtab = true;
-              smarttab = true;
-            };
+          " Options
+          set foldmethod=indent " Fold based on indentation
+          set clipboard=unnamedplus " Use system clipboard for copy and paste
+          set number " Show line numbers
+          set expandtab " Insert spaces when tab is pressed
+          set tabstop=2 " 2 spaces when tab is pressed
+          set shiftwidth=2 " 1 tab = 2 spaces
+          set smarttab
 
-            lineNumberMode = "number";
-            preventJunkFiles = true;
-
-            statusline.lualine.enable = true;
-            telescope.enable = true;
-            autocomplete.nvim-cmp.enable = true;
-
-            lsp.enable = true;
-            languages = {
-              enableTreesitter = true;
-
-              bash.enable = true;
-              clang.enable = true;
-              csharp.enable = true;
-              css.enable = true;
-              html.enable = true;
-              markdown.enable = true;
-              nix.enable = true;
-              python.enable = true;
-              rust.enable = true;
-              typescript.enable = true;
-            };
-          };
-        };
+          " File-based configuration
+          autocmd FileType nix setlocal tabstop=2 shiftwidth=2 expandtab
+        '';
       };
     };
   };
