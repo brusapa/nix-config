@@ -28,6 +28,7 @@
       den.aspects.mealie
       den.aspects.pangolin-client
       den.aspects.actual-budget
+      den.aspects.couchdb
 
       # Hardware
       den.aspects.intel-cpu
