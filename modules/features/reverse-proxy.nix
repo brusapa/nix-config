@@ -10,7 +10,6 @@
       inherit (lib)
         mkIf
         mkOption
-        mkEnableOption
         types
         filterAttrs
         mapAttrs'
@@ -25,6 +24,13 @@
 
       mkExtraConfig =
         hostCfg:
+        ''
+          tls {
+            dns cloudflare {env.CF_API_TOKEN}
+            resolvers 1.1.1.1 1.0.0.1
+          }
+        ''
+        +(
         if hostCfg.httpsPort != null then
           ''
             reverse_proxy https://${hostCfg.ip}:${toString hostCfg.httpsPort} {
@@ -36,7 +42,7 @@
         else
           ''
             reverse_proxy http://${hostCfg.ip}:${toString hostCfg.httpPort}
-          '';
+          '');
     in
     {
       options.reverseProxy = {
@@ -107,7 +113,6 @@
           };
           globalConfig = ''
             email {env.CF_EMAIL}
-            acme_dns cloudflare {env.CF_API_TOKEN}
           '';
           virtualHosts = (
             mapAttrs' (
