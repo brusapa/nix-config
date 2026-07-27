@@ -68,6 +68,13 @@
               "nix-command"
               "flakes"
             ];
+            # Add sun atticd cache
+            substituters = [
+              "https://attic.brusapa.com/nix-config"
+            ];
+            trusted-public-keys = [
+              "nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M="
+            ];
           };
         };
         nixpkgs.config.allowUnfree = true;

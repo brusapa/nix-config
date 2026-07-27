@@ -29,6 +29,7 @@
       den.aspects.pangolin-client
       den.aspects.actual-budget
       den.aspects.couchdb
+      den.aspects.atticd
 
       # Hardware
       den.aspects.intel-cpu
