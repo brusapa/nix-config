@@ -2,7 +2,6 @@
 {
   den.aspects.server = {
     includes = [
-      den.aspects.secure-boot
       den.aspects.tailscale-server
     ];
 
