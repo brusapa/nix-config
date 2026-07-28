@@ -9,7 +9,10 @@ Before starting the installation, make sure that the system has secure boot enab
 1. Generate the keys for the new host
 
     ``` bash
-    TARGET-HOSTNAME=<hostname> && mkdir -p /tmp/${TARGET-HOSTNAME}/etc/ssh && ssh-keygen -q -t ed25519 -C "${TARGET-HOSTNAME}" -N "" -f /tmp/${TARGET-HOSTNAME}/etc/ssh/ssh_host_ed25519_key && nix-shell -p ssh-to-age --run "cat /tmp/${TARGET-HOSTNAME}/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age"
+    TARGET-HOSTNAME=<hostname> && \
+    mkdir -p /tmp/${TARGET-HOSTNAME}/etc/ssh && \
+    ssh-keygen -q -t ed25519 -C "${TARGET-HOSTNAME}" -N "" -f /tmp/${TARGET-HOSTNAME}/etc/ssh/ssh_host_ed25519_key && \
+    nix-shell -p ssh-to-age --run "cat /tmp/${TARGET-HOSTNAME}/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age"
     ```
 
 2. Register the age key into sops-nix and update any related secrets file
@@ -27,7 +30,7 @@ Before starting the installation, make sure that the system has secure boot enab
 4. Perform the installation over SSH
 
     ``` bash
-    TARGET-IP=<ip>
+    TARGET-IP=<ip> && \
     nix run github:nix-community/nixos-anywhere -- \
         --extra-files /tmp/${TARGET-HOSTNAME} \
         --disk-encryption-keys /tmp/${TARGET-HOSTNAME}-encryption.key /tmp/cryptroot.key \
@@ -49,7 +52,9 @@ Before starting the installation, make sure that the system has secure boot enab
 
     
     ``` bash
-    TARGET-HOSTNAME=<hostname> && sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --write-efi-boot-entries  --flake 'github:brusapa/nix-config#${TARGET-HOSTNAME}' && sudo nixos-install --root /mnt --flake 'github:brusapa/nix-config#${TARGET-HOSTNAME}'
+    TARGET-HOSTNAME=<hostname> && \
+    sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --write-efi-boot-entries  --flake 'github:brusapa/nix-config#${TARGET-HOSTNAME}' && \
+    sudo nixos-install --root /mnt --flake 'github:brusapa/nix-config#${TARGET-HOSTNAME}'
     ```
 
 ## Post-installation steps
