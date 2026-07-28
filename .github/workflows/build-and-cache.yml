@@ -16,7 +16,7 @@ jobs:
     outputs:
       hosts: ${{ steps.list.outputs.hosts }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: list
         run: |
           echo "hosts=$(ls modules/hosts | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
@@ -29,7 +29,7 @@ jobs:
       matrix:
         host: ${{ fromJson(needs.discover.outputs.hosts) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Build ${{ matrix.host }}
         run: |
