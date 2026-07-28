@@ -31,6 +31,10 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "nixpkgs/nixos-26.05";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
