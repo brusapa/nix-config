@@ -1,12 +1,12 @@
 { den, ... }:
 {
-  den.hosts.x86_64-linux.pluto = {
+  den.hosts.x86_64-linux.uranus = {
     role = "server";
     users.bruno = { };
     swapSizeGiB = 16;
   };
 
-  den.aspects.pluto = {
+  den.aspects.uranus = {
     includes = [
       # Role
       den.aspects.server

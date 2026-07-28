@@ -69,7 +69,7 @@
           }
         ];
         pullerAuthorizedSshKeys = [
-          ../pluto/zfspuller-key.pub
+          ../uranus/zfspuller-key.pub
         ];
       };
       # Unique host identifier used for ZFS

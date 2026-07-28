@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  den.aspects.pluto.nixos = { config, ... }: {
+  den.aspects.uranus.nixos = { config, ... }: {
     imports = [
       inputs.disko.nixosModules.disko
     ];

@@ -1,5 +1,5 @@
 {
-  den.aspects.pluto.nixos =
+  den.aspects.uranus.nixos =
     { lib, config, ... }:
     let
       # Source variables
