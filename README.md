@@ -1,88 +1,67 @@
 # NixOS configuration files
 
-## Execute a remote install
+## Installation
+
+Before starting the installation, make sure that the system has secure boot enabled and it is in setup mode.
+
+### Remote install (recommended)
 
 1. Generate the keys for the new host
 
     ``` bash
-    mkdir -p /tmp/<hostname>/etc/ssh
-    ssh-keygen -t ed25519 -C <hostname> -f /tmp/<hostname>/etc/ssh/ssh_host_ed25519_key
-    nix-shell -p ssh-to-age --run 'cat /tmp/<hostname>/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
+    TARGET-HOSTNAME=<hostname> && mkdir -p /tmp/${TARGET-HOSTNAME}/etc/ssh && ssh-keygen -q -t ed25519 -C "${TARGET-HOSTNAME}" -N "" -f /tmp/${TARGET-HOSTNAME}/etc/ssh/ssh_host_ed25519_key && nix-shell -p ssh-to-age --run "cat /tmp/${TARGET-HOSTNAME}/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age"
     ```
 
 2. Register the age key into sops-nix and update any related secrets file
 
     ``` bash
-    nix-shell -p sops --run "sops updatekeys modules/users/secrets.yaml modules/hosts/<hostname>/secrets.yaml"
+    nix-shell -p sops --run "sops updatekeys modules/users/secrets.yaml modules/hosts/${TARGET-HOSTNAME}/secrets.yaml"
     ```
 
 3. Set the encryption key for the boot disk
     
     ``` bash
-    echo "yoursecretkey" > /tmp/cryptroot.key
+    echo "<passphrase>" > /tmp/${TARGET-HOSTNAME}-encryption.key
     ```
 
-4. Comment the secure boot from installation.
-
-5. Perform the installation over SSH
+4. Perform the installation over SSH
 
     ``` bash
+    TARGET-IP=<ip>
     nix run github:nix-community/nixos-anywhere -- \
-        --extra-files /tmp/<hostname> \
-        --disk-encryption-keys /tmp/cryptroot.key /tmp/cryptroot.key \
-        --flake '.#<hostname>' \
-        --target-host nixos@<yourip>
+        --extra-files /tmp/${TARGET-HOSTNAME} \
+        --disk-encryption-keys /tmp/${TARGET-HOSTNAME}-encryption.key /tmp/cryptroot.key \
+        --flake '.#${TARGET-HOSTNAME}' \
+        --target-host nixos@${TARGET-IP}
     ```
 
-6. Follow the post-installation steps
+5. Follow the post-installation steps
 
+### Local install from live media
 
-## Execute a fresh install
-
-1. Choose the passphrase for the storage
+1. Set the encryption key for the boot disk
 
     ``` bash
-    echo -n "passphrase" > /tmp/cryptroot.key
+    echo -n "<passphrase>" > /tmp/cryptroot.key
     ```
     
-2. Partition the disc, be careful to substitute the <host>
+2. Install the system, be careful to substitute the <hostname>
 
     
     ``` bash
-    sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --write-efi-boot-entries  --flake 'github:brusapa/nix-config#<host>'
-    ```
-    
-3. Install NixOS, be careful to substitute the <host>
-
-    ``` bash
-    sudo nixos-install --root /mnt --flake 'github:brusapa/nix-config#<host>'
+    TARGET-HOSTNAME=<hostname> && sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --write-efi-boot-entries  --flake 'github:brusapa/nix-config#${TARGET-HOSTNAME}' && sudo nixos-install --root /mnt --flake 'github:brusapa/nix-config#${TARGET-HOSTNAME}'
     ```
 
 ## Post-installation steps
 
-### Secure boot and TPM unlock
+### TPM disk unlock
 
-[Reference guide](https://jnsgr.uk/2024/04/nixos-secure-boot-tpm-fde/)
-
-1. Set the secure boot on the BIOS on setup mode
-2. Create secure boot the keys
+1. Ensure secure boot is working properly
 
     ``` bash
-    nix-shell -p sbctl --run "sudo sbctl create-keys"
+    bootctl status
     ```
-
-3. Enroll the keys
-
     ``` bash
-    nix-shell -p sbctl --run "sudo sbctl enroll-keys --microsoft"
-    ```
-
-4. Perform a nixos rebuild
-
-5. Reboot and verify
-
-    ``` bash
-    $ bootctl status
     System:
       Firmware: UEFI 2.80 (American Megatrends 5.27)
       Firmware Arch: x64
@@ -92,14 +71,14 @@
       Boot into FW: supported
     ```
 
-6. Store the keys on the TPM module (you may have to change the last parameter to point to your encrypted root partition):
+2. Store the keys on the TPM module:
 
     ``` bash
-    # systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+2+7+12 --wipe-slot=tpm2 /dev/nvme0n1p2
+    sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+2+7+12 --wipe-slot=tpm2 "$(sudo cryptsetup status cryptroot | awk '/device:/{print $2}')"
     ```
 
 ### Enable Tailscale
 
 ``` bash
-# tailscale up
+sudo tailscale up
 ```
