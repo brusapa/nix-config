@@ -30,6 +30,7 @@
       den.aspects.actual-budget
       den.aspects.couchdb
       den.aspects.atticd
+      den.aspects.paperless
 
       # Hardware
       den.aspects.intel-cpu
@@ -87,6 +88,12 @@
 
       # Immich configuration
       services.immich.mediaLocation = "/zstorage/photos";
+
+      # Paperless configuration
+      paperless = {
+        enableGmail = true;
+        backupPath = "/zstorage/internal-backups/paperless";
+      };
 
       reverseProxy = {
         baseDomain = "brusapa.com";
