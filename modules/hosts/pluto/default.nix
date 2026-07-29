@@ -12,9 +12,10 @@
       den.aspects.server
 
       # Other features
+      den.aspects.pangolin-server
     ];
 
-    nixos = {
+    nixos = { lib, ... }: {
       boot.loader = {
         efi.efiSysMountPoint = "/boot/efi";
         grub = {
@@ -34,6 +35,13 @@
           options = [ "fmask=0022" "dmask=0022" ];
         };
       boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_blk" ];
+
+      # Optimise for generation size
+      hardware.enableRedistributableFirmware = lib.mkForce false;
+      documentation.nixos.enable = false;
+      documentation.man.enable = false;   # si no necesitas man pages en el servidor
+      documentation.doc.enable = false;
+      documentation.info.enable = false;
 
       sops.defaultSopsFile = ./secrets.yaml;
 
