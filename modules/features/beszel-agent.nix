@@ -1,6 +1,6 @@
 {
   den.aspects.beszelAgent = {
-    nixos = { config, ...}: {
+    nixos = { config, pkgs, ...}: {
 
       sops =  {
         secrets = {
@@ -17,10 +17,18 @@
         enable = true;
         smartmon.enable = true;
         environment = {
-          DISABLE_SSH="true";
-          HUB_URL="https://beszel.brusapa.com";
+          DISABLE_SSH = "true";
+          HUB_URL = "https://beszel.brusapa.com";
         };
         environmentFile = config.sops.templates."beszel-agent-secrets.env".path;
+        extraPath = [ pkgs.intel-gpu-tools ];
+      };
+
+      # Add CAP_PERFMON capability to monitor GPUs
+      systemd.services.beszel-agent.serviceConfig = {
+        AmbientCapabilities = [ "CAP_PERFMON" ];
+        CapabilityBoundingSet = [ "CAP_PERFMON" ];
+        SystemCallFilter = [ "perf_event_open" ];
       };
     };
   };
