@@ -15,7 +15,6 @@
           libva-vdpau-driver
           intel-compute-runtime
           vpl-gpu-rt # QSV on 11th gen or newer
-          intel-ocl
         ];
       };
     };

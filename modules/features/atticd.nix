@@ -17,7 +17,6 @@
       '';
 
       services.postgresql = {
-        enable = true;
         ensureDatabases = [ "atticd" ];
         ensureUsers = [
           {

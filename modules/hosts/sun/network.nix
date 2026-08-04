@@ -1,6 +1,14 @@
 {
   den.aspects.sun.nixos = {
     systemd.network = {
+      wait-online = {
+        anyInterface = false;
+        extraArgs = [
+          "--interface=lan2s1g"
+          "--interface=iotVlan"
+          "--interface=cctvVlan"
+        ];
+      };
       config.networkConfig = {
         IPv4Forwarding = true;
         IPv6Forwarding = true;

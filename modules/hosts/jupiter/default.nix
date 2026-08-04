@@ -22,6 +22,7 @@
       den.aspects.reverse-proxy
       den.aspects.mail-server
       den.aspects.pocket-id
+      den.aspects.beszelAgent
 
       # Hardware
       den.aspects.amd-cpu

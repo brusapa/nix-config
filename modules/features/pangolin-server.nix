@@ -46,7 +46,7 @@
             };
             # This block prevents collisions with tailscale
             gerbil = {
-              subnet_group = "10.89.128.0/20";q
+              subnet_group = "10.89.128.0/20";
               block_size = 24;
               site_block_size = 30;
             };

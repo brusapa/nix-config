@@ -65,6 +65,8 @@
           };
           apcupsd.enable = true;
           postgres.enable = true;
+          smartctl.enable = true;
+          systemd.enable = true;
         };
         scrapeConfigs = [
           {
@@ -80,6 +82,22 @@
             static_configs = [
               {
                 targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.apcupsd.port}" ];
+              }
+            ];
+          }
+          {
+            job_name = "smartctl";
+            static_configs = [
+              {
+                targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}" ];
+              }
+            ];
+          }
+          {
+            job_name = "systemd";
+            static_configs = [
+              {
+                targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.systemd.port}" ];
               }
             ];
           }

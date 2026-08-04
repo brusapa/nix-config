@@ -1,28 +1,21 @@
 {
-  den.aspects.sun.nixos =
+  den.aspects.unpackerr.nixos =
     { config, ... }:
     let
       configurationDirectory = "/var/lib/unpackerr/.config";
+      version = "0.15.2";
     in
     {
       # Import the needed secrets
       sops = {
         secrets = {
-          "unpackerr/sonarr-api-key" = {
-            sopsFile = ../../secrets.yaml;
-          };
-          "unpackerr/radarr-api-key" = {
-            sopsFile = ../../secrets.yaml;
-          };
-          "unpackerr/lidarr-api-key" = {
-            sopsFile = ../../secrets.yaml;
-          };
+          "servarr/radarr/apikey" = { };
+          "servarr/sonarr/apikey" = { };
         };
         templates."unpackerr-secrets.env" = {
           content = ''
-            UN_SONARR_0_API_KEY=${config.sops.placeholder."unpackerr/sonarr-api-key"}
-            UN_RADARR_0_API_KEY=${config.sops.placeholder."unpackerr/radarr-api-key"}
-            UN_LIDARR_0_API_KEY=${config.sops.placeholder."unpackerr/lidarr-api-key"}
+            UN_SONARR_0_API_KEY=${config.sops.placeholder."servarr/sonarr/apikey"}
+            UN_RADARR_0_API_KEY=${config.sops.placeholder."servarr/radarr/apikey"}
           '';
         };
       };
@@ -35,7 +28,7 @@
       virtualisation.oci-containers.containers.unpackerr = {
         user = "${toString config.users.users.qbittorrent.uid}:${toString config.users.groups.media.gid}";
 
-        image = "ghcr.io/unpackerr/unpackerr:0.15.2:0.15.2";
+        image = "ghcr.io/unpackerr/unpackerr:${version}";
 
         volumes = [
           "${configurationDirectory}:/config"

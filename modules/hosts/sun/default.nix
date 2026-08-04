@@ -32,6 +32,10 @@
       den.aspects.couchdb
       den.aspects.atticd
       den.aspects.paperless
+      den.aspects.servarr
+      den.aspects.ntfy
+      den.aspects.beszelHub
+      den.aspects.beszelAgent
 
       # Hardware
       den.aspects.intel-cpu

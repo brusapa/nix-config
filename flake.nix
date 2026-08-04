@@ -4,6 +4,7 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    configarr.url = "github:raydak-labs/configarr";
     den.url = "github:denful/den";
     disko = {
       url = "github:nix-community/disko";
