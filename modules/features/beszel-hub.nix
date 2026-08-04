@@ -11,10 +11,12 @@
         secrets = {
           "beszel-hub/default-user-email" = { };
           "beszel-hub/default-user-password" = { };
+          "beszel-hub/heartbeat-url" = { };
         };
         templates."beszel-hub-secrets.env".content = ''
           USER_EMAIL=${config.sops.placeholder."beszel-hub/default-user-email"}
           USER_PASSWORD=${config.sops.placeholder."beszel-hub/default-user-password"}
+          HEARTBEAT_URL=${config.sops.placeholder."beszel-hub/heartbeat-url"}
         '';
       };
 
