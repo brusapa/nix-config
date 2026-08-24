@@ -24,6 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   den.default = {
@@ -67,6 +71,13 @@
             experimental-features = [
               "nix-command"
               "flakes"
+            ];
+            # Add sun atticd cache
+            substituters = [
+              "https://attic.brusapa.com/nix-config"
+            ];
+            trusted-public-keys = [
+              "nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M="
             ];
           };
         };

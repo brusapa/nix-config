@@ -12,6 +12,7 @@
       den.aspects.server
 
       # Other features
+      den.aspects.secure-boot
       den.aspects.reverse-proxy
       den.aspects.acme
       den.aspects.containers

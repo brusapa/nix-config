@@ -4,7 +4,7 @@
     let
       myHosts = [
         "sun"
-        "pluto"
+        "uranus"
         "mars"
         "jupiter"
       ];

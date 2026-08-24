@@ -2,8 +2,17 @@
   den.aspects.acme.nixos = { config, ... }: {
 
     # Import the needed secrets
-    sops.secrets = {
-      "acme/token" = { };
+    sops = {
+      secrets = {
+        "acme/token" = { };
+      };
+      templates."acme-secrets.env" = {
+        content = ''
+          CLOUDFLARE_DNS_API_TOKEN=${config.sops.placeholder."acme/token"}
+          CLOUDFLARE_PROPAGATION_TIMEOUT=600
+          CLOUDFLARE_POLLING_INTERVAL=10
+        '';
+      };
     };
 
     security.acme = {
@@ -11,9 +20,8 @@
       defaults = {
         email = "brusapa@brusapa.com";
         dnsProvider = "cloudflare";
-        credentialFiles = {
-          "CF_DNS_API_TOKEN_FILE" = config.sops.secrets."acme/token".path;
-        };
+        dnsResolver = "1.1.1.1:53";
+        environmentFile = config.sops.templates."acme-secrets.env".path;
       };
     };
   };

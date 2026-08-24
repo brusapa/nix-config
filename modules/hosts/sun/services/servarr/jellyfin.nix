@@ -13,26 +13,20 @@
 
       sops = {
         secrets = {
-          "jellyfin/jellar-api-key" = {
-            sopsFile = ../../secrets.yaml;
-          };
+          "jellyfin/jellar-api-key" = { };
           "jellyfin/bruno-password" = {
-            sopsFile = ../../secrets.yaml;
             owner = config.services.jellarr.user;
             group = config.services.jellarr.group;
           };
           "jellyfin/casa-password" = {
-            sopsFile = ../../secrets.yaml;
             owner = config.services.jellarr.user;
             group = config.services.jellarr.group;
           };
           "jellyfin/stitch-password" = {
-            sopsFile = ../../secrets.yaml;
             owner = config.services.jellarr.user;
             group = config.services.jellarr.group;
           };
           "jellyfin/aitas-password" = {
-            sopsFile = ../../secrets.yaml;
             owner = config.services.jellarr.user;
             group = config.services.jellarr.group;
           };
@@ -87,7 +81,7 @@
             enableDecodingColorDepth10Vp9 = true;
             enableDecodingColorDepth10HevcRext = true;
             enableDecodingColorDepth12HevcRext = true;
-            allowHevcEncoding = false;
+            allowHevcEncoding = true;
             allowAv1Encoding = false;
           };
           library = {

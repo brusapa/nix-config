@@ -15,6 +15,7 @@
       den.aspects.server
 
       # Other features
+      den.aspects.secure-boot
       den.aspects.zfs
       den.aspects.containers
       den.aspects.reverse-proxy
@@ -28,6 +29,13 @@
       den.aspects.mealie
       den.aspects.pangolin-client
       den.aspects.actual-budget
+      den.aspects.couchdb
+      den.aspects.atticd
+      den.aspects.paperless
+      den.aspects.servarr
+      den.aspects.ntfy
+      den.aspects.beszelHub
+      den.aspects.beszelAgent
 
       # Hardware
       den.aspects.intel-cpu
@@ -66,7 +74,7 @@
           }
         ];
         pullerAuthorizedSshKeys = [
-          ../pluto/zfspuller-key.pub
+          ../uranus/zfspuller-key.pub
         ];
       };
       # Unique host identifier used for ZFS
@@ -85,6 +93,12 @@
 
       # Immich configuration
       services.immich.mediaLocation = "/zstorage/photos";
+
+      # Paperless configuration
+      paperless = {
+        enableGmail = true;
+        backupPath = "/zstorage/internal-backups/paperless";
+      };
 
       reverseProxy = {
         baseDomain = "brusapa.com";

@@ -1,6 +1,10 @@
+{ den, ... }:
 {
-  den.aspects.reverse-proxy.nixos =
-    {
+  den.aspects.reverse-proxy = {
+    includes = [
+      den.aspects.acme
+    ];
+    nixos = {
       lib,
       config,
       pkgs,
@@ -10,7 +14,6 @@
       inherit (lib)
         mkIf
         mkOption
-        mkEnableOption
         types
         filterAttrs
         mapAttrs'
@@ -84,35 +87,19 @@
       };
 
       config = {
-        sops = {
-          secrets = {
-            cloudflare-email = { };
-            cloudflare-api-token = { };
-          };
-          templates."caddy-secrets.env" = {
-            content = ''
-              CF_EMAIL="${config.sops.placeholder.cloudflare-email}"
-              CF_API_TOKEN="${config.sops.placeholder.cloudflare-api-token}"
-            '';
-            owner = config.services.caddy.user;
-          };
+        # Wildcard certificate for base domain
+        security.acme.certs."${cfg.baseDomain}" = {
+          domain = "*.${cfg.baseDomain}";
+          group = config.services.caddy.group;
         };
 
         services.caddy = {
           enable = true;
-          environmentFile = config.sops.templates."caddy-secrets.env".path;
-          package = pkgs.caddy.withPlugins {
-            plugins = [ "github.com/caddy-dns/cloudflare@v0.2.4" ];
-            hash = "sha256-hEHgAG0F0ozHRAPuxEqLyTATBrE+pajeXDiSNwniorg=";
-          };
-          globalConfig = ''
-            email {env.CF_EMAIL}
-            acme_dns cloudflare {env.CF_API_TOKEN}
-          '';
           virtualHosts = (
             mapAttrs' (
               name: hostCfg:
               nameValuePair "${name}.${cfg.baseDomain}" {
+                useACMEHost = cfg.baseDomain;
                 extraConfig = mkExtraConfig hostCfg;
               }
             ) enabledHosts
@@ -125,4 +112,5 @@
         ];
       };
     };
+  };
 }

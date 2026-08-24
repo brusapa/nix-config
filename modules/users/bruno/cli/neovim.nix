@@ -14,7 +14,6 @@
 
           " Options
           set foldmethod=indent " Fold based on indentation
-          set clipboard=unnamedplus " Use system clipboard for copy and paste
           set number " Show line numbers
           set expandtab " Insert spaces when tab is pressed
           set tabstop=2 " 2 spaces when tab is pressed
@@ -23,6 +22,21 @@
 
           " File-based configuration
           autocmd FileType nix setlocal tabstop=2 shiftwidth=2 expandtab
+        '';
+        initLua = ''
+          if vim.env.SSH_TTY then
+            vim.g.clipboard = {
+              name = "OSC 52",
+              copy = {
+                ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+                ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+              },
+              paste = {
+                ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+                ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+              },
+            }
+          end
         '';
       };
     };

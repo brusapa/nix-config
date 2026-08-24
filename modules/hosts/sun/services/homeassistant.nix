@@ -17,7 +17,7 @@
       let
         vars = {
           zigbee2mqtt = {
-            version = "2.8.0";
+            version = "2.12.1";
             port = 8081;
             trastero-port = 8082;
           };
@@ -62,7 +62,7 @@
 
         frigate = {
           hwaccel-driver = "iHD";
-          media-path = "/srv/frigate/media";
+          media-path = "/mnt/internalBackup/frigate";
         };
 
         services.matter-server.extraArgs = {

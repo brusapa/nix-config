@@ -2,11 +2,10 @@
 {
   den.aspects.server = {
     includes = [
-      den.aspects.secure-boot
       den.aspects.tailscale-server
     ];
 
-    nixos = {
+    nixos = { lib, ... }: {
       # Power management
       powerManagement = {
         cpuFreqGovernor = "powersave";
@@ -28,7 +27,7 @@
       };
       systemd.network.wait-online = {
         enable = true;
-        anyInterface = true;
+        anyInterface = lib.mkDefault true;
       };
     };
   };
