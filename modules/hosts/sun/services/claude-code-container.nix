@@ -82,6 +82,19 @@
 
           security.sudo.wheelNeedsPassword = false;
 
+          virtualisation = {
+            containers.enable = true;
+            podman = {
+              enable = true;
+              dockerCompat = true;
+              dockerSocket.enable = true;
+              defaultNetwork.settings = {
+                dns_enabled = true;
+                ipv6 = true;
+              };
+            };
+          };
+
           services.openssh = {
             enable = true;
             settings = {

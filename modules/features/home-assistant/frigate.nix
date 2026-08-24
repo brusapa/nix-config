@@ -2,7 +2,8 @@
   den.aspects.frigate.nixos =
     { lib, config, ... }:
     let
-      inherit (lib) mkIf mkOption types;
+      inherit (lib) mkOption types;
+      version = "0.17.2";
       cfg = config.frigate;
     in
     {
@@ -51,13 +52,14 @@
             XDG_RUNTIME_DIR = "/tmp";
           };
 
-          image = "ghcr.io/blakeblackshear/frigate:0.17.2";
+          image = "ghcr.io/blakeblackshear/frigate:${version}";
 
           ports = [
             "${toString cfg.port}:8971/tcp"
             "8554:8554/tcp"
             "8555:8555/tcp"
             "8555:8555/udp"
+            "1984:1984/tcp"
           ];
 
           devices = [
@@ -75,6 +77,7 @@
         };
 
         reverseProxy.hosts.frigate.httpsPort = cfg.port;
+        reverseProxy.hosts.go2rtc.httpPort = 1984;
 
         # Allow webrtc access through firewall
         networking.firewall = {

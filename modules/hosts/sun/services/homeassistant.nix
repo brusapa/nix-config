@@ -17,7 +17,7 @@
       let
         vars = {
           zigbee2mqtt = {
-            version = "2.12.1";
+            version = "2.13.0";
             port = 8081;
             trastero-port = 8082;
           };
@@ -59,6 +59,9 @@
         };
 
         home-assistant.backupPath = "/zstorage/internal-backups/home-assistant";
+
+        # Open 1400 port for home assistant sonos integration
+        networking.firewall.allowedTCPPorts = [ 1400 ];
 
         frigate = {
           hwaccel-driver = "iHD";

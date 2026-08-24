@@ -35,7 +35,7 @@
             ++ lib.optional (cfg.backupPath != null) "${toString cfg.backupPath}:/config/backups";
 
             environment.TZ = "Europe/Madrid";
-            image = "ghcr.io/home-assistant/home-assistant:2026.7.1";
+            image = "ghcr.io/home-assistant/home-assistant:2026.7.4";
 
             extraOptions = [ "--network=host" ];
 
