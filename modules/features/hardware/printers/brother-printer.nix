@@ -20,7 +20,7 @@
             {
               name = "Brother_Estudio";
               location = "Estudio";
-              deviceUri = "lpd://10.80.1.40/binary_p1";
+              deviceUri = "lpd://10.80.0.30/binary_p1";
               model = "drv:///brlaser.drv/brl2710w.ppd";
               ppdOptions = {
                 PageSize = "A4";
@@ -39,7 +39,7 @@
               netDevices = {
                 home = {
                   model = "MFC-L2710DW";
-                  ip = "10.80.1.40";
+                  ip = "10.80.0.30";
                 };
               };
             };
