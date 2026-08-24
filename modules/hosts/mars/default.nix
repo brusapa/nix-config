@@ -78,7 +78,7 @@
             };
             apply_settings_timer = 5;
             gpus = {
-              "1002:747E-1DA2:D475-0000:03:00.0" = {
+              "1002:7550-1043:0618-0000:03:00.0" = {
                 fan_control_enabled = false;
                 pmfw_options = {
                   zero_rpm = true;
