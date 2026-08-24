@@ -36,7 +36,6 @@
       den.aspects.ntfy
       den.aspects.beszelHub
       den.aspects.beszelAgent
-      den.aspects.deadman
       den.aspects.miniflux
 
       # Hardware
