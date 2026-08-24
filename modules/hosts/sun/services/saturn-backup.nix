@@ -2,7 +2,7 @@
 {
   den.aspects.sun = {
 
-    nixos = {
+    nixos = { pkgs, ...}: {
       # User to backup saturn related files
       users.groups.saturn-backup = { };
       users.users.saturn-backup = {
