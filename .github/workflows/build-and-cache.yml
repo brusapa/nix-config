@@ -4,6 +4,10 @@ on:
   pull_request:
   workflow_dispatch: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   discover:
     runs-on: ubuntu-latest
@@ -17,13 +21,23 @@ jobs:
 
   build:
     needs: discover
-    runs-on: [self-hosted, nix-config]
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         host: ${{ fromJson(needs.discover.outputs.hosts) }}
     steps:
       - uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Setup Attic cache
+        uses: ryanccn/attic-action@v0
+        with:
+          endpoint: https://attic.external.brusapa.com
+          cache: nix-config
+          token: ${{ secrets.ATTIC_TOKEN }}
 
       - name: Build ${{ matrix.host }}
         run: |
