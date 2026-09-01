@@ -37,6 +37,7 @@
       den.aspects.beszelHub
       den.aspects.beszelAgent
       den.aspects.miniflux
+      den.aspects.romm
 
       # Hardware
       den.aspects.intel-cpu
