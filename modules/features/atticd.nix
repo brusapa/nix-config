@@ -31,7 +31,7 @@
         environmentFile = config.sops.templates."atticd-secrets.env".path;
         settings = {
           listen = "[::]:${toString port}";
-          api-endpoint = "https://attic.${config.reverseProxy.baseDomain}";
+          #api-endpoint = "https://attic.${config.reverseProxy.baseDomain}";
           database.url = "postgresql:///atticd?host=/run/postgresql";
           garbage-collection.default-retention-period = "6 months";
         };

@@ -9,7 +9,6 @@
       den.aspects.glances
       den.aspects.music-assistant
       den.aspects.esphome
-      den.aspects.frigate
     ];
 
     nixos =
@@ -62,11 +61,6 @@
 
         # Open 1400 port for home assistant sonos integration
         networking.firewall.allowedTCPPorts = [ 1400 ];
-
-        frigate = {
-          hwaccel-driver = "iHD";
-          media-path = "/mnt/internalBackup/frigate";
-        };
 
         services.matter-server.extraArgs = {
           "primary-interface" = "iotVlan";

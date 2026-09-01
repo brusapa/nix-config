@@ -21,7 +21,6 @@
       den.aspects.mqtt
       den.aspects.zigbee2mqtt
       den.aspects.home-assistant
-      den.aspects.frigate
 
       # Hardware
       den.aspects.intel-cpu
@@ -43,11 +42,6 @@
         zigbeegaraje.port = 8081;
       };
 
-      # Frigate
-      frigate = {
-        hwaccel-driver = "iHD";
-        media-path = "/zsonabia/frigate";
-      };
     };
   };
 }

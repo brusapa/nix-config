@@ -29,9 +29,28 @@
           default = "/var/lib/frigate/media";
           description = "Path to store recordings and exports";
         };
+
+        environmentFiles = mkOption {
+          type = types.listOf types.path;
+          default = [ ];
+          description = ''
+            List of files with environment variables to pass to the container
+            (e.g. paths from sops-nix secrets), for things like
+            FRIGATE_RTSP_PASSWORD, FRIGATE_MQTT_PASSWORD, etc.
+          '';
+        };
+
+        settings = mkOption {
+          type = types.str;
+          default = "";
+          description = "Frigate configuration as a raw yaml";
+        };
       };
 
       config = {
+
+        # Write the configuration file to disk
+        environment.etc."frigate/config.yml".text = cfg.settings;
 
         # Ensure directories exist with sane permissions
         systemd.tmpfiles.rules = [
@@ -41,6 +60,7 @@
 
         virtualisation.oci-containers.containers.frigate = {
           volumes = [
+            "/etc/frigate/config.yml:/config/config.yml:ro"
             "/var/lib/frigate/config:/config"
             "${cfg.media-path}:/media/frigate"
           ];
@@ -52,6 +72,8 @@
             XDG_RUNTIME_DIR = "/tmp";
           };
 
+          environmentFiles =  cfg.environmentFiles;
+
           image = "ghcr.io/blakeblackshear/frigate:${version}";
 
           ports = [
@@ -59,7 +81,6 @@
             "8554:8554/tcp"
             "8555:8555/tcp"
             "8555:8555/udp"
-            "1984:1984/tcp"
           ];
 
           devices = [
@@ -77,7 +98,6 @@
         };
 
         reverseProxy.hosts.frigate.httpsPort = cfg.port;
-        reverseProxy.hosts.go2rtc.httpPort = 1984;
 
         # Allow webrtc access through firewall
         networking.firewall = {

@@ -11,9 +11,7 @@
       let
         inherit (lib)
           mkOption
-          mkEnableOption
           types
-          mkIf
           ;
         cfg = config.mqtt;
       in
@@ -62,7 +60,7 @@
                   acl = [
                     "readwrite #"
                   ];
-                  hashedPasswordFile = config.sops.secrets."mqtt/mosquitto-password".path;
+                  passwordFile = config.sops.secrets."mqtt/mosquitto-password".path;
                 };
               }
               {
@@ -82,7 +80,7 @@
                   acl = [
                     "readwrite #"
                   ];
-                  hashedPasswordFile = config.sops.secrets."mqtt/mosquitto-password".path;
+                  passwordFile = config.sops.secrets."mqtt/mosquitto-password".path;
                 };
               }
             ];
