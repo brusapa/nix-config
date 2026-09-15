@@ -53,9 +53,9 @@
       # Ensure directories exist with sane permissions
       systemd.tmpfiles.rules = [
         "d ${config-path} 0750 ${user} ${user} -"
-        "d ${config-path}/config 0750 ${user} ${user} -"
-        "d ${config-path}/library 0770 ${user} ${user} -"
-        "d ${config-path}/assets 0750 ${user} ${user} -"
+        "d ${config-path}/config 0750 1000 1000 -"
+        "d ${config-path}/library 0770 1000 1000 -"
+        "d ${config-path}/assets 0750 1000 1000 -"
         "d ${config-path}/db 0750 ${user} ${user} -"
       ];
 
@@ -77,7 +77,6 @@
 
         romm = {
           image = "ghcr.io/rommapp/romm:${romm-version}";
-          user = "${toString config.users.users.romm.uid}:${toString config.users.groups.romm.gid}";
           dependsOn = ["romm-db"];
           volumes = [
             "romm_resources:/romm/resources"

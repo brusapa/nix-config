@@ -26,7 +26,6 @@
       den.aspects.acme
       den.aspects.dawarich
       den.aspects.karakeep
-      den.aspects.mealie
       den.aspects.pangolin-client
       den.aspects.actual-budget
       den.aspects.couchdb
@@ -38,6 +37,9 @@
       den.aspects.beszelAgent
       den.aspects.miniflux
       den.aspects.romm
+      den.aspects.forgejo
+      den.aspects.pingvinShare
+      den.aspects.vikunja
 
       # Hardware
       den.aspects.intel-cpu

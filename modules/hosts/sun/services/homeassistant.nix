@@ -12,7 +12,7 @@
     ];
 
     nixos =
-      { config, ... }:
+      { config, pkgs, ... }:
       let
         vars = {
           zigbee2mqtt = {
@@ -95,6 +95,14 @@
         #     "/var/lib/home-assistant/zigbee2mqtt-trastero"
         #   ];
         # };
+
+        # For wake on lan devices
+        environment.systemPackages = [
+          pkgs.wakeonlan
+          (pkgs.writeShellScriptBin "wake-on-mars" ''
+            wakeonlan -i 10.80.0.255 a0:ad:9f:14:50:ea
+          '')
+        ];
       };
   };
 }
