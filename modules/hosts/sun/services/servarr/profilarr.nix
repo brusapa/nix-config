@@ -1,5 +1,5 @@
 {
-  den.aspects.sun.nixos =
+  den.aspects.sun-disabled.nixos =
     { config, ... }:
     let
       vars = {

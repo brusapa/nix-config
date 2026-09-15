@@ -1,12 +1,15 @@
-{ inputs, ... }:
+{ den, inputs, ... }:
 {
   flake-file.inputs = {
     jellarr.url = "github:venkyr77/jellarr";
   };
 
-  den.aspects.sun.nixos =
-    { config, ... }:
-    {
+  den.aspects.sun = {
+    includes = [
+      den.aspects.reverse-proxy
+    ];
+
+    nixos = { config, ... }: {
       imports = [
         inputs.jellarr.nixosModules.default
       ];
@@ -56,7 +59,7 @@
         };
         config = {
           version = 1;
-          base_url = "https://jellyfin.brusapa.com";
+          base_url = "https://jellyfin.${config.reverseProxy.baseDomain}";
           startup.completeStartupWizard = true;
           system = {
             enableMetrics = true;
@@ -136,4 +139,5 @@
 
       reverseProxy.hosts.jellyfin.httpPort = 8096;
     };
+  };
 }

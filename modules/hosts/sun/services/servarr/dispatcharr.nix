@@ -1,5 +1,5 @@
 {
-  den.aspects.sun.nixos =
+  den.aspects.sun-disabled.nixos =
     { ... }:
     let
       dispatcharr-port = 9191;

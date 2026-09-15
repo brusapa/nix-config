@@ -4,6 +4,7 @@
 
     includes = [
       den.aspects.acme
+      den.aspects.reverse-proxy
     ];
 
     nixos =
@@ -27,9 +28,9 @@
             default = 8883;
           };
 
-          domain = mkOption {
+          subdomain = mkOption {
             type = types.str;
-            default = "mqtt.brusapa.com";
+            default = "mqtt";
             example = "mqtt";
             description = "Domain for this mqtt broker instance";
           };
@@ -41,7 +42,7 @@
 
           # Generate TLS certificates
           users.groups.acme.members = [ "mosquitto" ];
-          security.acme.certs."${cfg.domain}" = {
+          security.acme.certs."${cfg.subdomain}.${config.reverseProxy.baseDomain}" = {
             reloadServices = [
               "mosquitto"
             ];
@@ -68,7 +69,7 @@
                 address = "0.0.0.0";
                 settings =
                   let
-                    certDir = config.security.acme.certs."${cfg.domain}".directory;
+                    certDir = config.security.acme.certs."${cfg.subdomain}.${config.reverseProxy.baseDomain}".directory;
                   in
                   {
                     allow_anonymous = false;

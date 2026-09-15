@@ -3,6 +3,7 @@
   den.aspects.saturn = {
     includes = [
       den.aspects.frigate
+      den.aspects.mqtt
     ];
 
     nixos =
@@ -34,7 +35,7 @@
 
             mqtt:
               enabled: true
-              host: mqtt.sonabia.brusapa.com
+              host: ${config.mqtt.subdomain}.${config.reverseProxy.baseDomain}
               user: mosquitto
               password: '{FRIGATE_MQTT_PASSWORD}'
               port: 8883

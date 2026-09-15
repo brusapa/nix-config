@@ -36,7 +36,7 @@
 
             mqtt:
               enabled: true
-              host: mqtt.brusapa.com
+              host: ${config.mqtt.subdomain}.${config.reverseProxy.baseDomain}
               user: mosquitto
               password: '{FRIGATE_MQTT_PASSWORD}'
               port: 8883
@@ -103,9 +103,9 @@
                   - 127.0.0.1:8555
                   - 100.73.55.34:8555
                   - 10.80.0.15:8555
-                  - go2rtc.brusapa.com:8555
+                  - go2rtc.${config.reverseProxy.baseDomain}:8555
                   - sun.brusapa.com:8555
-                  - frigate.brusapa.com:8555
+                  - frigate.${config.reverseProxy.baseDomain}:8555
 
 
             cameras:

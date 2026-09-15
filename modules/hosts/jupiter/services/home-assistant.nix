@@ -8,11 +8,7 @@
       den.aspects.frigate
     ];
 
-    nixos =
-      { config, ... }:
-      {
-
-        mqtt.domain = "mqtt.${config.reverseProxy.baseDomain}";
+    nixos = {
         zigbee2mqtt = { };
         home-assistant.subdomain = "casa";
         frigate = {

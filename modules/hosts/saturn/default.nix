@@ -36,7 +36,6 @@
       reverseProxy.baseDomain = "sonabia.brusapa.com";
 
       # Home assistant
-      mqtt.domain = "mqtt.sonabia.brusapa.com";
       zigbee2mqtt = {
         zigbeecasa.port = 8080;
         zigbeegaraje.port = 8081;

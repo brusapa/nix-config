@@ -35,6 +35,12 @@
         };
 
         reverseProxy.hosts.pocketid.httpPort = 1411;
+        # services.caddy.virtualHosts."pocketid.brusapa.com" = {
+        #   useACMEHost = "brusapa.com";
+        #   extraConfig = ''
+        #     reverse_proxy http://127.0.0.1:1411
+        #   '';
+        # };
       };
   };
 }

@@ -32,13 +32,11 @@
       den.aspects.atticd
       den.aspects.paperless
       den.aspects.servarr
-      den.aspects.ntfy
       den.aspects.beszelHub
       den.aspects.beszelAgent
       den.aspects.miniflux
       den.aspects.romm
       den.aspects.forgejo
-      den.aspects.pingvinShare
       den.aspects.vikunja
 
       # Hardware
@@ -105,7 +103,7 @@
       };
 
       reverseProxy = {
-        baseDomain = "brusapa.com";
+        baseDomain = "berango.brusapa.com";
         hosts = {
           router = {
             ip = "10.80.0.1";

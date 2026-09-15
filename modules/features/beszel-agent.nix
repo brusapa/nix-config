@@ -18,7 +18,7 @@
         smartmon.enable = true;
         environment = {
           DISABLE_SSH = "true";
-          HUB_URL = "https://beszel.brusapa.com";
+          HUB_URL = "https://beszel.berango.brusapa.com";
         };
         environmentFile = config.sops.templates."beszel-agent-secrets.env".path;
         extraPath = [ pkgs.intel-gpu-tools ];
