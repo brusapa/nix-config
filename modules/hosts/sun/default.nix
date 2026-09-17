@@ -20,7 +20,7 @@
       den.aspects.containers
       den.aspects.reverse-proxy
       den.aspects.mail-server
-      den.aspects.wallaos
+      den.aspects.wallos
       den.aspects.pocket-id
       den.aspects.immich
       den.aspects.acme

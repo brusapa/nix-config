@@ -37,12 +37,21 @@
           dnsProvider = "cloudflare";
           letsEncryptEmail = "brusapa@brusapa.com";
           baseDomain = config.pangolinServer.baseDomain;
+          dashboardDomain = config.pangolinServer.baseDomain;
           environmentFile = config.sops.templates."pangolin-server-secrets.env".path;
           settings = {
             flags.enable_integration_api = true;
-            domains.domain1 = {
-              prefer_wildcard_cert = true;
-              cert_resolver = "letsencrypt";
+            domains = {
+              domain1 = {
+                prefer_wildcard_cert = true;
+                cert_resolver = "letsencrypt";
+              };
+              serafinylapelota = {
+                base_domain = "serafinylapelota.com";
+                prefer_wildcard_cert = true;
+                cert_resolver = "letsencrypt";
+                dnsChallenge.provider = config.services.pangolin.dnsProvider;
+              };
             };
             # This block prevents collisions with tailscale
             gerbil = {
