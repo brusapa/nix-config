@@ -10,7 +10,7 @@
       user = "romm";
       config-path = "/var/lib/romm";
       port = 7821;
-      romm-version = "5.2";
+      romm-version = "5.3.1";
       mariadb-version = "latest";
       db-name = "romm";
       db-user = "romm-user";
