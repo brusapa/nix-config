@@ -3,6 +3,7 @@
   den.aspects.wallos = {
     includes = [
       den.aspects.reverse-proxy
+      den.aspects.containers
     ];
     nixos = { lib, config, ... }:
       let
@@ -72,7 +73,7 @@
               OIDC_LOGOUT_URL = "https://pocketid.${config.reverseProxy.baseDomain}/api/oidc/end-session";
               OIDC_AUTO_CREATE_USER = "true";
               OIDC_DISABLE_PASSWORD_LOGIN = "true";
-              SSRF_ALLOWLIST = "pocketid.${config.reverseProxy.baseDomain},10.88.0.1";
+              SSRF_ALLOWLIST = "pocketid.${config.reverseProxy.baseDomain},${config.oci-containers.gatewayIp}";
             };
             environmentFiles = [
               config.sops.templates."wallos-secrets.env".path

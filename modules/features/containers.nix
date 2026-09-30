@@ -1,15 +1,26 @@
 {
-  den.aspects.containers.nixos = {
+  den.aspects.containers.nixos = { lib, config, ... }: {
 
-    virtualisation = {
-      containers.enable = true;
-      podman = {
-        enable = true;
-        dockerCompat = true;
-        dockerSocket.enable = true;
-        defaultNetwork.settings = {
-          dns_enabled = true;
-          ipv6 = true;
+    options.oci-containers.gatewayIp = lib.mkOption {
+      type = lib.types.str;
+      default = "10.88.0.1";
+      description = "Default gateway for oci-containers network.";
+    };
+
+    config = {
+      virtualisation = {
+        containers.enable = true;
+        podman = {
+          enable = true;
+          dockerCompat = true;
+          dockerSocket.enable = true;
+          defaultNetwork.settings = {
+            dns_enabled = true;
+            subnets = [{
+              gateway = config.oci-containers.gatewayIp;
+              subnet = "10.88.0.0/16";
+            }];
+          };
         };
       };
     };

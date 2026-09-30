@@ -26,10 +26,10 @@
           smtp_sasl_security_options = "";
           smtp_sasl_auth_enable = "yes";
           smtp_sasl_password_maps = "texthash:${config.sops.secrets."postfix/sasl_passwd".path}";
-          inet_interfaces = "127.0.0.1 10.88.0.1";
+          inet_interfaces = "127.0.0.1 ${config.oci-containers.gatewayIp}";
           mynetworks = [ 
             "127.0.0.0/8" 
-            "10.88.0.0/16"
+            "${config.oci-containers.gatewayIp}/16"
           ];
           smtpd_relay_restrictions = "permit_mynetworks,reject";
           smtpd_recipient_restrictions = "permit_mynetworks,reject_unauth_destination";
