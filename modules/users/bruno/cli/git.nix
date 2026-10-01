@@ -1,5 +1,5 @@
 {
-  den.aspects.bruno.homeManager.programs.git = {
+  den.aspects.bruno.cli.homeManager.programs.git = {
     enable = true;
     settings = {
       user = {

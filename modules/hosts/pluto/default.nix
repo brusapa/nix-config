@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.hosts.x86_64-linux.pluto = {
-    role = "server";
+    role = "minimal-server";
     users.bruno = { };
     swapSizeGiB = 1;
   };
@@ -13,6 +13,7 @@
 
       # Other features
       den.aspects.pangolin-server
+      den.aspects.beszelAgent
     ];
 
     nixos = { lib, ... }: {

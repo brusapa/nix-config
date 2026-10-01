@@ -1,5 +1,5 @@
 {
-  den.aspects.bruno.homeManager = {
+  den.aspects.bruno.cli.homeManager = {
     programs.bash = {
       enable = true;
       shellAliases = {

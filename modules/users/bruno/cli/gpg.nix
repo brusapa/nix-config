@@ -1,5 +1,5 @@
 {
-  den.aspects.bruno.homeManager = { pkgs, ... }: {
+  den.aspects.bruno.cli.homeManager = { pkgs, ... }: {
     home.packages = with pkgs; [
       (writeShellScriptBin "fixgpg" ''
         #!/bin/sh

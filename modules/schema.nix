@@ -4,6 +4,7 @@
     options = {
       role = lib.mkOption {
         type = lib.types.enum [
+          "minimal-server"
           "server"
           "workstation"
         ];

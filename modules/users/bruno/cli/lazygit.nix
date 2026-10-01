@@ -1,5 +1,5 @@
 {
-  den.aspects.bruno.homeManager.programs.lazygit = {
+  den.aspects.bruno.cli.homeManager.programs.lazygit = {
     enable = true;
     settings = {
       gui = {

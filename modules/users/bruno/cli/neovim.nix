@@ -1,5 +1,5 @@
 {
-  den.aspects.bruno = {
+  den.aspects.bruno.cli = {
     homeManager = {
       programs.neovim = {
         enable = true;
