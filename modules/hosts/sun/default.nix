@@ -38,6 +38,7 @@
       den.aspects.romm
       den.aspects.forgejo
       den.aspects.vikunja
+      den.aspects.ntfy
 
       # Hardware
       den.aspects.intel-cpu
