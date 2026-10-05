@@ -84,7 +84,6 @@
         nixpkgs.config = {
           allowUnfree = true;
           permittedInsecurePackages = [
-            "pnpm-9.15.9" # TODO: Remove as soon as karakeep has fixed
             "immich-2.7.5" # TODO: Remove as soon as immich v3 reaches stable
           ];
         };
