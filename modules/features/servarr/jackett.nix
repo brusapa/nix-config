@@ -11,7 +11,7 @@
         vars = {
           config-path = "/var/lib/jackett/.config";
           port = 9117;
-          version = "0.24.2527";
+          version = "0.24.2748";
           flaresolverr-version = "v3.5.0";
         }; 
       in
