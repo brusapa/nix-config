@@ -1,6 +1,16 @@
 {
   den.aspects.mail-server.nixos =
-    { config, pkgs, ... }:
+    {
+      config,
+      options,
+      lib,
+      pkgs,
+      ...
+    }:
+    let
+      # Only allow containers to relay mail on hosts that include the containers aspect
+      hasContainers = options ? oci-containers;
+    in
     {
 
       # Import the needed secrets
@@ -26,18 +36,20 @@
           smtp_sasl_security_options = "";
           smtp_sasl_auth_enable = "yes";
           smtp_sasl_password_maps = "texthash:${config.sops.secrets."postfix/sasl_passwd".path}";
-          inet_interfaces = "127.0.0.1 ${config.oci-containers.gatewayIp}";
-          mynetworks = [ 
-            "127.0.0.0/8" 
-            "${config.oci-containers.gatewayIp}/16"
-          ];
+          inet_interfaces =
+            "127.0.0.1" + lib.optionalString hasContainers " ${config.oci-containers.gatewayIp}";
+          mynetworks = [
+            "127.0.0.0/8"
+          ] ++ lib.optional hasContainers "${config.oci-containers.gatewayIp}/16";
           smtpd_relay_restrictions = "permit_mynetworks,reject";
           smtpd_recipient_restrictions = "permit_mynetworks,reject_unauth_destination";
         };
       };
 
       # Allow containers to send emails
-      networking.firewall.interfaces."podman0".allowedTCPPorts = [ 25 ];
+      networking.firewall.interfaces = lib.optionalAttrs hasContainers {
+        "podman0".allowedTCPPorts = [ 25 ];
+      };
 
       environment.systemPackages = [
         pkgs.mailutils
