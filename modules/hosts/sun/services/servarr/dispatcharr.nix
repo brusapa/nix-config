@@ -11,7 +11,7 @@
           image = "ghcr.io/dispatcharr/dispatcharr";
 
           ports = [
-            "${toString dispatcharr-port}:9191"
+            "127.0.0.1:${toString dispatcharr-port}:9191"
           ];
 
           volumes = [

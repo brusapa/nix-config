@@ -43,7 +43,7 @@
               };
 
               ports = [
-                "${toString inst.port}:8080/tcp"
+                "127.0.0.1:${toString inst.port}:8080/tcp"
               ];
             }
           ) cfg;

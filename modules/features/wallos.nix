@@ -80,7 +80,7 @@
             ];
 
             ports = [
-              "${toString cfg.port}:80/tcp"
+              "127.0.0.1:${toString cfg.port}:80/tcp"
             ];
           };
 

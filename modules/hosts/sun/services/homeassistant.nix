@@ -41,7 +41,7 @@
             # Note: The image will not be updated on rebuilds, unless the version label changes
             image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
             ports = [
-              "${toString vars.zigbee2mqtt.port}:8080" # Zigbee2MQTT web interface
+              "127.0.0.1:${toString vars.zigbee2mqtt.port}:8080" # Zigbee2MQTT web interface
             ];
           };
 
@@ -52,7 +52,7 @@
             environment.TZ = "Europe/Madrid";
             image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
             ports = [
-              "${toString vars.zigbee2mqtt.trastero-port}:8080"
+              "127.0.0.1:${toString vars.zigbee2mqtt.trastero-port}:8080"
             ];
           };
         };

@@ -86,7 +86,7 @@
             "${config-path}/assets:/romm/assets"
           ];
           ports = [
-            "${toString port}:8080"
+            "127.0.0.1:${toString port}:8080"
           ];
           environment = {
             TZ = "Europe/Madrid";
