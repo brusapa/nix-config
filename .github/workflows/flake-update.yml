@@ -13,6 +13,12 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@v3
+        id: generate-token
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v7
 
       - uses: DeterminateSystems/nix-installer-action@v22
@@ -27,3 +33,4 @@ jobs:
           title: "flake.lock: Update"
           branch: flake-update
           delete-branch: true
+          token: ${{ steps.generate-token.outputs.token }}
