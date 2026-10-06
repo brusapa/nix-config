@@ -65,3 +65,37 @@ jobs:
       - name: Build ${{ matrix.host }}
         run: |
           nix build --no-link ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel"
+
+  # Single required status check for branch protection, independent of the
+  # host list. Fails if any host build failed or was skipped.
+  builds:
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that every host built
+        if: needs.build.result != 'success'
+        run: |
+          echo "Host builds finished with result: ${{ needs.build.result }}"
+          exit 1
+
+  # Advance the `deploy` branch that comin deploys from. Only for pushes to
+  # master, once every host has built and been pushed to the attic cache.
+  promote:
+    needs: builds
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: generate-token
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+
+      # Not forced: fails instead of rewinding deploy if it ever diverges
+      - name: Push to deploy
+        run: git push origin "HEAD:refs/heads/deploy"

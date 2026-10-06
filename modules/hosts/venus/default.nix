@@ -15,6 +15,7 @@
       den.aspects.workstation
 
       # Other features
+      den.aspects.comin
       den.aspects.gaming
       den.aspects.sunshine
 
