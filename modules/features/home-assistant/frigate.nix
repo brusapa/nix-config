@@ -8,7 +8,7 @@
     nixos = { lib, config, ... }:
       let
         inherit (lib) mkOption types;
-        version = "0.17.2";
+        version = "0.18.0";
         cfg = config.frigate;
       in
       {
@@ -91,10 +91,6 @@
             devices = [
               "/dev/dri:/dev/dri"
             ];
-
-            capabilities = {
-              CAP_PERFMON = true;
-            };
 
             extraOptions = [
               "--shm-size=256m" # increase shared memory for ffmpeg
