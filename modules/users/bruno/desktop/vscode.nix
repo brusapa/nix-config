@@ -1,5 +1,5 @@
 {
-  den.aspects.bruno.desktop.homeManager = { pkgs, ... }: {
+  den.aspects.bruno.desktop.homeManager = { pkgs, lib, ... }: {
     programs.vscode = {
       enable = true;
       mutableExtensionsDir = false;
@@ -51,6 +51,11 @@
             "jupiter" = "linux";
           };
           "git.confirmSync" = false;
+          # Format Nix files with nixfmt on save, same as `nix fmt`
+          "nix.formatterPath" = lib.getExe pkgs.nixfmt;
+          "[nix]" = {
+            "editor.formatOnSave" = true;
+          };
         };
       };
     };

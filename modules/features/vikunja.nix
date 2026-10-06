@@ -9,14 +9,18 @@
 
       sops = {
         secrets = {
-          "vikunja/service/secret" = {};
-          "vikunja/auth/pocketid-id" = {};
-          "vikunja/auth/pocketid-secret" = {};
+          "vikunja/service/secret" = { };
+          "vikunja/auth/pocketid-id" = { };
+          "vikunja/auth/pocketid-secret" = { };
         };
         templates."vikunja-secrets.env".content = ''
           VIKUNJA_SERVICE_SECRET=${config.sops.placeholder."vikunja/service/secret"}
-          VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_CLIENTID=${config.sops.placeholder."vikunja/auth/pocketid-id"}
-          VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_CLIENTSECRET=${config.sops.placeholder."vikunja/auth/pocketid-secret"}
+          VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_CLIENTID=${
+            config.sops.placeholder."vikunja/auth/pocketid-id"
+          }
+          VIKUNJA_AUTH_OPENID_PROVIDERS_POCKETID_CLIENTSECRET=${
+            config.sops.placeholder."vikunja/auth/pocketid-secret"
+          }
         '';
       };
 
@@ -54,7 +58,7 @@
           };
           defaultsettings = {
             avatar_provider = "gravatar";
-            week_start = 1; #Monday
+            week_start = 1; # Monday
           };
         };
       };

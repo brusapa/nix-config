@@ -21,7 +21,6 @@
         };
       };
 
-
       services.couchdb = {
         enable = true;
         extraConfigFiles = [

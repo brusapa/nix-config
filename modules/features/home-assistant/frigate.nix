@@ -5,7 +5,8 @@
       den.aspects.reverse-proxy
     ];
 
-    nixos = { lib, config, ... }:
+    nixos =
+      { lib, config, ... }:
       let
         inherit (lib) mkOption types;
         version = "0.18.0";
@@ -77,7 +78,7 @@
               XDG_RUNTIME_DIR = "/tmp";
             };
 
-            environmentFiles =  cfg.environmentFiles;
+            environmentFiles = cfg.environmentFiles;
 
             image = "ghcr.io/blakeblackshear/frigate:${version}";
 
@@ -98,7 +99,7 @@
             ];
           };
 
-        reverseProxy.hosts.frigate.httpsPort = cfg.port;
+          reverseProxy.hosts.frigate.httpsPort = cfg.port;
 
           # Allow webrtc access through firewall
           networking.firewall = {

@@ -5,7 +5,8 @@
       den.aspects.reverse-proxy
       den.aspects.containers
     ];
-    nixos = { lib, config, ... }:
+    nixos =
+      { lib, config, ... }:
       let
         inherit (lib) mkOption types;
         cfg = config.wallos;
@@ -30,8 +31,8 @@
 
           sops = {
             secrets = {
-              "wallos/pocketid-id" = {};
-              "wallos/pocketid-secret" = {};
+              "wallos/pocketid-id" = { };
+              "wallos/pocketid-secret" = { };
             };
             templates."wallos-secrets.env".content = ''
               OIDC_CLIENT_ID=${config.sops.placeholder."wallos/pocketid-id"}

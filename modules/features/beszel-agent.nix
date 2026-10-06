@@ -1,8 +1,8 @@
 {
   den.aspects.beszelAgent = {
-    nixos = { config, pkgs, ...}: {
+    nixos = { config, pkgs, ... }: {
 
-      sops =  {
+      sops = {
         secrets = {
           "beszel-agent/token" = { };
           "beszel-agent/key" = { };

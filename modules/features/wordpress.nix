@@ -4,7 +4,13 @@
     includes = [
       den.aspects.reverse-proxy
     ];
-    nixos = { lib, config, pkgs, ... }:
+    nixos =
+      {
+        lib,
+        config,
+        pkgs,
+        ...
+      }:
       let
         inherit (lib) mkOption types;
         cfg = config.wordpress;
@@ -12,26 +18,28 @@
       {
         options.wordpress = mkOption {
           type = types.attrsOf (
-            types.submodule ({ name, ... }: {
-              options = {
-                port = mkOption {
-                  type = types.port;
-                  description = "Puerto del host (solo loopback)";
+            types.submodule (
+              { name, ... }: {
+                options = {
+                  port = mkOption {
+                    type = types.port;
+                    description = "Puerto del host (solo loopback)";
+                  };
+                  subdomain = mkOption {
+                    type = types.str;
+                    default = name;
+                    description = "Subdominio usado por reverse-proxy.";
+                  };
+                  dbPasswordFile = mkOption {
+                    type = types.path;
+                    description = ''
+                      Fichero de entorno (formato KEY=value) con MARIADB_PASSWORD
+                      y WORDPRESS_DB_PASSWORD, normalmente vía sops-nix.
+                    '';
+                  };
                 };
-                subdomain = mkOption {
-                  type = types.str;
-                  default = name;
-                  description = "Subdominio usado por reverse-proxy.";
-                };
-                dbPasswordFile = mkOption {
-                  type = types.path;
-                  description = ''
-                    Fichero de entorno (formato KEY=value) con MARIADB_PASSWORD
-                    y WORDPRESS_DB_PASSWORD, normalmente vía sops-nix.
-                  '';
-                };
-              };
-            })
+              }
+            )
           );
 
           default = { };
@@ -55,7 +63,10 @@
             lib.nameValuePair "podman-network-wp-${name}" {
               serviceConfig.Type = "oneshot";
               wantedBy = [ "multi-user.target" ];
-              before = [ "podman-wp-${name}.service" "podman-wp-${name}-db.service" ];
+              before = [
+                "podman-wp-${name}.service"
+                "podman-wp-${name}-db.service"
+              ];
               script = ''
                 ${pkgs.podman}/bin/podman network exists wp-${name} || \
                   ${pkgs.podman}/bin/podman network create wp-${name}
@@ -89,8 +100,7 @@
                 ];
               }
             ) cfg)
-            //
-            (lib.mapAttrs' (
+            // (lib.mapAttrs' (
               name: inst:
               let
                 uploadsIni = pkgs.writeText "wp-${name}-uploads.ini" ''
@@ -118,8 +128,8 @@
                 ports = [
                   "127.0.0.1:${toString inst.port}:80/tcp"
                 ];
-                extraOptions = [ 
-                  "--network=wp-${name}" 
+                extraOptions = [
+                  "--network=wp-${name}"
                 ];
               }
             ) cfg);
