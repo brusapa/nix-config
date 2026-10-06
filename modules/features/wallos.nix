@@ -54,7 +54,7 @@
 
           virtualisation.oci-containers.containers.wallos = {
 
-            # update-image: ghcr.io/ellite/wallos ^[0-9]+\.[0-9]+\.[0-9]+$
+            # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
             image = "ghcr.io/ellite/wallos:5.7.1";
 
             volumes = [

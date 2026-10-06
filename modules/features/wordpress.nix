@@ -78,7 +78,8 @@
             (lib.mapAttrs' (
               name: inst:
               lib.nameValuePair "wp-${name}-db" {
-                image = "mariadb:11";
+                # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
+                image = "mariadb:11.8.9";
                 volumes = [
                   "/var/lib/wordpress/${name}/db:/var/lib/mysql"
                 ];
@@ -112,7 +113,7 @@
                 '';
               in
               lib.nameValuePair "wp-${name}" {
-                # update-image: wordpress ^[0-9]+\.[0-9]+\.[0-9]+-php8\.5$
+                # update-image: ^[0-9]+\.[0-9]+\.[0-9]+-php8\.5$
                 image = "wordpress:7.1.0-php8.5";
                 dependsOn = [ "wp-${name}-db" ];
                 volumes = [

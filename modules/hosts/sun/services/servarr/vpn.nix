@@ -26,7 +26,7 @@
       ];
 
       virtualisation.oci-containers.containers.servarr-vpn = {
-        # update-image: qmcgaw/gluetun ^v[0-9]+\.[0-9]+\.[0-9]+$
+        # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
         image = "qmcgaw/gluetun:v3.41.1";
 
         extraOptions = [

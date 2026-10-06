@@ -69,7 +69,7 @@
 
             environmentFiles = cfg.environmentFiles;
 
-            # update-image: ghcr.io/blakeblackshear/frigate ^[0-9]+\.[0-9]+\.[0-9]+$
+            # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
             image = "ghcr.io/blakeblackshear/frigate:0.18.0";
 
             ports = [

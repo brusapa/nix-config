@@ -8,7 +8,7 @@
 
       virtualisation.oci-containers.containers = {
         dispatcharr = {
-          # update-image: ghcr.io/dispatcharr/dispatcharr ^[0-9]+\.[0-9]+\.[0-9]+$
+          # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
           image = "ghcr.io/dispatcharr/dispatcharr:0.31.0";
 
           ports = [

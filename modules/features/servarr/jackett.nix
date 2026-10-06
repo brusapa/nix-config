@@ -30,7 +30,7 @@
           servarr-vpn.ports = lib.mkAfter [ "${toString vars.port}:${toString vars.port}/tcp" ];
 
           jackett = {
-            # update-image: linuxserver/jackett ^[0-9]+\.[0-9]+\.[0-9]+$
+            # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
             image = "linuxserver/jackett:0.24.2748";
 
             volumes = [
@@ -51,7 +51,7 @@
           };
 
           flaresolverr = {
-            # update-image: ghcr.io/flaresolverr/flaresolverr ^v[0-9]+\.[0-9]+\.[0-9]+$
+            # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
             image = "ghcr.io/flaresolverr/flaresolverr:v3.5.0";
             environment = {
               TZ = "Europe/Madrid";

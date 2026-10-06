@@ -37,7 +37,7 @@
           ];
 
           virtualisation.oci-containers.containers.pingvin-share = {
-            # update-image: ghcr.io/smp46/pingvin-share-x ^v[0-9]+\.[0-9]+\.[0-9]+$
+            # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
             image = "ghcr.io/smp46/pingvin-share-x:v1.22.1";
 
             volumes = [

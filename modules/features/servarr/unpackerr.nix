@@ -33,7 +33,7 @@
         virtualisation.oci-containers.containers.unpackerr = {
           user = "${toString config.users.users.qbittorrent.uid}:${toString config.users.groups.media.gid}";
 
-          # update-image: ghcr.io/unpackerr/unpackerr ^[0-9]+\.[0-9]+\.[0-9]+$
+          # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
           image = "ghcr.io/unpackerr/unpackerr:0.15.2";
 
           volumes = [
