@@ -72,9 +72,10 @@
               "nix-command"
               "flakes"
             ];
-            # Add sun atticd cache
+            # Add sun atticd cache. Split-horizon DNS: on the LAN this name
+            # resolves to sun, elsewhere it goes through Pangolin on pluto
             substituters = [
-              "https://attic.berango.brusapa.com/nix-config"
+              "https://attic.external.brusapa.com/nix-config"
             ];
             trusted-public-keys = [
               "nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M="
