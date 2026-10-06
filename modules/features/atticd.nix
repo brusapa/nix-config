@@ -11,6 +11,9 @@
       { config, ... }:
       let
         port = 6732;
+        # Public name served by Pangolin on pluto. The LAN DNS resolves it to
+        # this host, so serve it here too and skip the trip through Pangolin.
+        externalDomain = "attic.external.brusapa.com";
       in
       {
         sops.secrets."atticd/rsa-secret" = { };
@@ -40,6 +43,14 @@
         };
 
         reverseProxy.hosts.attic.httpPort = port;
+
+        security.acme.certs.${externalDomain}.group = config.services.caddy.group;
+        services.caddy.virtualHosts.${externalDomain} = {
+          useACMEHost = externalDomain;
+          extraConfig = ''
+            reverse_proxy http://127.0.0.1:${toString port}
+          '';
+        };
       };
   };
 }
