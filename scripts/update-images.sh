@@ -1,9 +1,9 @@
 # Updates the container image versions annotated in the Nix modules.
 #
-# Each image is marked with a comment on the line right before it, and its
-# version is the tag of the image reference:
+# Each image is marked with a comment on the line right before it. The image
+# and its current version come from the image reference on that line:
 #
-#   # update-image: <image> <tag regex>
+#   # update-image: <tag regex>
 #   image = "repo/name:1.2.3";
 #
 # The regex selects which of the image's tags are versions (it must match the
@@ -33,17 +33,28 @@ updated=()
 majors=()
 errors=()
 
-while IFS=: read -r file line annotation; do
-  read -r image regex <<<"${annotation#*update-image:}"
+# Split grep's "file:line:text" by hand: `IFS=: read` would drop the trailing
+# colon of an annotation without a regex
+while IFS= read -r match; do
+  file=${match%%:*}
+  match=${match#*:}
+  line=${match%%:*}
+  read -r regex <<<"${match#*update-image:}" || true
   target=$((line + 1))
   where="${file#"$root"/}:$target"
   version_line=$(sed -n "${target}p" "$file")
 
-  if [[ $version_line =~ image\ =\ \"[^\"]*:([^\":]+)\" ]]; then
-    current=${BASH_REMATCH[1]}
+  if [[ $version_line =~ image\ =\ \"([^\"]*):([^\":]+)\" ]]; then
+    image=${BASH_REMATCH[1]}
+    current=${BASH_REMATCH[2]}
     old=":$current\""
   else
-    errors+=("\`$image\` ($where): the line after the annotation isn't \`image = \"<image>:<tag>\"\`")
+    errors+=("$where: the line after the annotation isn't \`image = \"<image>:<tag>\"\`")
+    continue
+  fi
+
+  if [[ -z $regex ]]; then
+    errors+=("\`$image\` ($where): the annotation has no tag regex")
     continue
   fi
 
