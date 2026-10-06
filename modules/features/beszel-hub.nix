@@ -1,13 +1,13 @@
-{ den, ...}:
+{ den, ... }:
 {
   den.aspects.beszelHub = {
     includes = [
       den.aspects.reverse-proxy
     ];
 
-    nixos = { config, ...}: {
+    nixos = { config, ... }: {
 
-      sops =  {
+      sops = {
         secrets = {
           "beszel-hub/default-user-email" = { };
           "beszel-hub/default-user-password" = { };
@@ -22,7 +22,7 @@
 
       services.beszel.hub = {
         enable = true;
-        environment = { 
+        environment = {
           APP_URL = "https://beszel.${config.reverseProxy.baseDomain}";
           USER_CREATION = "true";
         };

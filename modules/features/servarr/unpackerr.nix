@@ -5,7 +5,8 @@
       den.aspects.reverse-proxy
     ];
 
-    nixos = { config, ... }:
+    nixos =
+      { config, ... }:
       let
         configurationDirectory = "/var/lib/unpackerr/.config";
         version = "0.15.2";

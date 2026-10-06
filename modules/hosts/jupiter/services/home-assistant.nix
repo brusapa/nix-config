@@ -9,12 +9,12 @@
     ];
 
     nixos = {
-        zigbee2mqtt = { };
-        home-assistant.subdomain = "casa";
-        frigate = {
-          hwaccel-driver = "radeonsi";
-          media-path = "/znvme/frigate";
-        };
+      zigbee2mqtt = { };
+      home-assistant.subdomain = "casa";
+      frigate = {
+        hwaccel-driver = "radeonsi";
+        media-path = "/znvme/frigate";
       };
+    };
   };
 }

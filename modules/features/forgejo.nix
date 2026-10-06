@@ -1,13 +1,13 @@
-{ den, ...}:
+{ den, ... }:
 {
   den.aspects.forgejo = {
     includes = [
       den.aspects.reverse-proxy
     ];
 
-    nixos = { config, ...}: {
+    nixos = { config, ... }: {
 
-      sops =  {
+      sops = {
         secrets = {
           "forgejo/database-password" = { };
         };

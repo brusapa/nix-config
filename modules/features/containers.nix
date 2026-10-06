@@ -16,10 +16,12 @@
           dockerSocket.enable = true;
           defaultNetwork.settings = {
             dns_enabled = true;
-            subnets = [{
-              gateway = config.oci-containers.gatewayIp;
-              subnet = "10.88.0.0/16";
-            }];
+            subnets = [
+              {
+                gateway = config.oci-containers.gatewayIp;
+                subnet = "10.88.0.0/16";
+              }
+            ];
           };
         };
       };

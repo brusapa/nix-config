@@ -7,15 +7,23 @@
 
       den.aspects.sops
 
-      ({ host, ... }:
-        if builtins.elem host.role [ "server" "workstation" ]
-        then {
-          includes = [
-            (den.batteries.user-shell "fish")
-            den.aspects.bruno.cli
-          ];
-        } 
-        else { })
+      (
+        { host, ... }:
+        if
+          builtins.elem host.role [
+            "server"
+            "workstation"
+          ]
+        then
+          {
+            includes = [
+              (den.batteries.user-shell "fish")
+              den.aspects.bruno.cli
+            ];
+          }
+        else
+          { }
+      )
 
       ({ host, ... }: if host.role == "workstation" then den.aspects.bruno.desktop else { })
     ];

@@ -8,7 +8,7 @@
       { config, ... }:
       let
         port = 34521;
-      in 
+      in
       {
         # Import the needed secrets
         sops = {
@@ -21,7 +21,9 @@
           };
           templates."ntfy-secrets.env" = {
             content = ''
-              NTFY_AUTH_USERS='bruno:${config.sops.placeholder."ntfy/bruno-password"}:admin,sun:${config.sops.placeholder."ntfy/sun-password"}:user'
+              NTFY_AUTH_USERS='bruno:${config.sops.placeholder."ntfy/bruno-password"}:admin,sun:${
+                config.sops.placeholder."ntfy/sun-password"
+              }:user'
               NTFY_AUTH_TOKENS='sun:${config.sops.placeholder."ntfy/beszel-token"}:beszel'
               NTFY_WEB_PUSH_PUBLIC_KEY=${config.sops.placeholder."ntfy/web-push-public-key"}
               NTFY_WEB_PUSH_PRIVATE_KEY=${config.sops.placeholder."ntfy/web-push-private-key"}

@@ -1,5 +1,5 @@
 {
-  den.aspects.zfsBackupPuller.nixos = 
+  den.aspects.zfsBackupPuller.nixos =
     { lib, config, ... }:
     let
       cfg = config.services.zfsBackupPuller;

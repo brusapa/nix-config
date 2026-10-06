@@ -40,7 +40,8 @@
             "127.0.0.1" + lib.optionalString hasContainers " ${config.oci-containers.gatewayIp}";
           mynetworks = [
             "127.0.0.0/8"
-          ] ++ lib.optional hasContainers "${config.oci-containers.gatewayIp}/16";
+          ]
+          ++ lib.optional hasContainers "${config.oci-containers.gatewayIp}/16";
           smtpd_relay_restrictions = "permit_mynetworks,reject";
           smtpd_recipient_restrictions = "permit_mynetworks,reject_unauth_destination";
         };
