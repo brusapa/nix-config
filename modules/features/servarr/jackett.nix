@@ -11,7 +11,9 @@
         vars = {
           config-path = "/var/lib/jackett/.config";
           port = 9117;
+          # update-image: linuxserver/jackett ^[0-9]+\.[0-9]+\.[0-9]+$
           version = "0.24.2748";
+          # update-image: ghcr.io/flaresolverr/flaresolverr ^v[0-9]+\.[0-9]+\.[0-9]+$
           flaresolverr-version = "v3.5.0";
         };
       in

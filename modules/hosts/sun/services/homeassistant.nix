@@ -16,6 +16,7 @@
       let
         vars = {
           zigbee2mqtt = {
+            # update-image: ghcr.io/koenkk/zigbee2mqtt ^[0-9]+\.[0-9]+\.[0-9]+$
             version = "2.13.0";
             port = 8081;
             trastero-port = 8082;

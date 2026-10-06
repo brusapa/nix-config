@@ -9,6 +9,7 @@
       { config, ... }:
       let
         configurationDirectory = "/var/lib/unpackerr/.config";
+        # update-image: ghcr.io/unpackerr/unpackerr ^[0-9]+\.[0-9]+\.[0-9]+$
         version = "0.15.2";
       in
       {

@@ -11,6 +11,7 @@
         user = "romm";
         config-path = "/var/lib/romm";
         port = 7821;
+        # update-image: ghcr.io/rommapp/romm ^[0-9]+\.[0-9]+\.[0-9]+$
         romm-version = "5.3.1";
         mariadb-version = "latest";
         db-name = "romm";

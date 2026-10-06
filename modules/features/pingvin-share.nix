@@ -10,6 +10,7 @@
       let
         inherit (lib) mkOption types;
         cfg = config.pingvinShare;
+        # update-image: ghcr.io/smp46/pingvin-share-x ^v[0-9]+\.[0-9]+\.[0-9]+$
         version = "v1.22.1";
         port = 8721;
       in

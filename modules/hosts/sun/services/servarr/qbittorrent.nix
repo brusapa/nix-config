@@ -4,6 +4,8 @@
     let
       service-name = "qbittorrent";
       config-path = "/var/lib/${service-name}";
+      # Single-digit major only: the repository also has unrelated tags like 20.04.1
+      # update-image: lscr.io/linuxserver/qbittorrent ^[0-9]\.[0-9]+\.[0-9]+$
       version = "5.2.2";
       webui-port = 18080;
       downloadPath = "/zstorage/media/torrents";

@@ -4,6 +4,7 @@
     let
       vars = {
         config-path = "/var/lib/gluetun";
+        # update-image: qmcgaw/gluetun ^v[0-9]+\.[0-9]+\.[0-9]+$
         version = "v3.41.1";
       };
     in

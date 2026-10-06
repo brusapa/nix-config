@@ -112,6 +112,7 @@
                 '';
               in
               lib.nameValuePair "wp-${name}" {
+                # update-image: wordpress ^[0-9]+\.[0-9]+\.[0-9]+-php8\.5$
                 image = "wordpress:7.1.0-php8.5";
                 dependsOn = [ "wp-${name}-db" ];
                 volumes = [
