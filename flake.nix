@@ -4,6 +4,13 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    comin = {
+      url = "github:nlewo/comin";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     configarr.url = "github:raydak-labs/configarr";
     den.url = "github:denful/den";
     disko = {

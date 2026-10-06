@@ -12,6 +12,7 @@
       den.aspects.server
 
       # Other features
+      den.aspects.comin
       den.aspects.secure-boot
       den.aspects.zfs
       den.aspects.mail-server
