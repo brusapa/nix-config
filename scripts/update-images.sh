@@ -1,16 +1,15 @@
 # Updates the container image versions annotated in the Nix modules.
 #
-# Each version is marked with a comment on the line right before it:
+# Each image is marked with a comment on the line right before it, and its
+# version is the tag of the image reference:
 #
 #   # update-image: <image> <tag regex>
-#   version = "1.2.3";
+#   image = "repo/name:1.2.3";
 #
-# The line after the comment holds the current version, either as a quoted
-# value (`version = "1.2.3";`) or as the tag of an image reference
-# (`image = "repo/name:1.2.3";`). The regex selects which of the image's tags
-# are versions (it must match the current one). The highest matching tag with
-# the same major version is applied; for 0.x versions, the minor version acts
-# as the major one, as in semver. Newer major versions are only reported.
+# The regex selects which of the image's tags are versions (it must match the
+# current one). The highest matching tag with the same major version is
+# applied; for 0.x versions, the minor version acts as the major one, as in
+# semver. Newer major versions are only reported.
 #
 # Usage: update-images [repository root]
 # Prints a Markdown summary of the changes to stdout.
@@ -43,11 +42,8 @@ while IFS=: read -r file line annotation; do
   if [[ $version_line =~ image\ =\ \"[^\"]*:([^\":]+)\" ]]; then
     current=${BASH_REMATCH[1]}
     old=":$current\""
-  elif [[ $version_line =~ \"([^\"]+)\" ]]; then
-    current=${BASH_REMATCH[1]}
-    old="\"$current\""
   else
-    errors+=("\`$image\` ($where): no version found on the line after the annotation")
+    errors+=("\`$image\` ($where): the line after the annotation isn't \`image = \"<image>:<tag>\"\`")
     continue
   fi
 
