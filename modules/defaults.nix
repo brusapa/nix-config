@@ -79,6 +79,10 @@
             trusted-public-keys = [
               "nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M="
             ];
+            # Don't hang when a substituter (e.g. sun) is unreachable, and
+            # build locally if a substituter fails instead of aborting
+            connect-timeout = 5;
+            fallback = true;
           };
         };
         nixpkgs.config = {
