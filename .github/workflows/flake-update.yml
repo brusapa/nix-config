@@ -1,4 +1,4 @@
-name: Update flake.lock
+name: Update flake.lock and container images
 
 on:
   schedule:
@@ -24,13 +24,40 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Update flake.lock
-        run: nix flake update
+        run: |
+          set -o pipefail
+          nix flake update 2>&1 | tee "$RUNNER_TEMP/flake-update.log"
+
+      # Bumps the annotated image versions within their major version and
+      # writes a summary, including newer major versions left for manual review
+      - name: Update container images
+        run: nix run .#update-images > "$RUNNER_TEMP/images.md"
+
+      # Kept in RUNNER_TEMP so it isn't committed with the changes
+      - name: Write PR description
+        run: |
+          {
+            echo "Weekly update of \`flake.lock\` and container images."
+            echo
+            echo "## flake.lock"
+            echo
+            if grep -q "Updated input" "$RUNNER_TEMP/flake-update.log"; then
+              echo '```'
+              grep -E "^(•|  )" "$RUNNER_TEMP/flake-update.log"
+              echo '```'
+            else
+              echo "No input changes."
+            fi
+            echo
+            cat "$RUNNER_TEMP/images.md"
+          } > "$RUNNER_TEMP/pr-body.md"
 
       - name: Open PR
         uses: peter-evans/create-pull-request@v8
         with:
-          commit-message: "flake.lock: Update"
-          title: "flake.lock: Update"
+          commit-message: "Update flake.lock and container images"
+          title: "Update flake.lock and container images"
+          body-path: ${{ runner.temp }}/pr-body.md
           branch: flake-update
           delete-branch: true
           token: ${{ steps.generate-token.outputs.token }}
