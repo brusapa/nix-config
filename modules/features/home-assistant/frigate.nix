@@ -45,18 +45,9 @@
               FRIGATE_RTSP_PASSWORD, FRIGATE_MQTT_PASSWORD, etc.
             '';
           };
-
-          settings = mkOption {
-            type = types.str;
-            default = "";
-            description = "Frigate configuration as a raw yaml";
-          };
         };
 
         config = {
-
-          # Write the configuration file to disk
-          environment.etc."frigate/config.yml".text = cfg.settings;
 
           # Ensure directories exist with sane permissions
           systemd.tmpfiles.rules = [
@@ -66,7 +57,6 @@
 
           virtualisation.oci-containers.containers.frigate = {
             volumes = [
-              "/etc/frigate/config.yml:/config/config.yml:ro"
               "/var/lib/frigate/config:/config"
               "${cfg.media-path}:/media/frigate"
             ];
