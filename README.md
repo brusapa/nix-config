@@ -17,6 +17,8 @@ Before starting the installation, make sure that the system has secure boot enab
 
 2. Register the age key into sops-nix and update any related secrets file
 
+    First add the `age1...` key printed in the previous step to `.sops.yaml`: as a new anchor under `&hosts`, in the `age` list of the `modules/users/secrets.yaml` rule, and in the rule for `modules/hosts/<hostname>/secrets.yaml`. Then re-encrypt the secrets files so the new host can decrypt them:
+
     ``` bash
     nix-shell -p sops --run "sops updatekeys modules/users/secrets.yaml modules/hosts/${TARGET_HOSTNAME}/secrets.yaml"
     ```
