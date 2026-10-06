@@ -62,9 +62,23 @@ jobs:
           cache: nix-config
           token: ${{ secrets.ATTIC_TOKEN }}
 
+      # The store path hash covers the host's whole configuration and inputs,
+      # so if the cache has it, this exact system was already built and
+      # cached by a previous master run. Skip it instead of downloading the
+      # whole closure (several GiB) just to confirm it builds. If the cache
+      # can't be queried, path-info fails and the host is built as usual.
       - name: Build ${{ matrix.host }}
+        env:
+          HOST: ${{ matrix.host }}
+          CACHE: https://attic.external.brusapa.com/nix-config
         run: |
-          nix build --no-link ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel"
+          attr=".#nixosConfigurations.$HOST.config.system.build.toplevel"
+          out=$(nix eval --raw "$attr.outPath")
+          if nix path-info --store "$CACHE" "$out" >/dev/null 2>&1; then
+            echo "$HOST is already in the cache ($out), skipping build"
+          else
+            nix build --no-link "$attr"
+          fi
 
   # Single required status check for branch protection, independent of the
   # host list. Fails if any host build failed or was skipped.
