@@ -45,16 +45,22 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@v22
         with:
+          # The attic cache is public for reading, so every build can use it
+          # without a token, including pull requests from forks
           extra-conf: |
             build-dir = /nix/build
+            extra-substituters = https://attic.external.brusapa.com/nix-config
+            extra-trusted-public-keys = nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M=
 
+      # Pushing needs ATTIC_TOKEN, which pull requests from forks don't get.
+      # Only pushes to master upload to the cache.
       - name: Setup Attic cache
+        if: github.event_name == 'push'
         uses: ryanccn/attic-action@dc99f5eb1d5c0495aa26f7b56337b30011fa153e # v0
         with:
           endpoint: https://attic.external.brusapa.com
           cache: nix-config
           token: ${{ secrets.ATTIC_TOKEN }}
-          skip-push: ${{ github.event_name != 'push' }}
 
       - name: Build ${{ matrix.host }}
         run: |
