@@ -92,9 +92,12 @@ jobs:
           client-id: ${{ secrets.CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
+      # Full history, so git can verify that the push fast-forwards deploy.
+      # With the default shallow clone it rejects the push ("fetch first").
       - uses: actions/checkout@v7
         with:
           token: ${{ steps.generate-token.outputs.token }}
+          fetch-depth: 0
 
       # Not forced: fails instead of rewinding deploy if it ever diverges
       - name: Push to deploy
