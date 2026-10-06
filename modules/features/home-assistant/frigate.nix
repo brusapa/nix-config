@@ -9,8 +9,6 @@
       { lib, config, ... }:
       let
         inherit (lib) mkOption types;
-        # update-image: ghcr.io/blakeblackshear/frigate ^[0-9]+\.[0-9]+\.[0-9]+$
-        version = "0.18.0";
         cfg = config.frigate;
       in
       {
@@ -71,7 +69,8 @@
 
             environmentFiles = cfg.environmentFiles;
 
-            image = "ghcr.io/blakeblackshear/frigate:${version}";
+            # update-image: ghcr.io/blakeblackshear/frigate ^[0-9]+\.[0-9]+\.[0-9]+$
+            image = "ghcr.io/blakeblackshear/frigate:0.18.0";
 
             ports = [
               "127.0.0.1:${toString cfg.port}:8971/tcp"

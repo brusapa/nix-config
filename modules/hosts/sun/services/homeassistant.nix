@@ -16,8 +16,6 @@
       let
         vars = {
           zigbee2mqtt = {
-            # update-image: ghcr.io/koenkk/zigbee2mqtt ^[0-9]+\.[0-9]+\.[0-9]+$
-            version = "2.13.0";
             port = 8081;
             trastero-port = 8082;
           };
@@ -40,7 +38,8 @@
             ];
             environment.TZ = "Europe/Madrid";
             # Note: The image will not be updated on rebuilds, unless the version label changes
-            image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
+            # update-image: ghcr.io/koenkk/zigbee2mqtt ^[0-9]+\.[0-9]+\.[0-9]+$
+            image = "ghcr.io/koenkk/zigbee2mqtt:2.13.0";
             ports = [
               "127.0.0.1:${toString vars.zigbee2mqtt.port}:8080" # Zigbee2MQTT web interface
             ];
@@ -51,7 +50,8 @@
               "/var/lib/home-assistant/zigbee2mqtt-trastero:/app/data"
             ];
             environment.TZ = "Europe/Madrid";
-            image = "ghcr.io/koenkk/zigbee2mqtt:${vars.zigbee2mqtt.version}";
+            # update-image: ghcr.io/koenkk/zigbee2mqtt ^[0-9]+\.[0-9]+\.[0-9]+$
+            image = "ghcr.io/koenkk/zigbee2mqtt:2.13.0";
             ports = [
               "127.0.0.1:${toString vars.zigbee2mqtt.trastero-port}:8080"
             ];

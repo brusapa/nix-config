@@ -9,8 +9,6 @@
       { config, ... }:
       let
         configurationDirectory = "/var/lib/unpackerr/.config";
-        # update-image: ghcr.io/unpackerr/unpackerr ^[0-9]+\.[0-9]+\.[0-9]+$
-        version = "0.15.2";
       in
       {
         # Import the needed secrets
@@ -35,7 +33,8 @@
         virtualisation.oci-containers.containers.unpackerr = {
           user = "${toString config.users.users.qbittorrent.uid}:${toString config.users.groups.media.gid}";
 
-          image = "ghcr.io/unpackerr/unpackerr:${version}";
+          # update-image: ghcr.io/unpackerr/unpackerr ^[0-9]+\.[0-9]+\.[0-9]+$
+          image = "ghcr.io/unpackerr/unpackerr:0.15.2";
 
           volumes = [
             "${configurationDirectory}:/config"

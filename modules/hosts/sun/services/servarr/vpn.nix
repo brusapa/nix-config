@@ -4,8 +4,6 @@
     let
       vars = {
         config-path = "/var/lib/gluetun";
-        # update-image: qmcgaw/gluetun ^v[0-9]+\.[0-9]+\.[0-9]+$
-        version = "v3.41.1";
       };
     in
     {
@@ -28,7 +26,8 @@
       ];
 
       virtualisation.oci-containers.containers.servarr-vpn = {
-        image = "qmcgaw/gluetun:${vars.version}";
+        # update-image: qmcgaw/gluetun ^v[0-9]+\.[0-9]+\.[0-9]+$
+        image = "qmcgaw/gluetun:v3.41.1";
 
         extraOptions = [
           "--cap-add=net_admin"
