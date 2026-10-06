@@ -45,5 +45,9 @@
       };
     };
     sops-nix.url = "github:Mic92/sops-nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
