@@ -14,25 +14,28 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  discover:
+  check:
     runs-on: ubuntu-latest
     outputs:
       hosts: ${{ steps.list.outputs.hosts }}
     steps:
       - uses: actions/checkout@v7
       - uses: DeterminateSystems/nix-installer-action@v22
+      - name: Flake check
+        run: nix flake check
+
       - id: list
         run: |
           echo "hosts=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames)" >> "$GITHUB_OUTPUT"
 
   build:
-    needs: discover
+    needs: check
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        host: ${{ fromJson(needs.discover.outputs.hosts) }}
+        host: ${{ fromJson(needs.check.outputs.hosts) }}
     steps:
       - uses: actions/checkout@v7
 
