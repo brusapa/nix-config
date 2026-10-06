@@ -32,6 +32,7 @@
           virtualisation.oci-containers.containers = lib.mapAttrs' (
             name: inst:
             lib.nameValuePair name {
+              # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
               image = "ghcr.io/koenkk/zigbee2mqtt:2.12.1";
 
               volumes = [

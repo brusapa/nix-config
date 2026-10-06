@@ -3,6 +3,7 @@
     { config, ... }:
     {
       virtualisation.oci-containers.containers.brother-scanner = {
+        # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
         image = "ghcr.io/philippmundhenk/brotherscannerdocker:v1.1.1";
 
         ports = [

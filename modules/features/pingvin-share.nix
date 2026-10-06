@@ -10,7 +10,6 @@
       let
         inherit (lib) mkOption types;
         cfg = config.pingvinShare;
-        version = "v1.22.1";
         port = 8721;
       in
       {
@@ -38,7 +37,8 @@
           ];
 
           virtualisation.oci-containers.containers.pingvin-share = {
-            image = "ghcr.io/smp46/pingvin-share-x:${version}";
+            # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
+            image = "ghcr.io/smp46/pingvin-share-x:v1.22.1";
 
             volumes = [
               "${cfg.dataPath}/data:/opt/app/backend/data"

@@ -11,8 +11,6 @@
         vars = {
           config-path = "/var/lib/jackett/.config";
           port = 9117;
-          version = "0.24.2748";
-          flaresolverr-version = "v3.5.0";
         };
       in
       {
@@ -32,7 +30,8 @@
           servarr-vpn.ports = lib.mkAfter [ "${toString vars.port}:${toString vars.port}/tcp" ];
 
           jackett = {
-            image = "linuxserver/jackett:${vars.version}";
+            # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
+            image = "linuxserver/jackett:0.24.2748";
 
             volumes = [
               "${vars.config-path}:/config"
@@ -52,7 +51,8 @@
           };
 
           flaresolverr = {
-            image = "ghcr.io/flaresolverr/flaresolverr:${vars.flaresolverr-version}";
+            # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
+            image = "ghcr.io/flaresolverr/flaresolverr:v3.5.0";
             environment = {
               TZ = "Europe/Madrid";
             };
