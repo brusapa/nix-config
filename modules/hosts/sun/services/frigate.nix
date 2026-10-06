@@ -31,9 +31,6 @@
             config.sops.templates."frigate-secrets.env".path
           ];
           settings = ''
-            ui:
-              time_format: 24hour
-
             mqtt:
               enabled: true
               host: ${config.mqtt.subdomain}.${config.reverseProxy.baseDomain}
@@ -143,8 +140,6 @@
                         - record
                         - detect
                         - audio
-                motion:
-                  mask: 0.365,0.061,0.365,0,0,0,0,0.061
             version: 0.17-0
           '';
         };
