@@ -15,7 +15,6 @@
       den.aspects.secure-boot
       den.aspects.zfs
       den.aspects.mail-server
-      den.aspects.tailscale-server
       den.aspects.beszelAgent
 
       # Hardware

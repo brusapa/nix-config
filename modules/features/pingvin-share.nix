@@ -52,7 +52,7 @@
           };
 
           ports = [
-            "${toString port}:3000/tcp"
+            "127.0.0.1:${toString port}:3000/tcp"
           ];
         };
         

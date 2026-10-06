@@ -27,7 +27,7 @@
         ];
 
         ports = [
-          "${toString vars.port}:6868"
+          "127.0.0.1:${toString vars.port}:6868"
         ];
 
         environment = {

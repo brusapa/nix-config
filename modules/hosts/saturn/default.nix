@@ -17,7 +17,6 @@
       den.aspects.acme
       den.aspects.containers
       den.aspects.zfs
-      den.aspects.tailscale-server
       den.aspects.mqtt
       den.aspects.zigbee2mqtt
       den.aspects.home-assistant

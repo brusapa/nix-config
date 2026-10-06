@@ -82,7 +82,7 @@
             image = "ghcr.io/blakeblackshear/frigate:${version}";
 
             ports = [
-              "${toString cfg.port}:8971/tcp"
+              "127.0.0.1:${toString cfg.port}:8971/tcp"
               "8554:8554/tcp"
               "8555:8555/tcp"
               "8555:8555/udp"
