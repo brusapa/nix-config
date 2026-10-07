@@ -12,6 +12,8 @@
         providers = [
           "spotify"
           "sonos"
+          "sendspin"
+          "jellyfin"
           "chromecast"
           "hass"
           "hass_players"

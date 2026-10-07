@@ -6,7 +6,6 @@
       den.aspects.mqtt
       den.aspects.matter-server
       den.aspects.influxdb
-      den.aspects.glances
       den.aspects.music-assistant
       den.aspects.esphome
     ];
