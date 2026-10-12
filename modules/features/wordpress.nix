@@ -114,7 +114,7 @@
               in
               lib.nameValuePair "wp-${name}" {
                 # update-image: ^[0-9]+\.[0-9]+\.[0-9]+-php8\.5$
-                image = "wordpress:7.1.0-php8.5";
+                image = "wordpress:7.1.3-php8.5";
                 dependsOn = [ "wp-${name}-db" ];
                 volumes = [
                   "/var/lib/wordpress/${name}/html:/var/www/html"

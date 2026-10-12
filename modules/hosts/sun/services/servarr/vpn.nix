@@ -27,7 +27,7 @@
 
       virtualisation.oci-containers.containers.servarr-vpn = {
         # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
-        image = "qmcgaw/gluetun:v3.41.1";
+        image = "qmcgaw/gluetun:v3.41.3";
 
         extraOptions = [
           "--cap-add=net_admin"

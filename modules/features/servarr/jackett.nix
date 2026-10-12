@@ -31,7 +31,7 @@
 
           jackett = {
             # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-            image = "linuxserver/jackett:0.24.2748";
+            image = "linuxserver/jackett:0.24.2826";
 
             volumes = [
               "${vars.config-path}:/config"
@@ -52,7 +52,7 @@
 
           flaresolverr = {
             # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
-            image = "ghcr.io/flaresolverr/flaresolverr:v3.5.0";
+            image = "ghcr.io/flaresolverr/flaresolverr:v3.5.2";
             environment = {
               TZ = "Europe/Madrid";
             };

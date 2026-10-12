@@ -62,7 +62,7 @@
         virtualisation.oci-containers.containers = {
           romm-db = {
             # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-            image = "mariadb:12.2.2";
+            image = "mariadb:12.3.3";
             user = "${toString config.users.users.romm.uid}:${toString config.users.groups.romm.gid}";
             volumes = [
               "${config-path}/db:/var/lib/mysql"
@@ -78,7 +78,7 @@
 
           romm = {
             # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-            image = "ghcr.io/rommapp/romm:5.3.1";
+            image = "ghcr.io/rommapp/romm:5.4.0";
             dependsOn = [ "romm-db" ];
             volumes = [
               "romm_resources:/romm/resources"

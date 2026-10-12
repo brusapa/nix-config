@@ -33,7 +33,7 @@
             name: inst:
             lib.nameValuePair name {
               # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-              image = "ghcr.io/koenkk/zigbee2mqtt:2.12.1";
+              image = "ghcr.io/koenkk/zigbee2mqtt:2.14.2";
 
               volumes = [
                 "${name}-data:/app/data"
