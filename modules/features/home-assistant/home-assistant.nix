@@ -36,7 +36,7 @@
 
             environment.TZ = "Europe/Madrid";
             # update-image: ^[0-9]{4}\.[0-9]+\.[0-9]+$
-            image = "ghcr.io/home-assistant/home-assistant:2026.10.1";
+            image = "ghcr.io/home-assistant/home-assistant:2026.10.2";
 
             extraOptions = [ "--network=host" ];
 
