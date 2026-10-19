@@ -70,7 +70,7 @@
             environmentFiles = cfg.environmentFiles;
 
             # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-            image = "ghcr.io/blakeblackshear/frigate:0.18.0";
+            image = "ghcr.io/blakeblackshear/frigate:0.18.2";
 
             ports = [
               "127.0.0.1:${toString cfg.port}:8971/tcp"
