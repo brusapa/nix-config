@@ -37,7 +37,7 @@
         ${service-name} = {
           # Single-digit major only: the repository also has unrelated tags like 20.04.1
           # update-image: ^[0-9]\.[0-9]+\.[0-9]+$
-          image = "lscr.io/linuxserver/qbittorrent:5.2.2";
+          image = "lscr.io/linuxserver/qbittorrent:5.2.4";
 
           volumes = [
             "${config-path}:/config"
