@@ -1,5 +1,9 @@
 { inputs, ... }:
 {
+  flake-file.inputs = {
+    llm-agents.url = "github:numtide/llm-agents.nix";
+  };
+
   den.aspects.sun.nixos =
     { pkgs, ... }:
 
@@ -49,6 +53,7 @@
             with inputs.llm-agents.packages.${system};
             [
               claude-code
+              codex
             ]
             ++ (with pkgs; [
               git
