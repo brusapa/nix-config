@@ -49,8 +49,8 @@ jobs:
           # without a token, including pull requests from forks
           extra-conf: |
             build-dir = /nix/build
-            extra-substituters = https://attic.external.brusapa.com/nix-config
-            extra-trusted-public-keys = nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M=
+            extra-substituters = https://attic.external.brusapa.com/nix-config https://cache.numtide.com
+            extra-trusted-public-keys = nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
 
       # Pushing needs ATTIC_TOKEN, which pull requests from forks don't get.
       # Only pushes to master upload to the cache.
