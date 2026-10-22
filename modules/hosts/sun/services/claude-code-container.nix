@@ -1,5 +1,9 @@
 { inputs, ... }:
 {
+  flake-file.inputs = {
+    llm-agents.url = "github:numtide/llm-agents.nix";
+  };
+
   den.aspects.sun.nixos =
     { pkgs, ... }:
 
@@ -9,6 +13,14 @@
       system = pkgs.stdenv.hostPlatform.system;
     in
     {
+
+      nix.settings = {
+        extra-substituters = [ "https://cache.numtide.com" ];
+        extra-trusted-public-keys = [
+          "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        ];
+      };
+
       # Make sure the workspace dir exists on the host with sane ownership.
       systemd.tmpfiles.rules = [
         "d ${workspaceHostPath} 0755 bruno users -"
@@ -49,6 +61,7 @@
             with inputs.llm-agents.packages.${system};
             [
               claude-code
+              codex
             ]
             ++ (with pkgs; [
               git
@@ -62,10 +75,6 @@
             experimental-features = [
               "nix-command"
               "flakes"
-            ];
-            extra-substituters = [ "https://cache.numtide.com" ];
-            extra-trusted-public-keys = [
-              "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
             ];
           };
 
