@@ -7,8 +7,9 @@
         cifs-utils # For mount.cifs, required unless domain name resolution is not needed.
       ];
 
-      # Allow samba through the firewall
-      networking.firewall.extraCommands = "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns";
-
+      # Allow samba replies through the firewall
+      networking.firewall.extraInputRules = ''
+        ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } udp sport 137 accept
+      '';
     };
 }
