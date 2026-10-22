@@ -52,16 +52,6 @@ jobs:
             extra-substituters = https://attic.external.brusapa.com/nix-config https://cache.numtide.com
             extra-trusted-public-keys = nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
 
-      # Pushing needs ATTIC_TOKEN, which pull requests from forks don't get.
-      # Only pushes to master upload to the cache.
-      - name: Setup Attic cache
-        if: github.event_name == 'push'
-        uses: ryanccn/attic-action@dc99f5eb1d5c0495aa26f7b56337b30011fa153e # v0
-        with:
-          endpoint: https://attic.external.brusapa.com
-          cache: nix-config
-          token: ${{ secrets.ATTIC_TOKEN }}
-
       # The store path hash covers the host's whole configuration and inputs,
       # so if the cache has it, this exact system was already built and
       # cached by a previous master run. Skip it instead of downloading the
@@ -78,6 +68,10 @@ jobs:
             echo "$HOST is already in the cache ($out), skipping build"
           else
             nix build --no-link "$attr"
+            if [ "$GITHUB_EVENT_NAME" = push ]; then
+              nix run nixpkgs#attic-client -- login brusapa https://attic.external.brusapa.com "$ATTIC_TOKEN"
+              nix run nixpkgs#attic-client -- push brusapa:nix-config "$out"
+            fi
           fi
 
   # Single required status check for branch protection, independent of the
