@@ -103,6 +103,7 @@
         # Network related options
         networking = {
           domain = "brusapa.com";
+          nftables.enable = true;
           firewall = {
             enable = true;
             allowPing = true;
