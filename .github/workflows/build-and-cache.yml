@@ -61,17 +61,24 @@ jobs:
         env:
           HOST: ${{ matrix.host }}
           CACHE: https://attic.external.brusapa.com/nix-config
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
           attr=".#nixosConfigurations.$HOST.config.system.build.toplevel"
           out=$(nix eval --raw "$attr.outPath")
           if nix path-info --store "$CACHE" "$out" >/dev/null 2>&1; then
             echo "$HOST is already in the cache ($out), skipping build"
-          else
-            nix build --no-link "$attr"
-            if [ "$GITHUB_EVENT_NAME" = push ]; then
-              nix run nixpkgs#attic-client -- login brusapa https://attic.external.brusapa.com "$ATTIC_TOKEN"
-              nix run nixpkgs#attic-client -- push brusapa:nix-config "$out"
+            exit 0
+          fi
+          nix build --no-link "$attr"
+          if [ "$GITHUB_EVENT_NAME" = push ]; then
+            # Comprobación 1: el token llega al script
+            if [ -z "$ATTIC_TOKEN" ]; then
+              echo "::error::ATTIC_TOKEN vacío en este step"
+              exit 1
             fi
+            echo "ATTIC_TOKEN presente (${#ATTIC_TOKEN} caracteres)"
+            nix run nixpkgs#attic-client -- login brusapa https://attic.external.brusapa.com "$ATTIC_TOKEN"
+            nix run nixpkgs#attic-client -- push brusapa:nix-config "$out"
           fi
 
   # Single required status check for branch protection, independent of the
