@@ -20,6 +20,13 @@
         "guest ok" = "no";
         "valid users" = "gurenda";
       };
+      ramon = {
+        path = "/zstorage/users/ramon";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "valid users" = "ramon";
+      };
       casa = {
         path = "/zstorage/users/casa";
         browseable = "yes";

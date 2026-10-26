@@ -5,6 +5,7 @@
     users = {
       bruno = { };
       gurenda = { };
+      ramon = { };
     };
     swapSizeGiB = 32;
   };
