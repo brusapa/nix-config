@@ -78,7 +78,7 @@
 
           romm = {
             # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-            image = "ghcr.io/rommapp/romm:5.4.0";
+            image = "ghcr.io/rommapp/romm:5.4.1";
             dependsOn = [ "romm-db" ];
             volumes = [
               "romm_resources:/romm/resources"

@@ -21,7 +21,7 @@
 
       virtualisation.oci-containers.containers.profilarr = {
         # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-        image = "ghcr.io/dictionarry-hub/profilarr:2.2.0";
+        image = "ghcr.io/dictionarry-hub/profilarr:2.3.1";
 
         volumes = [
           "${vars.config-path}:/config"
