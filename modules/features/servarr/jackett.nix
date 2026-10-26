@@ -31,7 +31,7 @@
 
           jackett = {
             # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-            image = "linuxserver/jackett:0.24.2875";
+            image = "linuxserver/jackett:0.24.2918";
 
             volumes = [
               "${vars.config-path}:/config"
