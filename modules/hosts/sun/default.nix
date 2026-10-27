@@ -39,7 +39,6 @@
       den.aspects.miniflux
       den.aspects.romm
       den.aspects.forgejo
-      den.aspects.vikunja
       den.aspects.ntfy
 
       # Hardware
