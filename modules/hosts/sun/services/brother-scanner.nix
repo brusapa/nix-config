@@ -25,6 +25,8 @@
           "TZ" = "Europe/Madrid";
           "HOST_IPADDRESS" = "10.80.0.15";
         };
+
+        extraOptions = [ "--no-healthcheck" ];
       };
     };
 }
