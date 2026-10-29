@@ -4,8 +4,9 @@
     includes = [
       den.batteries.define-user
       den.batteries.primary-user
-
-      den.aspects.sops
+      den.aspects.user-main-group
+      den.aspects.user-password
+      den.aspects.samba-user
 
       (
         { host, ... }:
@@ -56,7 +57,6 @@
           "whale-frigate-sync"
           "wheel"
         ];
-        hashedPasswordFile = config.sops.secrets.bruno-hashed-password.path;
         openssh.authorizedKeys.keyFiles = [
           ./ssh-gpg.pub
         ];
@@ -75,14 +75,6 @@
           time = "es_ES.UTF-8";
         };
         packages = [ pkgs.htop ];
-      };
-    };
-
-    provides.to-hosts.nixos = { ... }: {
-      nix.settings.trusted-users = [ "bruno" ];
-      sops.secrets.bruno-hashed-password = {
-        neededForUsers = true;
-        sopsFile = ../secrets.yaml;
       };
     };
   };
