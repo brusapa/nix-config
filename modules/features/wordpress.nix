@@ -107,7 +107,7 @@
                 uploadsIni = pkgs.writeText "wp-${name}-uploads.ini" ''
                   upload_max_filesize = 5000M
                   post_max_size = 5000M
-                  memory_limit = 5000M
+                  memory_limit = 256M
                   max_execution_time = 600
                   max_input_time = 600
                 '';
