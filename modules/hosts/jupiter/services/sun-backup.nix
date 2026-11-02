@@ -23,7 +23,7 @@
         };
       };
 
-      programs.ssh.knownHosts."sun.brusapa.com".publicKeyFile = self + "/hosts/sun/host-key.pub";
+      programs.ssh.knownHosts."sun.brusapa.com".publicKeyFile = self + "/modules/hosts/sun/host-key.pub";
 
       services.syncoid = {
         enable = true;
