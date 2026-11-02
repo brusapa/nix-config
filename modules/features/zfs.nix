@@ -11,6 +11,7 @@
       options.zfs = {
         extraPools = lib.mkOption {
           type = lib.types.listOf lib.types.str;
+          default = [ ];
           description = "Name or GUID of extra ZFS pools that you wish to import during boot.";
         };
 
@@ -48,6 +49,7 @@
 
       config =
         let
+          pullerEnabled = config.zfs.pullerAuthorizedSshKeys != [ ];
           allDatasetPaths = lib.concatMap (
             sp: map (dataset: "${sp.pool}/${dataset}") sp.datasets
           ) config.zfs.autoSnapshots;
@@ -55,7 +57,6 @@
         {
           environment.systemPackages = [
             pkgs.mailutils
-            pkgs.restic
             pkgs.lzop
             pkgs.mbuffer
           ];
@@ -76,20 +77,18 @@
             };
             zed = {
               enableMail = config.services.mail.sendmailSetuidWrapper != null;
-              settings = lib.mkMerge [
-                {
-                  ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-                  ZED_EMAIL_ADDR = [ "root" ];
-                  ZED_EMAIL_PROG = "${pkgs.mailutils}/bin/mail";
-                  ZED_EMAIL_OPTS = "-s '@SUBJECT@' @ADDRESS@";
+              settings = {
+                ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+                ZED_EMAIL_ADDR = [ "root" ];
+                ZED_EMAIL_PROG = "${pkgs.mailutils}/bin/mail";
+                ZED_EMAIL_OPTS = "-s '@SUBJECT@' @ADDRESS@";
 
-                  ZED_NOTIFY_INTERVAL_SECS = 3600;
-                  ZED_NOTIFY_VERBOSE = true;
+                ZED_NOTIFY_INTERVAL_SECS = 3600;
+                ZED_NOTIFY_VERBOSE = true;
 
-                  ZED_USE_ENCLOSURE_LEDS = true;
-                  ZED_SCRUB_AFTER_RESILVER = true;
-                }
-              ];
+                ZED_USE_ENCLOSURE_LEDS = true;
+                ZED_SCRUB_AFTER_RESILVER = true;
+              };
             };
           };
 
@@ -101,6 +100,7 @@
               standard = {
                 autosnap = true;
                 autoprune = true;
+                hourly = 48;
                 daily = 14;
                 weekly = 4;
                 monthly = 2;
@@ -126,6 +126,32 @@
             isSystemUser = true;
             shell = pkgs.bashInteractive;
             openssh.authorizedKeys.keyFiles = config.zfs.pullerAuthorizedSshKeys;
+          };
+
+          services.openssh.extraConfig = lib.mkIf pullerEnabled (
+            lib.mkAfter ''
+              Match User zfspuller
+                AllowTcpForwarding no
+                X11Forwarding no
+                PermitTTY no
+            ''
+          );
+
+          # Delegate ZFS permissions to the puller user
+          systemd.services.zfs-allow-zfspuller = lib.mkIf pullerEnabled {
+            description = "Delegate ZFS send permissions to zfspuller";
+            wantedBy = [ "multi-user.target" ];
+            after = [ "zfs-import.target" ];
+            requires = [ "zfs-import.target" ];
+            path = [ config.boot.zfs.package ];
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+            };
+            script = lib.concatMapStringsSep "\n" (dataset: ''
+              zfs unallow -u zfspuller ${dataset} || true
+              zfs allow -u zfspuller send,hold,bookmark ${dataset}
+            '') allDatasetPaths;
           };
         };
     };
