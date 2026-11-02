@@ -21,8 +21,6 @@
       den.aspects.zfs
       den.aspects.containers
       den.aspects.reverse-proxy
-      den.aspects.mail-server
-      den.aspects.pocket-id
       den.aspects.beszelAgent
 
       # Hardware
