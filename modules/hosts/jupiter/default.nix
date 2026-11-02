@@ -4,7 +4,6 @@
     role = "server";
     users = {
       bruno = { };
-      ramon = { };
     };
     swapSizeGiB = 32;
   };
@@ -28,36 +27,22 @@
       den.aspects.apcupsd
     ];
 
-    nixos =
-      { pkgs, ... }:
-      {
-        # ZFS related options
-        zfs = {
-          extraPools = [
-            "znvme"
-            "zleioa"
-          ];
-          autoSnapshots = [
-            {
-              pool = "zleioa";
-              datasets = [
-                "users"
-                "immich"
-              ];
-            }
-          ];
-          pullerAuthorizedSshKeys = [
-            ../sun/zfspuller-key.pub
-          ];
-        };
-        # Unique host identifier used for ZFS
-        networking.hostId = "e5501645";
-
-        sops.defaultSopsFile = ./secrets.yaml;
-
-        reverseProxy.baseDomain = "leioa.brusapa.com";
-
-        system.stateVersion = "24.05";
+    nixos = {
+      # ZFS related options
+      zfs = {
+        extraPools = [
+          "znvme"
+          "zleioa"
+        ];
       };
+      # Unique host identifier used for ZFS
+      networking.hostId = "e5501645";
+
+      sops.defaultSopsFile = ./secrets.yaml;
+
+      reverseProxy.baseDomain = "leioa.brusapa.com";
+
+      system.stateVersion = "24.05";
+    };
   };
 }
