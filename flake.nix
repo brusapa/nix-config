@@ -11,7 +11,10 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
-    configarr.url = "github:raydak-labs/configarr";
+    configarr = {
+      url = "github:raydak-labs/configarr/v1.38.0";
+      inputs.nixpkgs.follows = "nixpkgs-configarr";
+    };
     den.url = "github:denful/den";
     disko = {
       url = "github:nix-community/disko";
@@ -44,6 +47,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "nixpkgs/nixos-26.05";
+    nixpkgs-configarr.url = "github:NixOS/nixpkgs/7525d999cd850b9a488817abc89c75dc733acf17";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs = {

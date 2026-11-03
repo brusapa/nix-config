@@ -56,7 +56,7 @@
           "d ${config-path}/config 0750 1000 1000 -"
           "d ${config-path}/library 0770 1000 1000 -"
           "d ${config-path}/assets 0750 1000 1000 -"
-          "d ${config-path}/db 0750 ${user} ${user} -"
+          "d ${config-path}/db 0750 999 999 -"
         ];
 
         virtualisation.oci-containers.containers = {

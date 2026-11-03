@@ -6,7 +6,6 @@
       LIBVA_DRIVER_NAME = "iHD";
     };
     hardware = {
-      enableAllFirmware = true;
       intel-gpu-tools.enable = true;
       graphics = {
         enable = true;

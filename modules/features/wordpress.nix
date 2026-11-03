@@ -51,8 +51,8 @@
           # antes de que podman intente montarlos.
           systemd.tmpfiles.rules = lib.flatten (
             lib.mapAttrsToList (name: inst: [
-              "d /var/lib/wordpress/${name}/html 0755 root root -"
-              "d /var/lib/wordpress/${name}/db   0700 root root -"
+              "d /var/lib/wordpress/${name}/html 0755 33 33 -"
+              "d /var/lib/wordpress/${name}/db   0700 999 999 -"
             ]) cfg
           );
 
@@ -114,7 +114,7 @@
               in
               lib.nameValuePair "wp-${name}" {
                 # update-image: ^[0-9]+\.[0-9]+\.[0-9]+-php8\.5$
-                image = "wordpress:7.1.3-php8.5";
+                image = "wordpress:7.1.4-php8.5";
                 dependsOn = [ "wp-${name}-db" ];
                 volumes = [
                   "/var/lib/wordpress/${name}/html:/var/www/html"
