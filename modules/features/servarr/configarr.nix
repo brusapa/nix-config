@@ -1,8 +1,11 @@
 { den, inputs, ... }:
 {
   flake-file.inputs = {
-    configarr.url = "github:raydak-labs/configarr/v1.38.0";
-    inputs.nixpkgs.url = "github:NixOS/nixpkgs/7525d999cd850b9a488817abc89c75dc733acf17"; # TODO: Temporal fix until upstream
+    nixpkgs-configarr.url = "github:NixOS/nixpkgs/7525d999cd850b9a488817abc89c75dc733acf17";
+    configarr = {
+      url = "github:raydak-labs/configarr/v1.38.0";
+      inputs.nixpkgs.follows = "nixpkgs-configarr"; # TODO: Temporal fix until upstream
+    };
   };
 
   den.aspects.configarr = {
