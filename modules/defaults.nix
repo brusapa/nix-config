@@ -88,9 +88,6 @@
         };
         nixpkgs.config = {
           allowUnfree = true;
-          permittedInsecurePackages = [
-            "immich-2.7.5" # TODO: Remove as soon as immich v3 reaches stable
-          ];
         };
         home-manager = {
           useGlobalPkgs = true;

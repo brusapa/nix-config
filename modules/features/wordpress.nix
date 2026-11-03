@@ -51,8 +51,8 @@
           # antes de que podman intente montarlos.
           systemd.tmpfiles.rules = lib.flatten (
             lib.mapAttrsToList (name: inst: [
-              "d /var/lib/wordpress/${name}/html 0755 root root -"
-              "d /var/lib/wordpress/${name}/db   0700 root root -"
+              "d /var/lib/wordpress/${name}/html 0755 33 33 -"
+              "d /var/lib/wordpress/${name}/db   0700 999 999 -"
             ]) cfg
           );
 

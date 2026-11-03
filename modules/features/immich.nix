@@ -1,5 +1,9 @@
-{ den, ... }:
+{ den, inputs, ... }:
 {
+  flake-file.inputs = {
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  };
+
   den.aspects.immich = {
 
     includes = [
@@ -7,7 +11,12 @@
     ];
 
     nixos =
-      { config, lib, ... }:
+      {
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
       {
         # Import the needed secrets
         sops = {
@@ -21,8 +30,13 @@
           };
         };
 
+        # TODO: Using Immich unstable module, remove
+        disabledModules = [ "services/web-apps/immich.nix" ];
+        imports = [ "${inputs.nixpkgs-unstable}/nixos/modules/services/web-apps/immich.nix" ];
+
         services.immich = {
           enable = true;
+          package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.immich; # TODO: Using Immich unstable, remove
           mediaLocation = lib.mkDefault null;
           settings = {
             server = {

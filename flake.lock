@@ -65,15 +65,16 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1793507292,
-        "narHash": "sha256-1eiqOYySWunDkRHAqiewbqSts5ZbTEvclhfvQhftsrU=",
+        "lastModified": 1793034690,
+        "narHash": "sha256-6EQFOLb2t7OKvonhXEtjOrx6JTZnIeD0w85xTRmR2f8=",
         "owner": "raydak-labs",
         "repo": "configarr",
-        "rev": "5603fa8de032327dc9d9da546bbbcbc92d06f49b",
+        "rev": "e50bbb2a697e6b81bf850f8815871d558089ea92",
         "type": "github"
       },
       "original": {
         "owner": "raydak-labs",
+        "ref": "v1.38.0",
         "repo": "configarr",
         "type": "github"
       }
@@ -516,6 +517,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1793540411,
+        "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1784783405,
@@ -564,11 +581,10 @@
     "nixpkgs_5": {
       "locked": {
         "lastModified": 1793526781,
-        "narHash": "sha256-2Cxxgpz1+cRgKZJFi12/9LG3aIBN66f2RvFs34Oj/A0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
+        "narHash": "sha256-GVeZeBj2vr6j0bZwjpRDc2OSQEq23xXmcjkYSqZ5ycM=",
         "rev": "9bb52223f4f6a0cc606fd0852d8784f896c137d5",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.13375.9bb52223f4f6/nixexprs.tar.zst"
       },
       "original": {
         "id": "nixpkgs",
@@ -656,6 +672,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_5",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "treefmt-nix": "treefmt-nix_3"

@@ -1,7 +1,8 @@
 { den, inputs, ... }:
 {
   flake-file.inputs = {
-    configarr.url = "github:raydak-labs/configarr";
+    configarr.url = "github:raydak-labs/configarr/v1.38.0";
+    inputs.nixpkgs.url = "github:NixOS/nixpkgs/7525d999cd850b9a488817abc89c75dc733acf17"; # TODO: Temporal fix until upstream
   };
 
   den.aspects.configarr = {
@@ -9,7 +10,7 @@
       den.aspects.reverse-proxy
     ];
 
-    nixos = { config, ... }: {
+    nixos = { config, pkgs, ... }: {
       imports = [
         inputs.configarr.nixosModules.default
       ];
@@ -36,6 +37,7 @@
 
       services.configarr = {
         enable = true;
+        package = inputs.configarr.packages.${pkgs.stdenv.hostPlatform.system}.default; # TODO: until they fix
         environmentFile = "${config.sops.templates.configarr-ev.path}";
         config =
           # yaml
