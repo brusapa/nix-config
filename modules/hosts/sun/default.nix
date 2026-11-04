@@ -47,7 +47,7 @@
       den.aspects.apcupsd
     ];
 
-    nixos = { pkgs, ... }: {
+    nixos = {
 
       # Mount internal backup and sata ssd disks
       environment.etc."crypttab".text = ''

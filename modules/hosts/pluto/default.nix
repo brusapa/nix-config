@@ -46,9 +46,8 @@
       ];
 
       # Optimise for generation size
-      hardware.enableRedistributableFirmware = lib.mkForce false;
       documentation.nixos.enable = false;
-      documentation.man.enable = false; # si no necesitas man pages en el servidor
+      documentation.man.enable = false;
       documentation.doc.enable = false;
       documentation.info.enable = false;
 

@@ -151,7 +151,7 @@
 
         profiles.default = {
           name = "bruno";
-          command = "${pkgs.fish}/bin/fish";
+          command = "${pkgs.bash}/bin/bash";
           colorScheme = "BlackOnWhite";
           font = {
             name = "JetBrainsMono Nerd Font";

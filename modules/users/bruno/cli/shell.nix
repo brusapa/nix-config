@@ -7,15 +7,9 @@
       };
     };
 
-    programs.fish = {
-      enable = true;
-      interactiveShellInit = ''
-        set fish_greeting ""
-      '';
-    };
-
     programs.starship = {
       enable = true;
+      enableBashIntegration = true;
     };
 
     programs.tmux = {

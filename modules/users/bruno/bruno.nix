@@ -18,7 +18,7 @@
         then
           {
             includes = [
-              (den.batteries.user-shell "fish")
+              (den.batteries.user-shell "bash")
               den.aspects.bruno.cli
             ];
           }

@@ -34,7 +34,7 @@
           user = "${toString config.users.users.qbittorrent.uid}:${toString config.users.groups.media.gid}";
 
           # update-image: ^[0-9]+\.[0-9]+\.[0-9]+$
-          image = "ghcr.io/unpackerr/unpackerr:0.16.1";
+          image = "ghcr.io/unpackerr/unpackerr:1.0.1";
 
           volumes = [
             "${configurationDirectory}:/config"
