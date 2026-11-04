@@ -36,7 +36,7 @@
     import-tree.url = "github:denful/import-tree";
     jellarr.url = "github:venkyr77/jellarr";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.0.0";
+      url = "github:nix-community/lanzaboote/v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     llm-agents.url = "github:numtide/llm-agents.nix";

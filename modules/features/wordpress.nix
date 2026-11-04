@@ -132,6 +132,7 @@
                 ];
                 extraOptions = [
                   "--network=wp-${name}"
+                  "--stop-timeout=90"
                 ];
               }
             ) cfg);

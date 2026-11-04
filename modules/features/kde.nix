@@ -22,7 +22,7 @@
           kdePackages.kleopatra
           haruna
           kdePackages.kio-fuse # to mount remote filesystems via FUSE
-          kdePackages.kio-extras # extra protocols support (sftp, fish and more)
+          kdePackages.kio-extras # extra protocols support (sftp, smb and more)
           kdePackages.qtsvg
           kdePackages.qtwayland
         ];

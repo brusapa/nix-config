@@ -74,6 +74,7 @@
             environmentFiles = [
               config.sops.templates."romm-db-secrets.env".path
             ];
+            extraOptions = [ "--stop-timeout=90" ];
           };
 
           romm = {

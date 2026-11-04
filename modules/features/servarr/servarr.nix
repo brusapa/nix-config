@@ -2,7 +2,6 @@
 {
   den.aspects.servarr = {
     includes = [
-      den.aspects.configarr
       den.aspects.jackett
       den.aspects.prowlarr
       den.aspects.radarr
