@@ -49,8 +49,8 @@ jobs:
           # without a token, including pull requests from forks
           extra-conf: |
             build-dir = /nix/build
-            extra-substituters = https://attic.external.brusapa.com/nix-config https://cache.numtide.com
-            extra-trusted-public-keys = nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
+            extra-substituters = https://attic.external.brusapa.com/nix-config https://cache.numtide.com https://hermes-agent.cachix.org
+            extra-trusted-public-keys = nix-config:YSP7WGWUIMS9r389BSYkvixG2mlZMD7l8i6enP7Ms4M= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g= hermes-agent.cachix.org-1:jN3pjR50Mxi4SESKC/FIMNM6/LCosvPk2VUwzVvebzU=
 
       # The store path hash covers the host's whole configuration and inputs,
       # so if the cache has it, this exact system was already built and

@@ -31,8 +31,8 @@
         ephemeral = false; # keep container /var (home dirs etc.) across reboots
 
         privateNetwork = true;
-        hostAddress = "10.233.2.1";
-        localAddress = "10.233.2.2";
+        hostAddress = "10.233.3.1";
+        localAddress = "10.233.3.2";
 
         # Tailscale needs to create/use /dev/net/tun and manage its own routes,
         # which nspawn locks down by default — grant just those two things.
