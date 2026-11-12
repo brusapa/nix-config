@@ -38,7 +38,7 @@
 
           virtualisation.oci-containers.containers.pingvin-share = {
             # update-image: ^v[0-9]+\.[0-9]+\.[0-9]+$
-            image = "ghcr.io/smp46/pingvin-share-x:v2.1.0";
+            image = "ghcr.io/smp46/pingvin-share-x:v2.1.1";
 
             volumes = [
               "${cfg.dataPath}/data:/opt/app/backend/data"
