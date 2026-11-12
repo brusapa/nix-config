@@ -1,22 +1,25 @@
 {
   den.aspects.sun.nixos =
-    { lib, config, ... }:
+    { lib, ... }:
     let
       # Source variables
-      sourcePool = "zfspuller@jupiter.brusapa.com:zleioa";
+      sourceRemote = "zstorage";
       datasets = [
         "users"
-        "immich"
+        "photos"
+        "paperless"
+        "internal-backups"
       ];
     in
     {
       services.syncoid = {
+        enable = true;
         commands = lib.listToAttrs (
           map (dataset: {
-            name = "backup-jupiter-${dataset}";
+            name = "backup-to-saturn-${dataset}";
             value = {
-              source = "${sourcePool}/${dataset}";
-              target = "zstorage/jupiter-${dataset}";
+              source = "${sourceRemote}/${dataset}";
+              target = "zsaturn/sun/${dataset}";
               sendOptions = "w";
               recvOptions = "u";
               extraArgs = [
@@ -24,13 +27,10 @@
                 "--no-sync-snap"
                 # This argument tells syncoid to create a zfs bookmark for the newest snapshot after it got replicated successfully.
                 "--create-bookmark"
-                # Prune old snapshots on the target that don't exist on the source
-                "--delete-target-snapshots"
               ];
             };
           }) datasets
         );
       };
-
     };
 }
