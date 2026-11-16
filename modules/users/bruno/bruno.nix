@@ -30,7 +30,7 @@
     ];
 
     user =
-      { config, ... }:
+      { config, lib, ... }:
       let
         ifGroupExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
       in
@@ -57,9 +57,12 @@
           "whale-frigate-sync"
           "wheel"
         ];
-        openssh.authorizedKeys.keyFiles = [
-          ./ssh-gpg.pub
-        ];
+
+        openssh.authorizedKeys.keyFiles =
+          (builtins.filter (p: lib.hasSuffix ".pub" (toString p)) (
+            lib.filesystem.listFilesRecursive ./ssh-keys
+          ))
+          ++ [ ./ssh-gpg.pub ];
       };
 
     homeManager = { pkgs, ... }: {
