@@ -6,7 +6,7 @@
     ];
 
     nixos =
-      { config, ... }:
+      { config, pkgs, ... }:
       {
         # Import the needed secrets
         sops = {
@@ -26,6 +26,16 @@
             config.sops.templates."prowlarr-secrets.env".path
           ];
         };
+
+        # Instalar la definición personalizada de Torrentio
+        systemd.services.prowlarr.preStart = ''
+          ${pkgs.coreutils}/bin/mkdir -p \
+            /var/lib/prowlarr/Definitions/Custom
+
+          ${pkgs.coreutils}/bin/ln -sfn \
+            ${./torrentio.yml} \
+            /var/lib/prowlarr/Definitions/Custom/torrentio.yml
+        '';
 
         reverseProxy.hosts.prowlarr.httpPort = config.services.prowlarr.settings.server.port;
       };
