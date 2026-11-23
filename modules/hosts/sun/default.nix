@@ -39,7 +39,6 @@
       den.aspects.miniflux
       den.aspects.romm
       den.aspects.forgejo
-      den.aspects.ntfy
 
       # Hardware
       den.aspects.intel-cpu
