@@ -64,6 +64,12 @@
               subnet_group = "10.90.128.0/20";
               utility_subnet_group = "10.96.128.0/20";
             };
+            email = {
+              smtp_host = "127.0.0.1";
+              smtp_port = 25;
+              smtp_secure = false;
+              no_reply = "pangolin@brusapa.com";
+            };
           };
         };
 
