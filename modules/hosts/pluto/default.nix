@@ -17,13 +17,16 @@
     ];
 
     nixos = {
-      boot.initrd.availableKernelModules = [
-        "ata_piix"
-        "uhci_hcd"
-        "virtio_pci"
-        "sr_mod"
-        "virtio_blk"
-      ];
+      boot = {
+        loader.systemd-boot.enable = true;
+        initrd.availableKernelModules = [
+          "ata_piix"
+          "uhci_hcd"
+          "virtio_pci"
+          "sr_mod"
+          "virtio_blk"
+        ];
+      };
 
       # Optimise for generation size
       documentation.nixos.enable = false;
