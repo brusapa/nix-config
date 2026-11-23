@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  den.aspects.pluto.nixos = { config, ... }: {
+  den.aspects.pluto.nixos = {
 
     imports = [
       inputs.disko.nixosModules.disko
@@ -23,52 +23,46 @@
                   mountpoint = "/boot";
                 };
               };
-              luks = {
+              root = {
                 size = "100%";
                 content = {
-                  type = "luks";
-                  name = "cryptroot";
-                  settings.allowDiscards = true;
-                  passwordFile = "/tmp/cryptroot.key";
-                  content = {
-                    type = "btrfs";
-                    extraArgs = [ "-f" ];
-                    subvolumes = {
-                      "/root" = {
-                        mountpoint = "/";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "/home" = {
-                        mountpoint = "/home";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "/nix" = {
-                        mountpoint = "/nix";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "/persist" = {
-                        mountpoint = "/persist";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
-                      "/log" = {
-                        mountpoint = "/var/log";
-                        mountOptions = [
-                          "compress=zstd"
-                          "noatime"
-                        ];
-                      };
+                  type = "btrfs";
+                  extraArgs = [ "-f" ];
+                  subvolumes = {
+                    "/rootfs" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/home" = {
+                      mountpoint = "/home";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/log" = {
+                      mountpoint = "/var/log";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
                     };
                   };
                 };
