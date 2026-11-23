@@ -28,6 +28,12 @@
         ];
       };
 
+      services.qemuGuest.enable = true;
+
+      nix.settings.trusted-public-keys = [
+        "sun:odzSB/QtGOOpZsjB+ARawouX81dLyv1zdeHGE0byKQ4="
+      ];
+
       # Optimise for generation size
       documentation.nixos.enable = false;
       documentation.man.enable = false;
